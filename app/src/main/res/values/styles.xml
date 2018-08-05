@@ -8,4 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Splash" parent="AppTheme">
+        <item name="android:statusBarColor">@color/maincolor</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Main" parent="AppTheme">
+        <item name="android:statusBarColor">#ffffff</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

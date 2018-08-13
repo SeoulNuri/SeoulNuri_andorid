@@ -1,9 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".LoginCategoryActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginLeft="24dp"
+        android:textSize="22sp"
+        android:textColor="#212121"
+        android:letterSpacing="-0.01"
+        tools:text="더 좋은 추천을 위해,"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:layout_marginLeft="24dp"
+        android:textColor="#212121"
+        android:letterSpacing="-0.01"
+        tools:text="장애 유형을 선택해주세요."
+        />
+
+    <RelativeLayout
+        android:layout_marginTop="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/button_eye"
+            android:layout_marginLeft="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_eye"/>
+        <TextView
+            android:layout_below="@+id/button_eye"
+            android:layout_marginLeft="93dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#212121"
+            android:letterSpacing="-0.01"
+            tools:text="시각"
+            />
+        <ImageView
+            android:id="@+id/button_wheel"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_wheel"/>
+        <TextView
+            android:layout_below="@id/button_wheel"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="94dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#212121"
+            android:letterSpacing="-0.01"
+            android:gravity="center_horizontal"
+            tools:text="지체"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/button_ear"
+            android:layout_marginLeft="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_ear"/>
+        <TextView
+            android:layout_below="@+id/button_ear"
+            android:layout_marginLeft="93dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#212121"
+            android:letterSpacing="-0.01"
+            tools:text="청각"
+            />
+        <ImageView
+            android:id="@+id/button_elder"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="68dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_elder"/>
+        <TextView
+            android:id="@+id/elderText"
+            android:layout_below="@id/button_elder"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="94dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#212121"
+            android:letterSpacing="-0.01"
+            android:gravity="center_horizontal"
+            tools:text="노인"
+            />
+        <TextView
+            android:layout_below="@+id/elderText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="77dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#212121"
+            android:letterSpacing="-0.01"
+            android:gravity="center_horizontal"
+            tools:text="만 65세 이상"
+            />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="87dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_start_g"
+        android:onClick="startClick"/>
+
+
+
+</LinearLayout>

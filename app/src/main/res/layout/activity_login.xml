@@ -34,6 +34,7 @@
         android:background="@drawable/button_social_login"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="32dp"/>
+        android:layout_marginBottom="32dp"
+        android:onClick="doKakaoLogin"/>
 
 </RelativeLayout>

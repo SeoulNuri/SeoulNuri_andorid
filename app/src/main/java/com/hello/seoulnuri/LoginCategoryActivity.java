@@ -1,8 +1,9 @@
 package com.hello.seoulnuri;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 public class LoginCategoryActivity extends AppCompatActivity {
 
@@ -11,6 +12,10 @@ public class LoginCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_category);
 
+
+    }
+
+    public void startClick(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

@@ -13,7 +13,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Main" parent="AppTheme">
+    <style name="Login" parent="AppTheme">
         <item name="android:statusBarColor">#ffffff</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="windowNoTitle">true</item>

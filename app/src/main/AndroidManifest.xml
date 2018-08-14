@@ -18,10 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:theme="@style/Main" />
-        <activity android:name=".LoginCategoryActivity" />
+        <activity android:name=".LoginActivity" android:theme="@style/Login" />
+        <activity android:name=".LoginCategoryActivity" android:theme="@style/Login"/>
         <activity android:name=".MainActivity"></activity>
     </application>
 

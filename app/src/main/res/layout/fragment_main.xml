@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
+        android:background="@drawable/img_main_gyeongbok"
+        android:id="@+id/mainImageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="365dp"></ImageView>
 
-</FrameLayout>
+    <ImageView
+        android:layout_marginTop="34dp"
+        android:layout_marginLeft="24dp"
+        android:background="@drawable/logo_main"
+        android:layout_width="119dp"
+        android:layout_height="30dp" />
+
+    <Button
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="24dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_search"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+
+</RelativeLayout>

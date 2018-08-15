@@ -5,8 +5,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
@@ -32,19 +34,19 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(viewPager);
         //tabLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 56));
 
-        ImageView mainIcon = new ImageView(this);
+        final ImageView mainIcon = new ImageView(this);
         mainIcon.setImageResource(R.drawable.bar_main);
         mainIcon.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        ImageView infoIcon = new ImageView(this);
+        final ImageView infoIcon = new ImageView(this);
         infoIcon.setImageResource(R.drawable.bar_info);
         infoIcon.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        ImageView plannerIcon = new ImageView(this);
+        final ImageView plannerIcon = new ImageView(this);
         plannerIcon.setImageResource(R.drawable.bar_planner);
         plannerIcon.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        ImageView courseIcon = new ImageView(this);
+        final ImageView courseIcon = new ImageView(this);
         courseIcon.setImageResource(R.drawable.bar_course);
         courseIcon.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -65,14 +67,14 @@ public class MainActivity extends AppCompatActivity
         plannerIconAct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         final ImageView courseIconAct = new ImageView(this);
-        courseIconAct.setImageResource(R.drawable.bar_course);
+        courseIconAct.setImageResource(R.drawable.bar_course_active);
         courseIconAct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         final ImageView mypageIconAct = new ImageView(this);
         mypageIconAct.setImageResource(R.drawable.bar_mypage_active);
         mypageIconAct.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        tabLayout.getTabAt(0).setCustomView(mainIcon);
+        tabLayout.getTabAt(0).setCustomView(mainIconAct);
         tabLayout.getTabAt(1).setCustomView(infoIcon);
         tabLayout.getTabAt(2).setCustomView(plannerIcon);
         tabLayout.getTabAt(3).setCustomView(courseIcon);
@@ -81,33 +83,53 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("selected tap", String.valueOf(tab.getPosition()));
+                ImageView iv = (ImageView)tab.getCustomView();
                 switch (tab.getPosition()) {
                     case 0:
-                        tabLayout.getTabAt(0).setCustomView(mainIconAct);
+                        iv.setImageResource(R.drawable.bar_main_active);
                         break;
                     case 1:
-                        tabLayout.getTabAt(1).setCustomView(infoIconAct);
+                        iv.setImageResource(R.drawable.bar_info_active);
                         break;
                     case 2:
-                        tabLayout.getTabAt(2).setCustomView(plannerIconAct);
+                        iv.setImageResource(R.drawable.bar_planner_active);
                         break;
                     case 3:
-                        tabLayout.getTabAt(3).setCustomView(courseIconAct);
+                        iv.setImageResource(R.drawable.bar_course_active);
                         break;
                     case 4:
-                        tabLayout.getTabAt(4).setCustomView(mypageIconAct);
+                        iv.setImageResource(R.drawable.bar_mypage_active);
                         break;
                 }
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
+            public void onTabUnselected(TabLayout.Tab tab1) {
+                Log.d("unselected tap", String.valueOf(tab1.getPosition()));
+                ImageView iv = (ImageView)tab1.getCustomView();
+                switch (tab1.getPosition()) {
+                    case 0:
+                        iv.setImageResource(R.drawable.bar_main);
+                        break;
+                    case 1:
+                        iv.setImageResource(R.drawable.bar_info);
+                        break;
+                    case 2:
+                        iv.setImageResource(R.drawable.bar_planner);
+                        break;
+                    case 3:
+                        iv.setImageResource(R.drawable.bar_course);
+                        break;
+                    case 4:
+                        iv.setImageResource(R.drawable.bar_mypage);
+                        break;
+                }
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onTabReselected(TabLayout.Tab tab2) {
+                Log.d("reselected tap", String.valueOf(tab2.getPosition()));
             }
         });
     }

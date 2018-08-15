@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ToggleButton;
 
 public class LoginCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     ToggleButton toggle_eye, toggle_wheel, toggle_ear, toggle_elder;
-    ImageButton startButton;
+    ImageView startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +22,7 @@ public class LoginCategoryActivity extends AppCompatActivity implements View.OnC
         toggle_wheel = (ToggleButton)findViewById(R.id.button_wheel);
         toggle_ear = (ToggleButton)findViewById(R.id.button_ear);
         toggle_elder = (ToggleButton)findViewById(R.id.button_elder);
-        startButton = (ImageButton)findViewById(R.id.button_start);
+        startButton = (ImageView)findViewById(R.id.button_start);
 
         toggle_eye.setOnClickListener(this);
         toggle_wheel.setOnClickListener(this);

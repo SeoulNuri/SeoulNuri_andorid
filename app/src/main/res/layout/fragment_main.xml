@@ -27,4 +27,88 @@
         android:layout_width="24dp"
         android:layout_height="24dp" />
 
+    <TextView
+        android:layout_marginTop="144dp"
+        android:layout_marginLeft="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#ffffff"
+        android:text="오늘의 추천 관광지"
+        />
+
+    <RatingBar
+        android:progressBackgroundTint="#ffffff"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+        android:numStars="5"
+        android:id="@+id/ratingBar"
+        android:layout_marginTop="174dp"
+        android:layout_marginLeft="25dp"
+        android:layout_width="77dp"
+        android:layout_height="15dp" />
+
+    <TextView
+        android:id="@+id/addressTextView"
+        android:layout_marginTop="208dp"
+        android:layout_marginLeft="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:textColor="#ffffff"
+        android:text="서울 종로구 사직로 161 경복궁" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/summaryTextView"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="-0.01"
+        android:text="역사의 한 장면으로,"
+        />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/placeTextView"
+        android:layout_marginTop="252dp"
+        android:layout_marginLeft="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:textColor="#ffffff"
+        android:letterSpacing="-0.01"
+        android:text="경복궁"
+        />
+
+    <Button
+        android:id="@+id/buttonNextArrow"
+        android:layout_marginTop="303dp"
+        android:layout_marginLeft="27dp"
+        android:background="@drawable/button_nextarrow"
+        android:layout_width="38dp"
+        android:layout_height="38dp" />
+    
+    <ImageView
+        android:layout_marginTop="29dp"
+        android:layout_marginLeft="27dp"
+        android:layout_below="@id/mainImageView"
+        android:background="@drawable/ic_main_course"
+        android:layout_width="7dp"
+        android:layout_height="11dp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="37dp"
+        android:layout_below="@id/mainImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#212121"
+        android:letterSpacing="-0.01"
+        android:text="오늘의 추천 코스" />
+
 </RelativeLayout>

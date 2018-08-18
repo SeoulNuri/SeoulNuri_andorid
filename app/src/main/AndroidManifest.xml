@@ -18,9 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" android:theme="@style/Login" />
-        <activity android:name=".LoginCategoryActivity" android:theme="@style/Login"/>
-        <activity android:name=".MainActivity" android:theme="@style/Main"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/Login" />
+        <activity
+            android:name=".LoginCategoryActivity"
+            android:theme="@style/Login" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Main" />
+        <activity android:name=".Planner.PlannerStartActivity" android:theme="@style/Login"></activity>
     </application>
 
 </manifest>

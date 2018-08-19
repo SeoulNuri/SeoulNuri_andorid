@@ -1,15 +1,24 @@
 package com.hello.seoulnuri;
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnFragmentInteractionListener,
@@ -18,19 +27,30 @@ public class MainActivity extends AppCompatActivity
         CourseFragment.OnFragmentInteractionListener,
         MypageFragment.OnFragmentInteractionListener {
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            //w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }*/
+
+
         PagerAdapter adapter = new PagerAdapter(
                 getSupportFragmentManager()
         );
-        ViewPager viewPager = (ViewPager)findViewById(R.id.view_pager);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(adapter);
 
 
-        final TabLayout tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         //tabLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 56));
 
@@ -84,7 +104,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.d("selected tap", String.valueOf(tab.getPosition()));
-                ImageView iv = (ImageView)tab.getCustomView();
+                ImageView iv = (ImageView) tab.getCustomView();
                 switch (tab.getPosition()) {
                     case 0:
                         iv.setImageResource(R.drawable.bar_main_active);
@@ -107,7 +127,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTabUnselected(TabLayout.Tab tab1) {
                 Log.d("unselected tap", String.valueOf(tab1.getPosition()));
-                ImageView iv = (ImageView)tab1.getCustomView();
+                ImageView iv = (ImageView) tab1.getCustomView();
                 switch (tab1.getPosition()) {
                     case 0:
                         iv.setImageResource(R.drawable.bar_main);

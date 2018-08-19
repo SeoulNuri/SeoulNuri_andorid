@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
@@ -13,6 +14,7 @@
         android:layout_height="match_parent"/>
 
     <android.support.design.widget.TabLayout
+        android:background="#FFFFFF"
         android:layout_alignParentBottom="true"
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"

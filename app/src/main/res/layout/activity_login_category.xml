@@ -169,7 +169,7 @@
 
     </RelativeLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/button_start"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

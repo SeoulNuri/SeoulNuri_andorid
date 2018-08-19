@@ -111,4 +111,197 @@
         android:letterSpacing="-0.01"
         android:text="오늘의 추천 코스" />
 
+    <HorizontalScrollView
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="50dp"
+        android:layout_below="@id/mainImageView"
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="152dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:id="@+id/courseContentRelativeLayout1"
+                android:layout_width="212dp"
+                android:layout_height="152dp">
+                <ImageButton
+                    android:background="@drawable/img_main_ddp"
+                    android:id="@+id/courseContentImageButton1"
+                    android:layout_width="212dp"
+                    android:layout_height="152dp" />
+                <TextView
+                    android:layout_marginTop="93dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff"
+                    android:layout_width="9dp"
+                    android:layout_height="4dp" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/courseContentTitleTextView1"
+                    android:layout_marginTop="101dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:text="동대문 디자인 플라자(DDP)" />
+                <TextView
+                    android:layout_marginTop="121dp"
+                    android:layout_marginLeft="12dp"
+                    android:id="@+id/courseContentAddressTextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#ffffff"
+                    android:text="서울시 중구 을지로 281" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
+                android:id="@+id/courseContentRelativeLayout2"
+                android:layout_width="212dp"
+                android:layout_height="152dp">
+                <ImageButton
+                    android:background="@drawable/img_main_ddp"
+                    android:id="@+id/courseContentImageButton2"
+                    android:layout_width="212dp"
+                    android:layout_height="152dp" />
+                <TextView
+                    android:layout_marginTop="93dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff"
+                    android:layout_width="9dp"
+                    android:layout_height="4dp" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/courseContentTitleTextView2"
+                    android:layout_marginTop="101dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:text="동대문 디자인 플라자(DDP)" />
+                <TextView
+                    android:layout_marginTop="121dp"
+                    android:layout_marginLeft="12dp"
+                    android:id="@+id/courseContentAddressTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#ffffff"
+                    android:text="서울시 중구 을지로 281" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
+                android:id="@+id/courseContentRelativeLayout3"
+                android:layout_width="212dp"
+                android:layout_height="152dp">
+                <ImageButton
+                    android:background="@drawable/img_main_ddp"
+                    android:id="@+id/courseContentImageButton3"
+                    android:layout_width="212dp"
+                    android:layout_height="152dp" />
+                <TextView
+                    android:layout_marginTop="93dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff"
+                    android:layout_width="9dp"
+                    android:layout_height="4dp" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/courseContentTitleTextView3"
+                    android:layout_marginTop="101dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:text="동대문 디자인 플라자(DDP)" />
+                <TextView
+                    android:layout_marginTop="121dp"
+                    android:layout_marginLeft="12dp"
+                    android:id="@+id/courseContentAddressTextView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#ffffff"
+                    android:text="서울시 중구 을지로 281" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
+                android:id="@+id/courseContentRelativeLayout4"
+                android:layout_width="212dp"
+                android:layout_height="152dp">
+                <ImageButton
+                    android:background="@drawable/img_main_ddp"
+                    android:id="@+id/courseContentImageButton4"
+                    android:layout_width="212dp"
+                    android:layout_height="152dp" />
+                <TextView
+                    android:layout_marginTop="93dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff"
+                    android:layout_width="9dp"
+                    android:layout_height="4dp" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/courseContentTitleTextView4"
+                    android:layout_marginTop="101dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:text="동대문 디자인 플라자(DDP)" />
+                <TextView
+                    android:layout_marginTop="121dp"
+                    android:layout_marginLeft="12dp"
+                    android:id="@+id/courseContentAddressTextView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#ffffff"
+                    android:text="서울시 중구 을지로 281" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginLeft="8dp"
+                android:id="@+id/courseContentRelativeLayout5"
+                android:layout_width="212dp"
+                android:layout_height="152dp">
+                <ImageButton
+                    android:background="@drawable/img_main_ddp"
+                    android:id="@+id/courseContentImageButton5"
+                    android:layout_width="212dp"
+                    android:layout_height="152dp" />
+                <TextView
+                    android:layout_marginTop="93dp"
+                    android:layout_marginLeft="14dp"
+                    android:background="#ffffff"
+                    android:layout_width="9dp"
+                    android:layout_height="4dp" />
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/courseContentTitleTextView5"
+                    android:layout_marginTop="101dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="#ffffff"
+                    android:text="동대문 디자인 플라자(DDP)" />
+                <TextView
+                    android:layout_marginTop="121dp"
+                    android:layout_marginLeft="12dp"
+                    android:id="@+id/courseContentAddressTextView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#ffffff"
+                    android:text="서울시 중구 을지로 281" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
 </RelativeLayout>

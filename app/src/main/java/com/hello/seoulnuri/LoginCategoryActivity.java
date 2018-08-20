@@ -68,10 +68,12 @@ public class LoginCategoryActivity extends AppCompatActivity implements View.OnC
 
     public void checkEnable(){
         if(toggle_eye.isChecked() || toggle_wheel.isChecked() || toggle_ear.isChecked() || toggle_elder.isChecked()){
-            startButton.setImageResource(R.drawable.button_start_active);
+            //startButton.setImageResource(R.drawable.button_start_active);
+            startButton.setSelected(true);
             startButton.setEnabled(true);
         } else {
-            startButton.setImageResource(R.drawable.button_start_g);
+            //startButton.setImageResource(R.drawable.button_start_g);
+            startButton.setSelected(false);
             startButton.setEnabled(false);
         }
     }

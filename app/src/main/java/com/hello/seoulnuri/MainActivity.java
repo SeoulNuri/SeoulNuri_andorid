@@ -1,24 +1,15 @@
 package com.hello.seoulnuri;
 
-import android.app.Activity;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
-import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
+import com.hello.seoulnuri.Planner.PlannerFragment;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnFragmentInteractionListener,
@@ -103,7 +94,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("selected tap", String.valueOf(tab.getPosition()));
                 ImageView iv = (ImageView) tab.getCustomView();
                 switch (tab.getPosition()) {
                     case 0:
@@ -126,7 +116,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab1) {
-                Log.d("unselected tap", String.valueOf(tab1.getPosition()));
                 ImageView iv = (ImageView) tab1.getCustomView();
                 switch (tab1.getPosition()) {
                     case 0:

@@ -108,4 +108,39 @@
         android:textColor="#2c2c2c"
         android:letterSpacing="-0.01"
         android:text="1996년 01월 01일" />
+
+    <LinearLayout
+        android:layout_marginTop="291dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/myTourButton"
+            android:layout_marginLeft="72dp"
+            android:textColor="#ff6e2c"
+            android:text="관광지"
+            android:background="#ffffff"
+            android:layout_width="56dp"
+            android:layout_height="24dp" />
+
+        <Button
+            android:id="@+id/myCourseButton"
+            android:layout_marginLeft="107dp"
+            android:textColor="#ff6e2c"
+            android:text="관광투어"
+            android:background="#ffffff"
+            android:layout_width="56dp"
+            android:layout_height="24dp" />
+    </LinearLayout>
+
+    <View
+        android:layout_marginTop="315dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#eeeeee" />
+    
+    <FrameLayout
+        android:layout_marginTop="315dp"
+        android:layout_width="match_parent"
+        android:layout_height="268dp"></FrameLayout>
 </RelativeLayout>

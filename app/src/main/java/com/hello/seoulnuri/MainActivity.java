@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("selected tap", String.valueOf(tab.getPosition()));
                 ImageView iv = (ImageView) tab.getCustomView();
                 switch (tab.getPosition()) {
                     case 0:
@@ -126,7 +125,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab1) {
-                Log.d("unselected tap", String.valueOf(tab1.getPosition()));
                 ImageView iv = (ImageView) tab1.getCustomView();
                 switch (tab1.getPosition()) {
                     case 0:

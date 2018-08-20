@@ -1,10 +1,10 @@
 package com.hello.seoulnuri;
 
-import android.support.annotation.MainThread;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.hello.seoulnuri.Planner.PlannerFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
     public PagerAdapter(FragmentManager fm) {
@@ -19,7 +19,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return InfoFragment.newInstance();
             case 2:
-                return PlannerFragment.newInstance();
+                return PlannerFragment.Companion.newInstance();
             case 3:
                 return CourseFragment.newInstance();
             case 4:

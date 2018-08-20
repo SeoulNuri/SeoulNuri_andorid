@@ -76,17 +76,27 @@
         android:layout_centerHorizontal="true"
         android:textSize="36sp"
         android:hint="여행지 검색"
-        android:backgroundTint="#9e9e9e"/>
+        android:backgroundTint="#9e9e9e"
+        />
 
-    <ImageButton
-        android:id="@+id/next_button"
+    <ImageView
+        android:layout_toRightOf="@+id/search_auto_text"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_search_g"/>
+
+    <ImageView
+        android:id="@+id/planner_start_next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_next_process_g"
+        android:background="@drawable/button_next_process_selector"
         android:layout_marginBottom="24dp"
         android:layout_centerHorizontal="true"
         />
+
 
     
 

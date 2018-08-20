@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlannerFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Planner.PlannerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,18 +13,95 @@
         android:layout_height="?attr/actionBarSize">
 
         <TextView
+            android:id="@+id/planner_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="플래너"
-            android:textSize="18sp"
             android:textColor="#ff5722"
-            android:layout_centerInParent="true"/>
-        
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/planner_edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:text="편집"
+            android:textColor="#212121"
+            android:textSize="16sp" />
+
     </RelativeLayout>
-    
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/planner_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="32dp"
+                android:letterSpacing="-0.01"
+                android:textColor="#212121"
+                android:textSize="13sp"
+                tools:text="플래너 리스트" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/planner_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:id="@+id/planner_plus_btn"
+                android:layout_marginTop="13dp"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:src="@drawable/ic_plus"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="#212121"
+                    android:letterSpacing="-0.01"
+                    android:text="플래너 추가하기"
+                    android:layout_marginLeft="8dp"/>
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
 
 </LinearLayout>

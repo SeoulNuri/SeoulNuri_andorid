@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    tools:context=".Planner.PlannerAddOneActivity">
+
+    <RelativeLayout
+        android:id="@+id/planner_add_one_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#ffffff"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:letterSpacing="-0.01"
+            android:text="여행지 추가하기"
+            android:textColor="#ff5722"
+            android:textSize="18sp"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/planner_add_one_image"
+            android:layout_width="80dp"
+            android:layout_height="94dp"
+            android:src="@drawable/img_gyeonbok_planner" />
+
+        <TextView
+            android:id="@+id/planner_add_one_location_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/planner_add_one_image"
+            android:letterSpacing="-0.01"
+            android:textColor="#212121"
+            android:textSize="16sp"
+            tools:text="경복궁" />
+
+        <TextView
+            android:id="@+id/planner_add_one_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/planner_add_one_location_name"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@+id/planner_add_one_image"
+            android:letterSpacing="-0.01"
+            android:textColor="#9e9e9e"
+            android:textSize="12sp"
+            tools:text="서울 종로구 사직로 161 경복궁" />
+        
+        <android.support.v7.widget.AppCompatRatingBar
+            android:id="@+id/planner_add_one_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:numStars="5"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_toRightOf="@id/planner_add_one_image"
+            android:layout_below="@+id/planner_add_one_address"
+            android:theme="@style/MyRatingBar"
+            android:rating="4.4"/>
+
+        <TextView
+            android:id="@+id/planner_add_one_review_count"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/planner_add_one_rating"
+            android:layout_below="@+id/planner_add_one_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#9e9e9e"
+            android:letterSpacing="-0.01"
+            tools:text="(21)"
+            />
+
+        <ImageView
+            android:id="@+id/planner_add_one_spot_plus_btn"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_spot_plus"
+            android:layout_below="@+id/planner_add_one_rating"
+            android:layout_toRightOf="@+id/planner_add_one_image"/>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

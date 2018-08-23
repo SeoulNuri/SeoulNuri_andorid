@@ -18,8 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Login" />
@@ -31,8 +29,8 @@
             android:theme="@style/Main" />
         <activity
             android:name=".Planner.PlannerStartActivity"
-            android:theme="@style/Login"></activity>
-
+            android:theme="@style/Login" />
+        <activity android:name=".Planner.PlannerAddOneActivity"></activity>
     </application>
 
 </manifest>

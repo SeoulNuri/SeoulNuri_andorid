@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity
         CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.view_pager);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);
+        
+
+
 
 
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);

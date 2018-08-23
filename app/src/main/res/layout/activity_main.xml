@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:fitsSystemWindows="true">
 
-    <android.support.v4.view.ViewPager
+    <com.hello.seoulnuri.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_above="@+id/tabLayout"
         android:layout_width="match_parent"

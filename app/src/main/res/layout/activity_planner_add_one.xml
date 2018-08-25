@@ -47,7 +47,7 @@
             android:letterSpacing="-0.01"
             android:textColor="#212121"
             android:textSize="16sp"
-            tools:text="경복궁" />
+            android:text="경복궁" />
 
         <TextView
             android:id="@+id/planner_add_one_address"
@@ -59,7 +59,7 @@
             android:letterSpacing="-0.01"
             android:textColor="#9e9e9e"
             android:textSize="12sp"
-            tools:text="서울 종로구 사직로 161 경복궁" />
+            android:text="서울 종로구 사직로 161 경복궁" />
         
         <android.support.v7.widget.AppCompatRatingBar
             android:id="@+id/planner_add_one_rating"
@@ -83,7 +83,7 @@
             android:textSize="12sp"
             android:textColor="#9e9e9e"
             android:letterSpacing="-0.01"
-            tools:text="(21)"
+            android:text="(21)"
             />
 
         <ImageView
@@ -99,5 +99,28 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/map"
+            tools:context=".MapsActivity"
+            android:name="com.google.android.gms.maps.SupportMapFragment" />
+        
+        <ImageView
+            android:id="@+id/planner_add_one_next_btn"
+            android:layout_width="312dp"
+            android:layout_height="50dp"
+            android:src="@drawable/button_next_process_selector"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dp"/>
+        
+    </RelativeLayout>
+  
 
 </LinearLayout>

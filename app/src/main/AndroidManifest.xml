@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <!-- API 9 이상부터 버그가 있어서 이거 추가해줘야함 -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB4t8F1Tl2eu2gWU_cCP-881iKHQS-RM-U" />
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Splash">
@@ -30,7 +38,9 @@
         <activity
             android:name=".Planner.PlannerStartActivity"
             android:theme="@style/Login" />
-        <activity android:name=".Planner.PlannerAddOneActivity"></activity>
+        <activity android:name=".Planner.PlannerAddOneActivity" />
+        <activity android:name=".Planner.PlannerAddFourActivity"
+            android:theme="@style/Splash"></activity>
     </application>
 
 </manifest>

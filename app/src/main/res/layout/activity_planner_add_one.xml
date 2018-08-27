@@ -109,17 +109,12 @@
             android:layout_height="match_parent"
             android:id="@+id/map"
             tools:context=".MapsActivity"
-            android:name="com.google.android.gms.maps.SupportMapFragment" />
-        
-        <ImageView
-            android:id="@+id/planner_add_one_next_btn"
-            android:layout_width="312dp"
-            android:layout_height="50dp"
-            android:src="@drawable/button_next_process_selector"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="24dp"/>
-        
+            android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+
+
+
+
     </RelativeLayout>
   
 

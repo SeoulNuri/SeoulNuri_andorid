@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hello.seoulnuri">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!--우측 상단에 그 현재 위치 버튼을 추가하기 위함-->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_app"

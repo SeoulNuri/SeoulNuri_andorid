@@ -1,22 +1,38 @@
 package com.hello.seoulnuri;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class LoginCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 
     ToggleButton toggle_eye, toggle_wheel, toggle_ear, toggle_elder;
     ImageView startButton;
-
+    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_category);
+
+        textView = (TextView)findViewById(R.id.t2);
+        SpannableStringBuilder sb = new SpannableStringBuilder();
+
+        String str = "장애 유형을 선택해주세요.";
+
+        sb.append(str);
+
+        sb.setSpan(new StyleSpan(Typeface.BOLD), 0, 5, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        textView.setText(sb);
 
         toggle_eye = (ToggleButton)findViewById(R.id.button_eye);
         toggle_wheel = (ToggleButton)findViewById(R.id.button_wheel);

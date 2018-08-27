@@ -35,6 +35,15 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onMyLocationButtonClick(): Boolean {
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+        val SEOUL = LatLng(37.27, 126.24)
+        val markerOptions = MarkerOptions()
+        markerOptions.position(SEOUL)
+        markerOptions.title("서울")
+        markerOptions.snippet("한국의 수도")
+
+        mMap!!.addMarker(markerOptions)
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
         ToastMaker.makeLongToast(this, "MyLocation button clicked")
         return false
     }
@@ -46,18 +55,19 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     }
 
     override fun init() {
-        //planner_add_one_next_btn.setOnClickListener(this)
+        planner_add_one_next_btn.setOnClickListener(this)
+
     }
 
     override fun onClick(v: View?) {
         when (v!!) {
-           /* planner_add_one_next_btn -> {
+            planner_add_one_next_btn -> {
                 startActivity(Intent(this, PlannerAddFourActivity::class.java))
-            }*/
+            }
         }
     }
 
-    @SuppressLint("MissingPermission")
+
     override fun onMapReady(map: GoogleMap?) {
 
         mMap = map
@@ -73,6 +83,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
         try {
             mMap!!.setMyLocationEnabled(true)
+            mMap!!.isMyLocationEnabled = true
         }catch (e : Exception){
             e.printStackTrace()
         }
@@ -91,6 +102,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
+
+        init()
 
 
 
@@ -111,12 +124,14 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
     }
 
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         if (requestCode == PermissionRequestCode) {
             if (permissions.size == 1 &&
                     permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                mMap!!.isMyLocationEnabled = true
                 mMap!!.setMyLocationEnabled(true)
             } else {
                 // Permission was denied. Display an error message.

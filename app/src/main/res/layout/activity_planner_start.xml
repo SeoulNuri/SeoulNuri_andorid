@@ -76,6 +76,7 @@
         android:layout_centerHorizontal="true"
         android:textSize="36sp"
         android:hint="여행지 검색"
+        android:inputType="textAutoComplete"
         android:backgroundTint="#9e9e9e"
         />
 

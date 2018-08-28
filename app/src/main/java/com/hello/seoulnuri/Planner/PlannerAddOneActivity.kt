@@ -58,7 +58,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onClick(v: View?) {
         when (v!!) {
             planner_add_one_next_btn -> {
-                startActivity(Intent(this, PlannerAddFourActivity::class.java))
+                startActivity(Intent(this, PlannerAddPathCheckActivity::class.java))
             }
         }
     }

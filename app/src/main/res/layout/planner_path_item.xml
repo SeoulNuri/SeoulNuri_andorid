@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:id="@+id/planner_path_linear"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#212121"
+                android:letterSpacing="-0.01"
+                tools:text="5분"
+                />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/planner_path_number_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#ff651f"
+                android:gravity="center_horizontal"
+                android:letterSpacing="-0.01"
+                android:text="1"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/planner_path_start_location_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:letterSpacing="-0.01"
+                android:text="경복궁"
+                android:textColor="#212121"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+

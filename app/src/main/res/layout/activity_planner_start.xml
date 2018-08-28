@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="#000000"
+            android:textColor="#ffffff"
             android:layout_centerInParent="true"
             android:text="8월 14일"/>
     </RelativeLayout>

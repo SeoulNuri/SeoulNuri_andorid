@@ -41,13 +41,14 @@
             android:theme="@style/Main" />
         <activity
             android:name=".Planner.PlannerStartActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:theme="@style/Login" />
+            android:theme="@style/Login"
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".Planner.PlannerAddOneActivity" />
         <activity
             android:name=".Planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".Planner.PlannerAddPathCheckActivity"></activity>
+        <activity android:name=".Planner.PlannerAddPathCheckActivity" />
+        <activity android:name=".Planner.PlannerDateActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,8 @@ import android.view.View
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.utils.ToastMaker
 import kotlinx.android.synthetic.main.activity_planner_start.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class PlannerStartActivity : AppCompatActivity(), View.OnClickListener{
@@ -21,12 +23,36 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener{
                     ToastMaker.makeLongToast(this,"입력해주세요.")
                 }
             }
+
+            date_text->{
+                intent = Intent(this,PlannerDateActivity::class.java)
+                intent.putExtra("currentdate",getTime())
+                startActivity(intent)
+            }
         }
     }
 
+    private fun getTime(): String {
+        mNow = System.currentTimeMillis()
+        mDate = Date(mNow)
+        return mFormat.format(mDate)
+    }
+
     fun init(){
+
+
+        var selectedDate = intent.getStringExtra("date")
+
+        if(selectedDate!=null) date_text.text = selectedDate
+        else date_text.text = getTime()
+
+        date_text.setOnClickListener(this)
         planner_start_next_button.setOnClickListener(this)
     }
+
+    internal var mNow: Long = 0
+    internal var mDate = Date(mNow)
+    internal var mFormat = SimpleDateFormat("MM월 dd일")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

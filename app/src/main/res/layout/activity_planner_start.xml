@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".Planner.PlannerStartActivity">
+    tools:context=".Planner.PlannerStartActivity"
+    android:fitsSystemWindows="true">
+
     
     <RelativeLayout
         android:id="@+id/top_layout"
@@ -48,7 +50,7 @@
         android:letterSpacing="-0.01"
         android:text="여행을 떠나시나요?"
         />
-    
+
     <RelativeLayout
         android:id="@+id/date_layout"
         android:layout_below="@id/t2"
@@ -76,8 +78,9 @@
         android:layout_centerHorizontal="true"
         android:textSize="36sp"
         android:hint="여행지 검색"
-        android:inputType="textAutoComplete"
+        android:inputType="textEmailAddress"
         android:backgroundTint="#9e9e9e"
+        android:imeOptions="actionDone"
         />
 
     <ImageView

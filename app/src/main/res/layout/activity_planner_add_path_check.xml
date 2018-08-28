@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    android:id="@+id/slidingLayout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slidingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="bottom"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Planner.PlannerAddPathCheckActivity"
-    app:umanoPanelHeight="180dp"
-    android:gravity="bottom">
+    app:umanoPanelHeight="160dp"
+    app:umanoParallaxOffset="100dp"
+    tools:context=".Planner.PlannerAddPathCheckActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,16 +22,15 @@
 
             <TextView
                 android:id="@+id/pathCheckTitle"
-                android:layout_marginTop="17dp"
-                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="#ff5722"
-                android:letterSpacing="-0.01"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="17dp"
                 android:gravity="center_horizontal"
+                android:letterSpacing="-0.01"
                 android:text="경로 확인하기"
-                />
+                android:textColor="#ff5722"
+                android:textSize="18sp" />
 
 
         </RelativeLayout>
@@ -43,8 +41,7 @@
     <include
         layout="@layout/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
 
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>

@@ -14,24 +14,29 @@
 
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            android:layout_marginTop="9dp"
+            android:layout_gravity="center_vertical"
+            android:layout_width="30dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="24dp">
 
 
             <TextView
+                android:id="@+id/planner_path_time_item"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="24dp"
+                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:textColor="#212121"
                 android:letterSpacing="-0.01"
-                tools:text="5분"
+                tools:text="50분"
                 />
 
         </RelativeLayout>
 
         <LinearLayout
+            android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -40,31 +45,80 @@
                 android:id="@+id/planner_path_number_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#ff651f"
                 android:gravity="center_horizontal"
-                android:letterSpacing="-0.01"
+                android:background="@drawable/ic_number"
                 android:text="1"
+                android:paddingTop="1dp"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
+
+
+            <View
+                android:id="@+id/planner_path_line_item"
+                android:layout_marginTop="9dp"
+                android:layout_width="3dp"
+                android:layout_height="64dp"
+                android:background="#eeeeee"
+                android:layout_gravity="center_horizontal"/>
 
 
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginLeft="@dimen/margin_8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <TextView
-                android:id="@+id/planner_path_start_location_item"
+                android:id="@+id/planner_path_location_name_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
                 android:letterSpacing="-0.01"
                 android:text="경복궁"
                 android:textColor="#212121"
                 android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/planner_path_address_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#9e9e9e"
+                android:letterSpacing="-0.01"
+                android:text="서울 종로구 사직로 161 경복궁"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <android.support.v7.widget.AppCompatRatingBar
+                    android:id="@+id/planner_path_rating_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_toRightOf="@id/planner_add_one_image"
+                    android:layout_below="@+id/planner_add_one_address"
+                    android:theme="@style/MyRatingBar"
+                    android:rating="4.4"/>
+
+                <TextView
+                    android:id="@+id/planner_path_review_count_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="#9e9e9e"
+                    android:letterSpacing="-0.01"
+                    tools:text="(21)"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
 

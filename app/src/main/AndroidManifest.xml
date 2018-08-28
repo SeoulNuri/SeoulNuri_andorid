@@ -3,9 +3,9 @@
     package="com.hello.seoulnuri">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <!--우측 상단에 그 현재 위치 버튼을 추가하기 위함-->
+    <!-- 우측 상단에 그 현재 위치 버튼을 추가하기 위함 -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_app"
@@ -43,8 +43,10 @@
             android:name=".Planner.PlannerStartActivity"
             android:theme="@style/Login" />
         <activity android:name=".Planner.PlannerAddOneActivity" />
-        <activity android:name=".Planner.PlannerAddFourActivity"
-            android:theme="@style/Splash"></activity>
+        <activity
+            android:name=".Planner.PlannerAddFourActivity"
+            android:theme="@style/Splash" />
+        <activity android:name=".Planner.PlannerAddPathCheckActivity"></activity>
     </application>
 
 </manifest>

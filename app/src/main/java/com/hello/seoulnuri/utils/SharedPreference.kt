@@ -7,7 +7,7 @@ import android.content.SharedPreferences
  * Created by VictoryWoo
  */
 class SharedPreference {
-    private  var pref: SharedPreferences?=null
+    private var pref: SharedPreferences? = null
 
     /**
      * 공유설정 정보를 취득한다.
@@ -124,7 +124,8 @@ class SharedPreference {
         // 공유명칭
         private val SHARED_PREFS_CONFIGURATION = "GithubConfiguration"
 
-        @Volatile private var sharedPreferencesManager: SharedPreference? = null
+        @Volatile
+        private var sharedPreferencesManager: SharedPreference? = null
 
         val instance: SharedPreference?
             get() {

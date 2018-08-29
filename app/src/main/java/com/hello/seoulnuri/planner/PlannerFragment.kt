@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Planner
+package com.hello.seoulnuri.planner
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.hello.seoulnuri.Model.PlannerListData
-import com.hello.seoulnuri.Planner.Adapter.PlannerAdapter
+import com.hello.seoulnuri.model.PlannerListData
+import com.hello.seoulnuri.planner.adapter.PlannerAdapter
 import com.hello.seoulnuri.R
 import kotlinx.android.synthetic.main.fragment_planner.*
 import kotlinx.android.synthetic.main.fragment_planner.view.*
@@ -44,7 +44,7 @@ class PlannerFragment : Fragment(), View.OnClickListener {
                 plannerAdapter.change(number)
                 plannerAdapter.notifyDataSetChanged()
             }
-            planner_plus_btn->{
+            planner_plus_btn -> {
                 startActivity(Intent(context, PlannerStartActivity::class.java))
             }
             v!! -> {
@@ -76,7 +76,7 @@ class PlannerFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun init(v : View){
+    fun init(v: View) {
         v.planner_edit_btn.setOnClickListener(this)
         v.planner_plus_btn.setOnClickListener(this)
 

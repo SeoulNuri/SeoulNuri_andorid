@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Planner
+package com.hello.seoulnuri.planner
 
 import android.content.Intent
 import android.graphics.Color
@@ -17,20 +17,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PlannerStartActivity : AppCompatActivity(), View.OnClickListener{
+class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v!!){
-            planner_start_next_button->{
-                if(planner_start_next_button.isSelected){
+        when (v!!) {
+            planner_start_next_button -> {
+                if (planner_start_next_button.isSelected) {
                     startActivity(Intent(this, PlannerAddOneActivity::class.java))
-                }else{
-                    ToastMaker.makeLongToast(this,"입력해주세요.")
+                    finish()
+                } else {
+                    ToastMaker.makeLongToast(this, "입력해주세요.")
                 }
             }
 
-            date_text->{
-                intent = Intent(this,PlannerDateActivity::class.java)
-                intent.putExtra("currentdate",getTime())
+            date_text -> {
+                intent = Intent(this, PlannerDateActivity::class.java)
+                intent.putExtra("currentdate", getTime())
                 startActivity(intent)
             }
         }
@@ -42,22 +43,22 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener{
         return mFormat.format(mDate)
     }
 
-    fun init(){
+    fun init() {
 
 
         var selectedDate = intent.getStringExtra("date")
 
-        if(selectedDate!=null) date_text.text = selectedDate
+        if (selectedDate != null) date_text.text = selectedDate
         else date_text.text = getTime()
 
         date_text.setOnClickListener(this)
         planner_start_next_button.setOnClickListener(this)
     }
 
-    fun autoInit(){
+    fun autoInit() {
         val colors = arrayOf(
-                "Red","Green","Blue","Maroon","Magenta",
-                "Gold","GreenYellow"
+                "Red", "Green", "Blue", "Maroon", "Magenta",
+                "Gold", "GreenYellow"
         )
 
         val adapter = ArrayAdapter<String>(
@@ -70,8 +71,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener{
 
         search_auto_text.threshold = 1
 
-        search_auto_text.onItemClickListener = AdapterView.OnItemClickListener{
-            parent,view,position,id->
+        search_auto_text.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             val selectedItem = parent.getItemAtPosition(position).toString()
 
             search_auto_text.text = Editable.Factory.getInstance().newEditable(selectedItem)

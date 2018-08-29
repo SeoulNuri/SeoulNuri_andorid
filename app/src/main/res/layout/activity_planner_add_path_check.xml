@@ -9,13 +9,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     app:umanoPanelHeight="160dp"
     app:umanoParallaxOffset="100dp"
-    tools:context=".Planner.PlannerAddPathCheckActivity">
+    tools:context=".planner.PlannerAddPathCheckActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/planner_add_check_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:elevation="5dp">
@@ -32,8 +33,17 @@
                 android:textColor="#ff5722"
                 android:textSize="18sp" />
 
-
         </RelativeLayout>
+
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/planner_add_path_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/planner_add_check_toolbar"
+            tools:context=".MapsActivity" />
 
 
     </RelativeLayout>

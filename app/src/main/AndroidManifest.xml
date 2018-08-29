@@ -40,15 +40,15 @@
             android:name=".MainActivity"
             android:theme="@style/Main" />
         <activity
-            android:name=".Planner.PlannerStartActivity"
+            android:name=".planner.PlannerStartActivity"
             android:theme="@style/Login"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".Planner.PlannerAddOneActivity" />
+        <activity android:name=".planner.PlannerAddOneActivity" />
         <activity
-            android:name=".Planner.PlannerAddFourActivity"
+            android:name=".planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".Planner.PlannerAddPathCheckActivity" />
-        <activity android:name=".Planner.PlannerDateActivity"></activity>
+        <activity android:name=".planner.PlannerAddPathCheckActivity" />
+        <activity android:name=".planner.PlannerDateActivity"></activity>
     </application>
 
 </manifest>

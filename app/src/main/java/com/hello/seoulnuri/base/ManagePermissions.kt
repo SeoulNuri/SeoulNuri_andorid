@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Base
+package com.hello.seoulnuri.base
 
 import android.app.Activity
 import android.content.pm.PackageManager

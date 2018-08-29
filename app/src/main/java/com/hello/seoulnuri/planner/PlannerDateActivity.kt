@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Planner
+package com.hello.seoulnuri.planner
 
 import android.content.Intent
 import android.os.Bundle
@@ -29,10 +29,10 @@ class PlannerDateActivity : AppCompatActivity(), View.OnClickListener, CalendarV
     }
 
     override fun onClick(v: View?) {
-        when(v!!){
-            set_date_button->{
-                intent = Intent(this,PlannerStartActivity::class.java)
-                intent.putExtra("date",date)
+        when (v!!) {
+            set_date_button -> {
+                intent = Intent(this, PlannerStartActivity::class.java)
+                intent.putExtra("date", date)
                 startActivity(intent)
             }
         }

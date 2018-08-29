@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Planner.PlannerFragment">
+    tools:context=".planner.PlannerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -63,39 +63,37 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/planner_rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <View
-                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
                 android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:id="@+id/planner_plus_btn"
-                android:layout_marginTop="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:layout_marginTop="13dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
-                    android:src="@drawable/ic_plus"/>
+                    android:src="@drawable/ic_plus" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="#212121"
+                    android:layout_marginLeft="8dp"
                     android:letterSpacing="-0.01"
                     android:text="플래너 추가하기"
-                    android:layout_marginLeft="8dp"/>
+                    android:textColor="#212121"
+                    android:textSize="16sp" />
 
             </LinearLayout>
-
-
 
 
         </LinearLayout>

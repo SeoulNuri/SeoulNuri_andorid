@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Base
+package com.hello.seoulnuri.base
 
 /**
  * Created by VictoryWoo

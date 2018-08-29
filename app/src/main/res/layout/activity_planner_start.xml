@@ -5,103 +5,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".Planner.PlannerStartActivity"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:context=".planner.PlannerStartActivity">
 
-    
+
     <RelativeLayout
         android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="#ffffff"
         android:elevation="5dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:textSize="18sp"
-            android:textColor="#ff5722"
-            android:letterSpacing="-0.01"
             android:layout_centerInParent="true"
+            android:letterSpacing="-0.01"
             android:text="플래너 시작하기"
-            />
+            android:textColor="#ff5722"
+            android:textSize="18sp"
+            android:textStyle="normal" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/t1"
-        android:layout_below="@+id/top_layout"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="26sp"
-        android:textColor="#212121"
+        android:layout_below="@+id/top_layout"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="40dp"
         android:letterSpacing="-0.01"
         android:text="언제, 어디로"
-        />
+        android:textColor="#212121"
+        android:textSize="26sp" />
+
     <TextView
         android:id="@+id/t2"
-        android:layout_below="@id/t1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/t1"
         android:layout_marginLeft="24dp"
-        android:textSize="22sp"
-        android:textColor="#212121"
         android:letterSpacing="-0.01"
         android:text="여행을 떠나시나요?"
-        />
+        android:textColor="#212121"
+        android:textSize="22sp" />
 
     <RelativeLayout
         android:id="@+id/date_layout"
-        android:layout_below="@id/t2"
         android:layout_width="120dp"
         android:layout_height="44dp"
+        android:layout_below="@id/t2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="65dp"
         android:background="@drawable/rounded">
+
         <TextView
             android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="#ffffff"
             android:layout_centerInParent="true"
-            android:text="8월 14일"/>
+            android:text="8월 14일"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <AutoCompleteTextView
         android:id="@+id/search_auto_text"
-        android:layout_below="@+id/date_layout"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/date_layout"
         android:layout_centerHorizontal="true"
-        android:textSize="36sp"
-        android:hint="여행지 검색"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="20dp"
         android:backgroundTint="#9e9e9e"
+        android:hint="여행지 검색"
         android:imeOptions="actionDone"
-        />
+        android:inputType="textEmailAddress"
+        android:textSize="36sp" />
 
     <ImageView
-        android:layout_toRightOf="@+id/search_auto_text"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="10dp"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/ic_search_g"/>
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/search_auto_text"
+        android:src="@drawable/ic_search_g" />
 
     <ImageView
         android:id="@+id/planner_start_next_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_next_process_selector"
-        android:layout_marginBottom="24dp"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_next_process_selector" />
 
-
-    
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ class PlannerPathAdapter(var items: ArrayList<PlannerPathData>) : RecyclerView.A
         holder.plannerPathNumber.text = (position + 1).toString()
         holder.plannerPathLocation.text = items[position].plannerLocation
         holder.plannerPathAddress.text = items[position].plannerAddress
-        holder.plannerPathReviewCount.text = items[position].plannerReviewCount.toString()
+        holder.plannerPathReviewCount.text = "(${items[position].plannerReviewCount})"
 
         if (items.size - 1 == position) {
             holder.plannerPathLine.visibility = View.INVISIBLE

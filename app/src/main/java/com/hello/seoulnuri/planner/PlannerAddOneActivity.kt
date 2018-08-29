@@ -19,6 +19,10 @@ import android.support.v4.app.ActivityCompat
 import android.location.Location
 import android.support.v4.content.ContextCompat
 import com.hello.seoulnuri.utils.ToastMaker
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.BitmapDescriptor
+
+
 
 
 class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener, Init, GoogleMap.OnMyLocationButtonClickListener,
@@ -79,9 +83,28 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             mMap!!.isMyLocationEnabled = true
             //mapFragment!!.getMapAsync(this)
             val SEOUL = LatLng(37.56, 126.97)
+            var INCHEON = LatLng(37.01, 121.1)
+
+
+
+            val icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+            val sydney = LatLng(-33.852, 151.211)
+
+
+            // for loop를 통한 n개의 마커 생성
+            for (idx in 0..9) {
+                // 1. 마커 옵션 설정 (만드는 과정)
+                val makerOptions2 = MarkerOptions()
+                makerOptions2 // LatLng에 대한 어레이를 만들어서 이용할 수도 있다.
+                        .position(LatLng(37.52487 + (idx*100), 126.92723))
+                        .title("마커$idx") // 타이틀.
+
+                // 2. 마커 생성 (마커를 나타냄)
+                mMap!!.addMarker(makerOptions2)
+            }
 
             val markerOptions = MarkerOptions()
-            markerOptions.position(SEOUL)
+            markerOptions.position(SEOUL).title("서울").icon(icon)
             markerOptions.title("서울")
             markerOptions.snippet("한국의 수도")
 

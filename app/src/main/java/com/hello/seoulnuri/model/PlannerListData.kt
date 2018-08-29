@@ -6,4 +6,5 @@ package com.hello.seoulnuri.model
 data class PlannerListData(
         var planner_date: String,
         var planner_location: String
+
 )

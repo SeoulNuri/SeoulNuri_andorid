@@ -23,8 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="24dp"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:src="@drawable/ic_downarrow" />
+                android:src="@drawable/ic_downarrow"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/planner_add_path_bar_image"
@@ -92,11 +92,11 @@
     </LinearLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_marginTop="20dp"
         android:id="@+id/planner_nestedScroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/planner_path_bottom_layout">
+        android:layout_below="@+id/planner_path_bottom_layout"
+        android:layout_marginTop="20dp">
 
 
         <LinearLayout
@@ -108,10 +108,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/plannerPathRecyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                 />
+                android:layout_height="wrap_content" />
 
             <ImageView
+                android:id="@+id/planner_path_complete_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

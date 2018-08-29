@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".Planner.PlannerAddFourActivity">
+    tools:context=".planner.PlannerAddFourActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,9 +24,9 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
+        android:text="완성한 플래너는 리스트에서 다시 확인할 수 있어요."
         android:textColor="#ffffff"
-        android:textSize="13sp"
-        android:text="완성한 플래너는 리스트에서 다시 확인할 수 있어요." />
+        android:textSize="13sp" />
 
 
     <RelativeLayout
@@ -53,9 +53,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="29dp"
             android:letterSpacing="-0.01"
+            android:text="여행 시작 날짜"
             android:textColor="#212121"
-            android:textSize="13sp"
-            android:text="여행 시작 날짜" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -70,18 +70,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
+                android:text="08월"
                 android:textColor="@color/pinkish_orange"
-                android:textSize="32sp"
-                android:text="08월" />
+                android:textSize="32sp" />
 
             <TextView
                 android:id="@+id/planner_add_four_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
+                android:text="14일"
                 android:textColor="@color/pinkish_orange"
-                android:textSize="32sp"
-                android:text="14일" />
+                android:textSize="32sp" />
 
         </LinearLayout>
 
@@ -98,18 +98,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
+                android:text="첫 여행지"
                 android:textColor="#aeaeae"
-                android:textSize="12sp"
-                android:text="첫 여행지" />
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="116dp"
                 android:letterSpacing="-0.01"
+                android:text="마지막 여행지"
                 android:textColor="#aeaeae"
-                android:textSize="12sp"
-                android:text="마지막 여행지" />
+                android:textSize="12sp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -124,9 +124,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
+                android:text="경복궁"
                 android:textColor="#212121"
-                android:textSize="24sp"
-                android:text="경복궁" />
+                android:textSize="24sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -143,9 +143,9 @@
                 android:layout_marginRight="20dp"
                 android:gravity="end"
                 android:letterSpacing="-0.01"
+                android:text="갤러리룩스"
                 android:textColor="#212121"
-                android:textSize="24sp"
-                android:text="갤러리룩스" />
+                android:textSize="24sp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -161,9 +161,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
+                android:text="총 소요시간"
                 android:textColor="#212121"
-                android:textSize="13sp"
-                android:text="총 소요시간" />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/planner_add_four_total_time"
@@ -172,9 +172,9 @@
                 android:layout_marginLeft="160dp"
                 android:gravity="end"
                 android:letterSpacing="-0.01"
+                android:text="38분"
                 android:textColor="#757575"
-                android:textSize="24sp"
-                android:text="38분" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <ImageView
@@ -198,9 +198,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:gravity="center_horizontal"
+                android:text="확인"
                 android:textColor="@color/pinkish_orange"
-                android:textSize="16sp"
-                android:text="확인" />
+                android:textSize="16sp" />
 
         </RelativeLayout>
 

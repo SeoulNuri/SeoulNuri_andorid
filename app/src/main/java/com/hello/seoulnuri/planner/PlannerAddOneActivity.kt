@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.Planner
+package com.hello.seoulnuri.planner
 
 import android.Manifest
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.SupportMapFragment
-import com.hello.seoulnuri.Base.Init
+import com.hello.seoulnuri.base.Init
 import kotlinx.android.synthetic.main.activity_planner_add_one.*
 import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
@@ -59,6 +59,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         when (v!!) {
             planner_add_one_next_btn -> {
                 startActivity(Intent(this, PlannerAddPathCheckActivity::class.java))
+                finish()
             }
         }
     }

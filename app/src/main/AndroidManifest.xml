@@ -22,6 +22,7 @@
             android:name=".LoginActivity"
             android:theme="@style/Main" />
         <activity android:name=".LoginCategoryActivity" />
+        <activity android:name=".Course_detail" />
         <activity android:name=".MainActivity"></activity>
     </application>
 

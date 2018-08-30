@@ -1,12 +1,22 @@
 package com.hello.seoulnuri;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 
 /**
@@ -28,6 +38,11 @@ public class CourseFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    ArrayList<CourseItem> courseList;
+    private RecyclerView rv;
+    private LinearLayoutManager mLinearLayoutManager;
+//    private RecyclerView.LayoutManager layoutManager;
 
     public CourseFragment() {
         // Required empty public constructor
@@ -64,8 +79,34 @@ public class CourseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_course, container, false);
+        View view =  inflater.inflate(R.layout.fragment_course, container, false);
+
+        courseList = new ArrayList<CourseItem>();
+
+        CourseItem[] item=new CourseItem[4];
+        item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천");
+        item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ");
+        item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천");
+        item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천");
+
+        for(int i=0;i<4;i++) courseList.add(item[i]);
+
+        //레이아웃매니저
+        mLinearLayoutManager = new GridLayoutManager(getActivity(), 2);
+
+        rv = (RecyclerView) view.findViewById(R.id.recycle_view);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(mLinearLayoutManager);
+
+        //course adapter 연결
+        CourseAdapter adapter = new CourseAdapter(getActivity(),courseList);
+        Log.e("onCreate[courseList]", "" + courseList.size());
+        rv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        return view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

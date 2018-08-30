@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.planner
+package com.hello.seoulnuri.view.planner
 
 import android.Manifest
 import android.content.Intent

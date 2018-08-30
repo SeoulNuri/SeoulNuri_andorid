@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".planner.PlannerFragment">
+    tools:context=".view.planner.PlannerFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

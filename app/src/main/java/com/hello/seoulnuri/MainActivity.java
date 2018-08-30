@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.hello.seoulnuri.planner.PlannerFragment;
+import com.hello.seoulnuri.view.planner.PlannerFragment;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnFragmentInteractionListener,

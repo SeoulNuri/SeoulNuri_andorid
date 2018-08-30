@@ -8,9 +8,9 @@
 
     <!-- 우측 상단에 그 현재 위치 버튼을 추가하기 위함 -->
     <application
+        android:name=".network.ApplicationController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_app"
-        android:name=".network.ApplicationController"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_app"
         android:supportsRtl="true"
@@ -54,9 +54,15 @@
         <activity
             android:name="com.hello.seoulnuri.view.planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
+
+
+
         <activity android:name="com.hello.seoulnuri.view.planner.PlannerAddPathCheckActivity" />
         <activity android:name="com.hello.seoulnuri.view.planner.PlannerDateActivity"></activity>
-        <activity android:name=".view.login.KaKaoSignupActivity"/>
+        <activity android:name=".view.login.KaKaoSignupActivity" />
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".Course_detail"/>
+
     </application>
 
 </manifest>

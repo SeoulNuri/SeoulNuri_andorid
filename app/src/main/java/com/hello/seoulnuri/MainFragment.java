@@ -1,6 +1,7 @@
 package com.hello.seoulnuri;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -99,6 +101,15 @@ public class MainFragment extends Fragment {
         TextView textViewAddress3 = (TextView)view.findViewById(R.id.courseContentAddressTextView3);
         TextView textViewAddress4 = (TextView)view.findViewById(R.id.courseContentAddressTextView4);
         TextView textViewAddress5 = (TextView)view.findViewById(R.id.courseContentAddressTextView5);
+
+        Button btnSearch = (Button)view.findViewById(R.id.mainSearchButton);
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

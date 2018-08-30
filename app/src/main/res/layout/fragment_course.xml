@@ -3,12 +3,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CourseFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center_horizontal|top"
+            android:layout_marginTop="34dp"
+            android:text="유형별 여행 추천 코스"
+            android:textColor="#ff6e2c"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="128dp"
+            android:layout_height="3dp"
+            android:layout_gravity="center_horizontal|top"
+            android:background="#ff6e2c"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="36dp"
+            android:id="@+id/recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom"
+            android:scrollbars="vertical" />
+    </LinearLayout>
 
 </FrameLayout>

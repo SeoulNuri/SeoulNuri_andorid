@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="vertical"
-    tools:context=".planner.PlannerAddFourActivity">
+    tools:context=".view.planner.PlannerAddFourActivity">
 
     <TextView
         android:layout_width="wrap_content"

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".MypageFragment">
 
     <LinearLayout
@@ -126,7 +127,7 @@
         <Button
             android:id="@+id/myCourseButton"
             android:layout_marginLeft="107dp"
-            android:textColor="#ff6e2c"
+            android:textColor="#212121"
             android:text="관광투어"
             android:background="#ffffff"
             android:layout_width="56dp"
@@ -142,5 +143,15 @@
     <FrameLayout
         android:layout_marginTop="315dp"
         android:layout_width="match_parent"
-        android:layout_height="268dp"></FrameLayout>
+        android:layout_height="268dp">
+        <ScrollView
+            android:id="@+id/myTourScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ScrollView>
+
+        <ScrollView
+            android:id="@+id/myCourseScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ScrollView>
+    </FrameLayout>
 </RelativeLayout>

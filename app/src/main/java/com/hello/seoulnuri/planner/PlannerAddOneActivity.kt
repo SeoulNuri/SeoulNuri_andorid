@@ -9,8 +9,6 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.hello.seoulnuri.R
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.SupportMapFragment
 import com.hello.seoulnuri.base.Init
 import kotlinx.android.synthetic.main.activity_planner_add_one.*
@@ -18,6 +16,9 @@ import android.content.pm.PackageManager
 import android.support.v4.app.ActivityCompat
 import android.location.Location
 import android.support.v4.content.ContextCompat
+import android.util.Log
+import com.google.android.gms.maps.model.*
+import com.hello.seoulnuri.model.MarkerData
 import com.hello.seoulnuri.utils.ToastMaker
 
 
@@ -65,6 +66,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     }
 
 
+
     override fun onMapReady(map: GoogleMap?) {
 
         /*FIXME
@@ -78,14 +80,56 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
             mMap!!.isMyLocationEnabled = true
             //mapFragment!!.getMapAsync(this)
-            val SEOUL = LatLng(37.56, 126.97)
+
+            val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+            val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
+
+
+            var list : ArrayList<Marker> = ArrayList()
+
+
 
             val markerOptions = MarkerOptions()
-            markerOptions.position(SEOUL)
-            markerOptions.title("서울")
-            markerOptions.snippet("한국의 수도")
+            markerOptions
+                    .position(SEOUL)
+                    .title("서울")
+                    .snippet("한국의 수도")
+                    .icon(main_icon)
 
-            mMap!!.addMarker(markerOptions)
+            marker_seoul = mMap!!.addMarker(markerOptions)
+            list.add(marker_seoul)
+
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+
+
+            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
+                            .position(Gyeonghui_Palace)
+                            .title("경희궁")
+                            .snippet("우리나라꺼")
+                            .icon(sub_icon))
+            list.add(marker_Gyeonghui_Palace)
+
+            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
+                    .position(Chungjeongno_Station)
+                    .title("충정로역")
+                    .snippet("지하철역")
+                    .icon(sub_icon))
+            list.add(marker_Horyu_Station)
+
+            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
+                    .position(City_Hall_Station)
+                    .title("덕수궁")
+                    .snippet("우리나라꺼")
+                    .icon(sub_icon))
+            list.add(marker_Hyehwa_Station)
+
+            for (i in 0..list.size-1){
+                Log.v("Marker : ",list[i].title)
+            }
+
+            //createMarker(markerItems)
+
             mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
 
@@ -93,15 +137,47 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             mMap!!.setOnMyLocationClickListener(this)
 
         }
+    }
+
+    fun createMarker(items : ArrayList<MarkerData>){
+        var markerList = ArrayList<Marker>(items.size)
+        markerOptions = ArrayList()
+        for (position in 0..items.size-1){
+
+            markerOptions[position]
+                    .position(LatLng(items[position].latitude, items[position].longitude))
+                    .title(items[position].title)
+                    .snippet(items[position].snippet)
+                    .icon(BitmapDescriptorFactory.fromResource(items[position].iconResID))
+            markerList[position] = mMap!!.addMarker(markerOptions[position])
+
+            for (i in 0..markerList.size-1){
+                Log.v("Marker : ",markerList[i].title)
+            }
+        }
 
 
     }
-
 
     private var mMap: GoogleMap? = null
     val PERMISSION_REQUST_CODE: Int = 100
     lateinit var mapFragment: SupportMapFragment
     lateinit var list: List<String>
+
+    val SEOUL: LatLng = LatLng(37.56, 126.97)
+    val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
+    val Chungjeongno_Station: LatLng = LatLng(37.560055,126.96367199999997)
+    val City_Hall_Station: LatLng = LatLng(37.5658049,126.97514610000007)
+
+    lateinit var marker_seoul : Marker
+    lateinit var marker_Gyeonghui_Palace : Marker
+    lateinit var marker_Horyu_Station : Marker
+    lateinit var marker_Hyehwa_Station : Marker
+
+
+    lateinit var markerArray: ArrayList<Marker>
+    lateinit var markerItems : ArrayList<MarkerData>
+    lateinit var markerOptions : ArrayList<MarkerOptions>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
@@ -118,6 +194,12 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         //managePermissions = ManagePermissions(this, list, PermissionRequestCode)
 
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+
+        markerItems = ArrayList()
+        markerItems.add(MarkerData(37.56,126.97,"SEOUL","한국의 수도",R.drawable.button_spot_select))
+        markerItems.add(MarkerData(37.570369,126.969009,"Gyeonghui_Palace","경희궁",R.drawable.button_spot))
+        markerItems.add(MarkerData(37.558553,126.978218,"Horyu_Station","회현역",R.drawable.button_spot))
+        markerItems.add(MarkerData(37.582163,127.001978,"Hyehwa_Station","혜화역",R.drawable.button_spot))
 
 
     }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical"
-    tools:context=".planner.PlannerAddOneActivity">
+    tools:context=".view.planner.PlannerAddOneActivity">
 
     <RelativeLayout
         android:id="@+id/planner_add_one_top_layout"

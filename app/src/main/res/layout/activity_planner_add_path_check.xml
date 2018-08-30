@@ -9,7 +9,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     app:umanoPanelHeight="160dp"
     app:umanoParallaxOffset="100dp"
-    tools:context=".planner.PlannerAddPathCheckActivity">
+    tools:context=".view.planner.PlannerAddPathCheckActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

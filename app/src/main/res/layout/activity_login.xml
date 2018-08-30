@@ -5,36 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".LoginActivity">
+    tools:context=".view.login.LoginActivity">
 
     <ImageView
         android:id="@+id/logo_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/logo_login"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="172dp"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/logo_login" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:textColor="#9b9b9b"
         android:layout_below="@+id/logo_login"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="19dp"
         android:letterSpacing="-0.01"
-        android:layout_centerHorizontal="true"
-        android:textStyle="normal"
         android:text="모두가 누릴 수 있는 서울 여행"
-        />
+        android:textColor="#9b9b9b"
+        android:textSize="14sp"
+        android:textStyle="normal" />
 
     <Button
+        android:id="@+id/login_kakao_custom_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_social_login"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp"
-        android:onClick="doKakaoLogin"/>
+        android:background="@drawable/button_social_login"
+        />
+
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/login_kakao_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:visibility="gone" />
 
 </RelativeLayout>

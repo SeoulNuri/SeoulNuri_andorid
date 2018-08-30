@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".planner.PlannerDateActivity">
+    tools:context=".view.planner.PlannerDateActivity">
 
     <CalendarView
         android:id="@+id/calendarView"

@@ -37,6 +37,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+
     private fun getTime(): String {
         mNow = System.currentTimeMillis()
         mDate = Date(mNow)
@@ -44,6 +45,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun init() {
+
 
 
         var selectedDate = intent.getStringExtra("date")

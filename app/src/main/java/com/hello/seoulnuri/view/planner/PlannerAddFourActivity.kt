@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.planner
+package com.hello.seoulnuri.view.planner
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

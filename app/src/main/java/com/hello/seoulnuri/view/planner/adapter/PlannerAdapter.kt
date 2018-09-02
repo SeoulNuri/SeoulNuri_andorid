@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.planner.adapter
+package com.hello.seoulnuri.view.planner.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView

@@ -4,9 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- 우측 상단에 그 현재 위치 버튼을 추가하기 위함 -->
     <application
+        android:name=".network.ApplicationController"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_app"
         android:label="@string/app_name"
@@ -21,6 +23,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB4t8F1Tl2eu2gWU_cCP-881iKHQS-RM-U" />
 
+        <!-- 카카오톡 메타데이터 -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
+
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Splash">
@@ -31,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.login.LoginActivity"
             android:theme="@style/Login" />
         <activity
             android:name=".LoginCategoryActivity"
@@ -40,21 +47,20 @@
             android:name=".MainActivity"
             android:theme="@style/Main" />
         <activity
-            android:name=".planner.PlannerStartActivity"
+            android:name="com.hello.seoulnuri.view.planner.PlannerStartActivity"
             android:theme="@style/Login"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".planner.PlannerAddOneActivity" />
+        <activity android:name="com.hello.seoulnuri.view.planner.PlannerAddOneActivity" />
         <activity
-            android:name=".planner.PlannerAddFourActivity"
+            android:name="com.hello.seoulnuri.view.planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".planner.PlannerAddPathCheckActivity" />
-        <activity android:name=".planner.PlannerDateActivity" />
+
+        <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
+        <activity android:name=".view.planner.PlannerDateActivity" />
         <activity android:name=".Course_detail" />
-        <activity
-            android:name=".InfoStartActivity"
-            android:label="@string/title_activity_info_start"
-            android:theme="@style/AppTheme"></activity>
         <activity android:name=".info.Info_Detail_Intro" />
+        <activity android:name=".view.login.KaKaoSignupActivity" />
+        <activity android:name=".SearchActivity"></activity>
 
     </application>
 

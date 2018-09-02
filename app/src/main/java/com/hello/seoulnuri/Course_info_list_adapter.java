@@ -100,6 +100,7 @@ public class Course_info_list_adapter extends BaseExpandableListAdapter {
             }
 
           //  convertView.setBackgroundColor(convertView.getResources().getColor(R.color.expandableListColor));
+            //convertView.setBackgroundColor(convertView.getResources().getColor(R.color.expandableListColor));
             return convertView;
         }
 

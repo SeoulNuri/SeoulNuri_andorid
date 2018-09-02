@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.planner
+package com.hello.seoulnuri.view.planner
 
 import android.content.Intent
 import android.location.Location
@@ -15,7 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.hello.seoulnuri.model.PlannerPathData
-import com.hello.seoulnuri.planner.adapter.PlannerPathAdapter
+import com.hello.seoulnuri.view.planner.adapter.PlannerPathAdapter
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.utils.ToastMaker

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".SearchActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#ffffff">
+        </View>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#aeaeae" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/searchBackButton"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="24dp"
+        android:background="@drawable/ic_backarrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:visibility="invisible"
+        android:id="@+id/searchCancelButton"
+        android:layout_marginTop="44dp"
+        android:layout_marginLeft="312dp"
+        android:background="@drawable/ic_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/searchEditText"
+        android:background="@android:color/transparent"
+        android:textSize="18sp"
+        android:layout_marginTop="41dp"
+        android:layout_marginLeft="52.5dp"
+        android:textColorHint="#bdbdbd"
+        android:hint="여행하고 싶은 관광지를 선택하세요"
+        android:layout_width="wrap_content"
+        android:layout_height="27dp" />
+
+    <TextView
+        android:id="@+id/searchTextView"
+        android:layout_marginTop="112dp"
+        android:layout_marginLeft="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/pinkish_orange"
+        android:letterSpacing="-0.01"
+        android:text="즐겨찾기" />
+    
+    <ListView
+        android:id="@+id/searchListView"
+        android:layout_marginTop="137dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+    
+</RelativeLayout>

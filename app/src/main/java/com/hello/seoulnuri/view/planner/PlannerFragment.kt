@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.planner
+package com.hello.seoulnuri.view.planner
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.hello.seoulnuri.model.PlannerListData
-import com.hello.seoulnuri.planner.adapter.PlannerAdapter
+import com.hello.seoulnuri.view.planner.adapter.PlannerAdapter
 import com.hello.seoulnuri.R
 import kotlinx.android.synthetic.main.fragment_planner.*
 import kotlinx.android.synthetic.main.fragment_planner.view.*

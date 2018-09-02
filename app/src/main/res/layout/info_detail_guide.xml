@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:baselineAligned="false">
+
+    <TextView
+        android:id="@+id/tv_introinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="이용안내"
+        android:textColor="@color/pinkish_orange"
+        android:textSize="11sp" />
+
+    <ListView
+        android:id="@+id/guidelist"
+        android:layout_width="318dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/tv_introinfo"
+        android:layout_marginLeft="20dp"
+        android:background="#f7f7f7">
+
+    </ListView>
+
+</RelativeLayout>

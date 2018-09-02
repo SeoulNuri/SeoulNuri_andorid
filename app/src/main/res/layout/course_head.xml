@@ -41,10 +41,10 @@
         android:textColor="#212121"/>
 
     <ImageView
-        android:layout_gravity="center_vertical"
         android:id="@+id/btn_expand_toggle"
-        android:src="@drawable/ic_nextarrow_g"
         android:layout_width="12dp"
         android:layout_height="12dp"
-        android:layout_weight="0"/>
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0"
+        android:src="@drawable/ic_nextarrow_g" />
 </LinearLayout>

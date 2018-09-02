@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_weight="1">
+
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:numStars="5"
+            android:rating="3" />
+
+        <TextView
+            android:id="@+id/tv_cmt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tv_address"
+            android:layout_alignTop="@+id/ratingBar2"
+            android:letterSpacing="-0.01"
+            android:text="(21)"
+            android:textColor="#9e9e9e"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:letterSpacing="-0.01"
+            android:text="경복궁"
+            android:textColor="#212121"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="98dp"
+            android:gravity="center_horizontal"
+            android:text="서울 종로구 사직로 161 경복궁"
+            android:textColor="#aeaeae"
+            android:textSize="11sp" />
+
+        <ImageButton
+            android:id="@+id/btn_cmt"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="128dp"
+            android:backgroundTint="#ffffff"
+            app:srcCompat="@drawable/button_oval_comment_g" />
+
+        <ImageButton
+            android:id="@+id/btn_bookmark"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/btn_cmt"
+            android:layout_marginStart="160dp"
+            android:backgroundTint="#ffffff"
+            app:srcCompat="@drawable/button_oval_bookmark_g" />
+
+        <ImageButton
+            android:id="@+id/btn_share"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/btn_cmt"
+            android:layout_marginEnd="160dp"
+            android:backgroundTint="#ffffff"
+            app:srcCompat="@drawable/button_oval_share_g" />
+
+        <ImageButton
+            android:id="@+id/btn_map"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/btn_cmt"
+            android:layout_marginEnd="100dp"
+            android:backgroundTint="#ffffff"
+            app:srcCompat="@drawable/button_oval_map_g" />
+
+    </RelativeLayout>
+
+    <TabHost
+        android:id="@+id/tabHost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/cnt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/img_intro"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16dp"
+                        app:srcCompat="@drawable/img_gyeongbok_info" />
+
+                    <TextView
+                        android:id="@+id/info_story"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:text="text"
+                        android:textColor="#212121" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cnt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginRight="24dp"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_notice"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/cnt3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:background="#ffffff"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/maintitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="24dp"
+                                    android:text="장애 유형별 접근성"
+                                    android:textColor="@color/pinkish_orange"
+                                    android:textSize="11sp" />
+
+                                <TableLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginTop="10dp">
+
+                                    <TableRow
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <ImageView
+                                            android:id="@+id/img_eye"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="30dp"
+                                            android:layout_marginRight="25dp"
+                                            app:srcCompat="@drawable/graphic_top" />
+
+                                        <ImageView
+                                            android:id="@+id/img_ear"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="25dp"
+                                            android:layout_marginRight="25dp"
+                                            app:srcCompat="@drawable/graphic_bottom" />
+
+                                        <ImageView
+                                            android:id="@+id/img_wheel"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="25dp"
+                                            android:layout_marginRight="25dp"
+                                            app:srcCompat="@drawable/grphic_middle" />
+
+                                        <ImageView
+                                            android:id="@+id/img_elder"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="25dp"
+                                            android:layout_marginRight="25dp"
+                                            app:srcCompat="@drawable/grphic_middle" />
+                                    </TableRow>
+
+                                    <TableRow
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/tv_witheye"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:lineSpacingExtra="8sp"
+                                            android:text="시각"
+                                            android:textColor="#212121"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_withear"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:lineSpacingExtra="8sp"
+                                            android:text="청각"
+                                            android:textAlignment="center"
+                                            android:textColor="#212121"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_withwheel"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:lineSpacingExtra="8sp"
+                                            android:text="지체"
+                                            android:textAlignment="center"
+                                            android:textColor="#212121"
+                                            android:textSize="13sp" />
+
+                                        <TextView
+                                            android:id="@+id/tv_withelder"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:lineSpacingExtra="8sp"
+                                            android:text="노인"
+                                            android:textAlignment="center"
+                                            android:textColor="#212121"
+                                            android:textSize="13sp" />
+                                    </TableRow>
+                                </TableLayout>
+
+                            </LinearLayout>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_withtour"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <!--&lt;!&ndash; 세 번째 페이지. content3 &ndash;&gt;-->
+                <!--<LinearLayout-->
+                <!--android:id="@+id/content3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#2196F3"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="8dp"-->
+                <!--android:text="TAB CONTENT 3" />-->
+                <!--</LinearLayout>-->
+
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

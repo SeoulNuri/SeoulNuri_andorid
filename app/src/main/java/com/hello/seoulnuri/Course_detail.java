@@ -54,7 +54,7 @@ public class Course_detail extends AppCompatActivity {
 //        // 세 번째 Tab. (탭 표시 텍스트:"TAB 3"), (페이지 뷰:"content3")
 //        TabHost.TabSpec ts3 = tabHost1.newTabSpec("Tab Spec 3");
 //        ts3.setContent(R.id.content3);
-//        ts3.setIndicator("무장애정보");
+////        ts3.setIndicator("무장애정보");
 //        tabHost1.addTab(ts3) ;
 
         //코스 탭

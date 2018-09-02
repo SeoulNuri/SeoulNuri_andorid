@@ -48,7 +48,14 @@
             android:name=".planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
         <activity android:name=".planner.PlannerAddPathCheckActivity" />
-        <activity android:name=".planner.PlannerDateActivity"></activity>
+        <activity android:name=".planner.PlannerDateActivity" />
+        <activity android:name=".Course_detail" />
+        <activity
+            android:name=".InfoStartActivity"
+            android:label="@string/title_activity_info_start"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".info.Info_Detail_Intro" />
+
     </application>
 
 </manifest>

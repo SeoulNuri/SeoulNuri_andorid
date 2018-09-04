@@ -41,7 +41,7 @@
             android:name=".view.login.LoginActivity"
             android:theme="@style/Login" />
         <activity
-            android:name=".LoginCategoryActivity"
+            android:name=".view.login.LoginCategoryActivity"
             android:theme="@style/Login" />
         <activity
             android:name=".MainActivity"

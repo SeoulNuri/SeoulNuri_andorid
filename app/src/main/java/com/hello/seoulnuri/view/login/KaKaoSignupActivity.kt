@@ -3,19 +3,22 @@ package com.hello.seoulnuri.view.login
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.service.autofill.UserData
 import android.util.Log
 import com.hello.seoulnuri.MainActivity
+import com.hello.seoulnuri.model.login.LoginUserData
+import com.hello.seoulnuri.model.login.LoginUserResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.kakao.auth.ErrorCode
 import com.kakao.usermgmt.UserManagement
-import com.kakao.usermgmt.response.model.UserProfile
 import com.kakao.network.ErrorResult
-import com.kakao.network.ApiErrorCode.CLIENT_ERROR_CODE
-import com.kakao.usermgmt.callback.MeResponseCallback
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.helper.log.Logger
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 
@@ -29,10 +32,13 @@ class KaKaoSignupActivity : Activity() {
     * requestMe라는 함수를 호출합니다.
     * @param savedInstanceState 기존 session 정보가 저장된 객체
     * */
-    lateinit var userData : UserData
+    lateinit var loginUserData: LoginUserData
+    lateinit var kakao_age : String
+    lateinit var networkService: NetworkService
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SharedPreference.instance!!.load(this)
+        networkService = ApplicationController.instance!!.networkService
         requestMe()
 
     }
@@ -54,9 +60,21 @@ class KaKaoSignupActivity : Activity() {
                 Log.v("UserProfile3 : ",result!!.kakaoAccount.birthday.toString())
                 Log.v("UserProfile4 : ",result!!.properties.toString())
                 Log.v("UserProfile5 : ",result!!.kakaoAccount.ageRange.toString())
+                kakao_age = result!!.kakaoAccount.ageRange.toString().substring(4,6)
+
+                /*SharedPreference.instance!!.setPrefData("id",result!!.id)
+                SharedPreference.instance!!.setPrefData("nickname",result!!.nickname)
+                SharedPreference.instance!!.setPrefData("birthday",result!!.kakaoAccount.birthday.toString())
+                SharedPreference.instance!!.setPrefData("age",kakao_age)
+                Log.v("UserProfile6",kakao_age)*/
+
+                if(SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
+                    loginPost(kakao_age, result!!.kakaoAccount.birthday.toString(),result!!.nickname,result!!.id.toString())
+                }else{
+                    redirectMainActivity()
+                }
 
 
-                redirectMainActivity()
             }
 
             override fun onSessionClosed(errorResult: ErrorResult?) {
@@ -114,6 +132,43 @@ class KaKaoSignupActivity : Activity() {
         }, list,fa)*/
     }
 
+    // 로그인 요
+    fun loginPost(age : String, birthday : String, nickname : String, id : String){
+        Log.v("25","25")
+        loginUserData = LoginUserData(age, birthday, nickname, id)
+        Log.v("25555 data",loginUserData.toString())
+        var loginUserResponse = networkService.signUp(loginUserData)
+        Log.v("255","255")
+        loginUserResponse.enqueue(object : Callback<LoginUserResponse>{
+            override fun onFailure(call: Call<LoginUserResponse>?, t: Throwable?) {
+                Log.v("login failure 123",t!!.message)
+            }
+
+            override fun onResponse(call: Call<LoginUserResponse>?, response: Response<LoginUserResponse>?) {
+                if(response!!.isSuccessful){
+                    Log.v("2555","2555")
+                    Log.v("login 123",response!!.code().toString())
+                    Log.v("login code",response!!.body()!!.code!!.toString())
+                    Log.v("login message",response!!.body()!!.message!!.toString())
+                    Log.v("login statue",response!!.body()!!.status!!.toString())
+                    println("2555 success : ${response!!.body()!!.data}")
+                    Log.v("25555 success",response!!.body()!!.data)
+                    SharedPreference.instance!!.setPrefData("data",response!!.body()!!.data!!)
+                    redirectLoginCategoryActivity()
+                } else{
+                    Log.v("login else 123",response!!.code().toString())
+                    redirectLoginActivity()
+                }
+            }
+
+        })
+
+    }
+
+    fun redirectLoginCategoryActivity(){
+        startActivity(Intent(this, LoginCategoryActivity::class.java))
+        finish()
+    }
     fun redirectMainActivity(){
         startActivity(Intent(this, MainActivity::class.java))
         finish()

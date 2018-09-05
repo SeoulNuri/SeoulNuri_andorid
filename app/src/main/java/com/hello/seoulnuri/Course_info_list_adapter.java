@@ -19,38 +19,38 @@ import java.util.ArrayList;
 public class Course_info_list_adapter extends BaseExpandableListAdapter {
 
         private Context mContext;
-        private ArrayList<Position> position;
+        private ArrayList<Position> courses_list;
         private LayoutInflater inflater;
 
         private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
         //class Constructor
-        public Course_info_list_adapter (Context mContext, ArrayList<Position> position) {
-
+        public Course_info_list_adapter (Context mContext, ArrayList<Position> courses_list) {
             this.mContext = mContext;
-            this.position = position;
+            this.courses_list = courses_list;
             inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
+
         @Override
         public int getGroupCount() {
-            return position.size();
+            return courses_list.size();
         }
 
         @Override
         public int getChildrenCount(int groupPosition) {
-            return position.get(groupPosition).courses.size();
+            return courses_list.get(groupPosition).course_info.size();
         }
 
         //get position
         @Override
         public Object getGroup(int groupPosition) {
-            return position.get(groupPosition);
+            return courses_list.get(groupPosition);
         }
 
         //this is where we get the information of player
         @Override
         public Object getChild(int groupPosition, int childPosition) {
-            return position.get(groupPosition).courses.get(childPosition);
+            return courses_list.get(groupPosition).course_info.get(childPosition);
         }
 
         //position ID
@@ -73,73 +73,101 @@ public class Course_info_list_adapter extends BaseExpandableListAdapter {
         //get parent row
         @Override
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+            HeadViewHolder viewHolder;
+
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.course_info_list_header, null);
+
+                viewHolder = new HeadViewHolder();
+                viewHolder.btn_expand_toggle = (ImageView) convertView.findViewById(R.id.btn_expand_toggle);
+                viewHolder.header_title = (TextView) convertView.findViewById(R.id.header_title);
+                viewHolder.numberImage = (ImageView) convertView.findViewById(R.id.number);
+
+                convertView.setTag(viewHolder);
             }
 
-//            int list_size = getGroupCount();
+            //캐시된 뷰 홀더가 있을 경우 사용
+            else
+            {
+                viewHolder = (HeadViewHolder) convertView.getTag();
+            }
 
             //get position
-            Position position = (Position) getGroup(groupPosition);
+            Position course_info_list_header = (Position) getGroup(groupPosition);
 
             //set positionName
-            String positionName = position.position;
+            String course_info_list_header_title = course_info_list_header.course_info_item;
 
-            ImageView numberImage = (ImageView) convertView.findViewById(R.id.number);
+            viewHolder.numberImage.setImageResource(header_indicator[groupPosition]);
 
-            numberImage.setImageResource(header_indicator[groupPosition]);
+            viewHolder.header_title.setText(course_info_list_header_title);
 
-            TextView textView = (TextView) convertView.findViewById(R.id.header_title);
-            textView.setText(positionName);
-
-            ImageView imageView = (ImageView) convertView.findViewById(R.id.btn_expand_toggle);
             if(isExpanded){
-                imageView.setImageResource(R.drawable.ic_downtarrow_g);
+                viewHolder.btn_expand_toggle.setImageResource(R.drawable.ic_uparrow_g);
             } else {
-                imageView.setImageResource(R.drawable.ic_uparrow_g);
+                viewHolder.btn_expand_toggle.setImageResource(R.drawable.ic_downtarrow_g);
             }
 
-          //  convertView.setBackgroundColor(convertView.getResources().getColor(R.color.expandableListColor));
-            //convertView.setBackgroundColor(convertView.getResources().getColor(R.color.expandableListColor));
+            convertView.setBackgroundColor(convertView.getResources().getColor(R.color.expandableListColor));
             return convertView;
+        }
+
+        public class HeadViewHolder {
+            public ImageView numberImage;
+            public TextView header_title;
+            public ImageView btn_expand_toggle;
+
         }
 
         //get child_list.xml (View)
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+            ChildViewHolder viewHolder;
 
             //inflate the layout
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.course_info_list_child, null);
+
+                viewHolder = new ChildViewHolder();
+                viewHolder.course_item_child_pic = (ImageView) convertView.findViewById(R.id.course_item_child_pic);
+                viewHolder.course_item_child_txt = (TextView) convertView.findViewById(R.id.course_item_child_txt);
+
+                convertView.setTag(viewHolder);
             }
 
+            //캐시된 뷰 홀더가 있을 경우 사용
+            else
+            {
+                viewHolder = (ChildViewHolder) convertView.getTag();
+            }
+
+            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_child_txt));
+
+            //get child name
             String child = (String) getChild(groupPosition, childPosition);
-
-            //set the child name
-            TextView name = (TextView) convertView.findViewById(R.id.name_tv);
-            //get the imageView
-            ImageView img = (ImageView) convertView.findViewById(R.id.coursepic);
-
-            name.setText(child);
-
-            //get position name
+            //get header name
             String positionName = (String) getGroup(groupPosition).toString();
             if (positionName == "경복궁") {
                 if (child == "경복궁") {
-                    img.setImageResource(R.drawable.img_gyeongbok_info);
+                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
                 }
             } else if (positionName == "경희궁") {
                 if (child == "경희궁") {
-                    img.setImageResource(R.drawable.img_gyeongbok_info);
+                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
                 }
             } else if (positionName == "북촌문화센터") {
                 if (child == "북촌문화센터") {
-                    img.setImageResource(R.drawable.img_gyeongbok_info);
+                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
                 }
             }
             return convertView;
         }
 
+        public class ChildViewHolder {
+            public TextView course_item_child_txt;
+            public ImageView course_item_child_pic;
+
+        }
         @Override
         public boolean isChildSelectable(int groupPosition, int childPosition) {
             return true;

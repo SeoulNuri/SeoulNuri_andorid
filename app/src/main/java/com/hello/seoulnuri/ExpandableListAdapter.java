@@ -21,7 +21,6 @@ import java.util.List;
  * Created by shineeseo on 2018. 8. 22..
  */
 
-//안씀
 public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int HEADER = 0;
     public static final int CHILD = 1;
@@ -138,7 +137,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            line = (View) itemView.findViewById(R.id.l1);
+            line = (View) itemView.findViewById(R.id.course_path_line_item);
             oval = (ImageView) itemView.findViewById(R.id.oval);
             child_txt = (TextView) itemView.findViewById(R.id.child_txt);
         }

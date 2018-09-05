@@ -9,16 +9,16 @@ import java.util.ArrayList;
 public class Position {
 
     //Properties of Position
-    public String position;
-    public String image;
-    public ArrayList<String> courses = new ArrayList<String>();
+    public String course_info_item;
+    public String course_info_image;
+    public ArrayList<String> course_info = new ArrayList<String>();
 
-    public Position(String position){
-        this.position = position;
+    public Position(String course_info_item){
+        this.course_info_item = course_info_item;
     }
 
     public String toString () {
-        return position;
+        return course_info_item;
     }
 
 }

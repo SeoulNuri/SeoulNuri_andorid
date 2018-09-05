@@ -6,17 +6,17 @@
     <ImageView
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/coursepic"
+        android:id="@+id/course_item_child_pic"
         android:layout_width="312dp"
         android:layout_height="180dp" />
 
     <TextView
         android:layout_marginTop="23dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/name_tv"
+        android:id="@+id/course_item_child_txt"
         android:layout_width="312dp"
         android:layout_height="276dp"
-        android:layout_below="@id/coursepic" />
-
+        android:textSize="14sp"
+        android:layout_below="@id/course_item_child_pic" />
 
 </RelativeLayout>

@@ -63,7 +63,9 @@
         <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".view.login.KaKaoSignupActivity" />
         <activity android:name=".SearchActivity"></activity>
-
+        <activity
+            android:name=".CourseMapActivity"
+            android:label="@string/title_activity_course_map"></activity>
     </application>
 
 </manifest>

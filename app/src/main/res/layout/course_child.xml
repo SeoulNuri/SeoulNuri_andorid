@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
     <View
-        android:background="#eeeeee"
-        android:id="@+id/l1"
-        android:layout_width="2dp"
-        android:layout_height="51dp"
         android:layout_marginLeft="50dp"
-        />
+        android:id="@+id/course_path_line_item"
+        android:layout_width="3dp"
+        android:layout_height="51dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#eeeeee" />
 
     <ImageView
         android:layout_gravity="center_vertical"

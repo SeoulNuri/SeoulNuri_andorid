@@ -279,7 +279,7 @@ public class Course_detail extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(Course_detail.this, "클립보드에 복사되었습니다", Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(Course_detail.this, "클립보드에 복사되었습니다", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -100);
                 toast.setView(layout);
                 toast.show();

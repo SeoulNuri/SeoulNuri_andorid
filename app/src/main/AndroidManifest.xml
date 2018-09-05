@@ -37,7 +37,7 @@
             android:name=".view.login.LoginActivity"
             android:theme="@style/Login" />
         <activity
-            android:name=".LoginCategoryActivity"
+            android:name=".view.login.LoginCategoryActivity"
             android:theme="@style/Login" />
         <activity
             android:name=".MainActivity"
@@ -57,13 +57,12 @@
             android:name="com.hello.seoulnuri.view.planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
 
-
-
-        <activity android:name="com.hello.seoulnuri.view.planner.PlannerAddPathCheckActivity" />
-        <activity android:name="com.hello.seoulnuri.view.planner.PlannerDateActivity"></activity>
+        <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
+        <activity android:name=".view.planner.PlannerDateActivity" />
+        <activity android:name=".Course_detail" />
+        <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".view.login.KaKaoSignupActivity" />
         <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".Course_detail"/>
 
     </application>
 

@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.login;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -12,6 +12,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.hello.seoulnuri.MainActivity;
+import com.hello.seoulnuri.R;
 
 public class LoginCategoryActivity extends AppCompatActivity implements View.OnClickListener {
 

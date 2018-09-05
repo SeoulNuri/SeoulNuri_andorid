@@ -120,6 +120,7 @@ class SharedPreference {
 
     }
 
+
     companion object {
         // 공유명칭
         private val SHARED_PREFS_CONFIGURATION = "GithubConfiguration"

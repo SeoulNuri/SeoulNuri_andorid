@@ -5,4 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_info_start">InfoStartActivity</string>
     <string name="kakao_app_key">138c12b065d5eb3a287cb4ce3d72fa8d</string>
+    <string name="course_info_txt">이 코스는 시각장애인들에게 접근성이 좋은 여행지로 구성되어있습니다. 경복궁부터 경희궁, 북촌문화센터까지 이어지는 코스로 서울의 멋을 느껴볼 수 있습니다.</string>
+    <string name="course_info_child_txt">조선시대에 만들어진 다섯 개의 궁궐 중 첫 번째로 만들어진 곳으로, 조선 왕조의 법궁이다. 한양을 도읍으로 정한 후 종묘, 성곽과 사대문, 궁궐 등을 짓기 시작하는데 1394년 공사를 시작해 이듬해인 1395년에 경복궁을 완성한다.
+‘큰 복을 누리라’는 뜻을 가진 ‘경복(景福)’이라는 이름은 정도전이 지은 것이다. 왕자의 난 등이 일어나면서 다시 개경으로 천도하는 등 조선 초기 혼란한 정치 상황 속에서 경복궁은 궁궐로서 그 역할을 제대로 못하다가 세종 때에 이르러 정치 상황이 안정되고 비로소 이곳이 조선 왕조의 중심지가 된다.</string>
+    <string name="title_activity_course_map">Map</string>
 </resources>

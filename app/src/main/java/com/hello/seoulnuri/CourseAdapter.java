@@ -23,6 +23,11 @@ import java.util.HashMap;
  */
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder> {
+    public static final int COURSE_EYE = 3;
+    public static final int COURSE_EAR = 5;
+    public static final int COURSE_WHEEL = 4;
+    public static final int COURSE_ELDER = 6;
+
     Context context;
     ArrayList<CourseItem> courseList; //공지사항 정보 담겨있음
 
@@ -43,9 +48,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final CourseItem item=courseList.get(position);
-
+        final int pos = position;
         Drawable drawable=context.getResources().getDrawable(item.getImage());
         holder.image1.setBackground(drawable);
+        holder.course_item_rate_txt.setText("(21)");
 
         drawable=context.getResources().getDrawable(item.getIcon());
         holder.image2.setBackground(drawable);
@@ -54,6 +60,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, Course_detail.class);
+                intent.putExtra("select_type", pos+3 );
                 context.startActivity(intent);
             }
         });
@@ -69,9 +76,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         ImageView image2;
         TextView title;
         CardView cardview;
+        TextView course_item_rate_txt;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            course_item_rate_txt = (TextView) itemView.findViewById(R.id.course_item_rate_txt);
             image1=(ImageView)itemView.findViewById(R.id.iv_image);
             image2 = (ImageView) itemView.findViewById(R.id.iv_icon);
             title=(TextView)itemView.findViewById(R.id.tv_content);

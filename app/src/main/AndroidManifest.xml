@@ -31,11 +31,7 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.login.LoginActivity"
@@ -45,7 +41,13 @@
             android:theme="@style/Login" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Main" />
+            android:theme="@style/Main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name="com.hello.seoulnuri.view.planner.PlannerStartActivity"
             android:theme="@style/Login"
@@ -61,7 +63,9 @@
         <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".view.login.KaKaoSignupActivity" />
         <activity android:name=".SearchActivity"></activity>
-
+        <activity
+            android:name=".CourseMapActivity"
+            android:label="@string/title_activity_course_map"></activity>
     </application>
 
 </manifest>

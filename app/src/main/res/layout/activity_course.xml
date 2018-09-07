@@ -3,27 +3,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/my_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:minHeight="?attr/actionBarSize"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="53dp"
+        android:layout_gravity="center">
+
+    <RatingBar
+        android:id="@+id/course_path_rate_star"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:rating="3.5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        style="@style/custom_rating_bar" />
+
+        <TextView
+            android:layout_marginLeft="4dp"
+            android:id="@+id/course_path_rate_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="-0.01"
+            android:textColor="#9e9e9e"
+            android:textSize="12sp"
+            tools:text="(21)" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/course_item_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:gravity="center"
         android:textSize="32sp"
-        android:text="추천코스"
+        android:textStyle="bold"
+        tools:text="추천 코스 (시각)"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <LinearLayout
+        android:layout_marginTop="14dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/btn_course_comment"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_oval_comment_g"
+            />
+
+        <ImageView
+            android:id="@+id/btn_course_bookmark"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_oval_bookmark_g"
+            />
+
+        <ImageView
+            android:id="@+id/btn_course_share"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_oval_share_g"
+            />
+
+        <ImageView
+            android:id="@+id/btn_course_map"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/button_oval_map_g"
+            />
+
+    </LinearLayout>
 
     <TabHost
         android:layout_width="match_parent"
@@ -31,12 +92,12 @@
         android:id="@+id/tabHost">
 
         <LinearLayout
+            android:layout_marginTop="32dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TabWidget
-                android:layout_marginTop="32dp"
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -52,28 +113,46 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_marginTop="15.9dp"
-                            android:id="@+id/course_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/img_hong_intro" />
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fillViewport="true">
 
-                        <TextView
-                            android:gravity="center"
-                            android:layout_marginTop="24dp"
-                            android:id="@+id/course_txt"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="text"
-                            android:textColor="#212121"/>
+                            android:orientation="vertical"
+                            >
 
-                        <ExpandableListView
-                            android:layout_marginTop="32dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:groupIndicator="@null"
-                            android:id="@+id/elv"/>
+                            <ImageView
+                                android:layout_marginTop="15.9dp"
+                                android:id="@+id/course_img"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/img_hong_intro" />
+
+                            <TextView
+                                android:layout_gravity="center"
+                                android:layout_marginTop="24dp"
+                                android:id="@+id/course_txt"
+                                android:layout_width="312dp"
+                                android:layout_height="wrap_content"
+                                tools:text="text"
+                                android:textColor="#212121"/>
+
+                            <ExpandableListView
+                                android:layout_marginTop="32dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:groupIndicator="@null"
+                                android:id="@+id/elv"
+                                android:scrollbars="vertical"
+                                />
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
 
                 </LinearLayout>
 

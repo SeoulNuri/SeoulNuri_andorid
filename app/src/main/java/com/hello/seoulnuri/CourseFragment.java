@@ -73,6 +73,11 @@ public class CourseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        String url = "http://52.78.129.27:3001/api/course";
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        CourseTabDataRequest networkTask = new CourseTabDataRequest(url, null);
+        networkTask.execute();
     }
 
     @Override

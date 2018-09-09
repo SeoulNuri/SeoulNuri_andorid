@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -11,14 +12,15 @@
         android:layout_weight="1">
 
         <RatingBar
-            android:id="@+id/ratingBar2"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:id="@+id/rb_infos"
+            style="@style/custom_rating_bar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="11dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_weight="1"
+            android:isIndicator="true"
             android:numStars="5"
             android:rating="3" />
 
@@ -26,8 +28,8 @@
             android:id="@+id/tv_cmt2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tv_address"
-            android:layout_alignTop="@+id/ratingBar2"
+            android:layout_alignBottom="@+id/rb_infos"
+            android:layout_toEndOf="@+id/btn_share"
             android:letterSpacing="-0.01"
             android:text="(21)"
             android:textColor="#9e9e9e"
@@ -49,9 +51,9 @@
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="98dp"
+            android:layout_marginTop="1dp"
             android:gravity="center_horizontal"
             android:text="서울 종로구 사직로 161 경복궁"
             android:textColor="#aeaeae"
@@ -59,42 +61,41 @@
 
         <ImageButton
             android:id="@+id/btn_cmt"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="75dp"
             android:layout_marginTop="128dp"
             android:backgroundTint="#ffffff"
             app:srcCompat="@drawable/button_oval_comment_g" />
 
         <ImageButton
             android:id="@+id/btn_bookmark"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentStart="true"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignTop="@+id/btn_cmt"
-            android:layout_marginStart="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/btn_cmt"
             android:backgroundTint="#ffffff"
             app:srcCompat="@drawable/button_oval_bookmark_g" />
 
         <ImageButton
             android:id="@+id/btn_share"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignTop="@+id/btn_cmt"
-            android:layout_marginEnd="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toEndOf="@+id/btn_bookmark"
             android:backgroundTint="#ffffff"
             app:srcCompat="@drawable/button_oval_share_g" />
 
         <ImageButton
             android:id="@+id/btn_map"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignTop="@+id/btn_cmt"
-            android:layout_marginEnd="100dp"
+            android:layout_toEndOf="@+id/tv_name"
             android:backgroundTint="#ffffff"
             app:srcCompat="@drawable/button_oval_map_g" />
 
@@ -114,8 +115,7 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp" />
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -187,6 +187,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -215,34 +216,34 @@
 
                                         <ImageView
                                             android:id="@+id/img_eye"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="30dp"
-                                            android:layout_marginRight="25dp"
+                                            android:layout_width="47dp"
+                                            android:layout_height="49dp"
+                                            android:layout_marginLeft="20dp"
+                                            android:layout_marginRight="15dp"
                                             app:srcCompat="@drawable/graphic_top" />
 
                                         <ImageView
                                             android:id="@+id/img_ear"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginLeft="25dp"
-                                            android:layout_marginRight="25dp"
+                                            android:layout_width="47dp"
+                                            android:layout_height="49dp"
+                                            android:layout_marginLeft="15dp"
+                                            android:layout_marginRight="15dp"
                                             app:srcCompat="@drawable/graphic_bottom" />
 
                                         <ImageView
                                             android:id="@+id/img_wheel"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginLeft="25dp"
-                                            android:layout_marginRight="25dp"
+                                            android:layout_marginLeft="15dp"
+                                            android:layout_marginRight="15dp"
                                             app:srcCompat="@drawable/grphic_middle" />
 
                                         <ImageView
                                             android:id="@+id/img_elder"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginLeft="25dp"
-                                            android:layout_marginRight="25dp"
+                                            android:layout_marginLeft="15dp"
+                                            android:layout_marginRight="20dp"
                                             app:srcCompat="@drawable/grphic_middle" />
                                     </TableRow>
 
@@ -297,7 +298,7 @@
                             <android.support.v7.widget.RecyclerView
                                 android:id="@+id/rv_withtour"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent" />
+                                android:layout_height="191dp" />
                         </LinearLayout>
                     </ScrollView>
                 </LinearLayout>

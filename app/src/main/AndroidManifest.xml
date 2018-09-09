@@ -60,7 +60,12 @@
         <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
         <activity android:name=".view.planner.PlannerDateActivity" />
         <activity android:name=".Course_detail" />
+        <!-- info -->
         <activity android:name=".info.Info_Detail_Intro" />
+        <activity android:name=".info.Info_stay_detail" />
+        <activity android:name=".info.CommentActivity" />
+        <activity android:name=".info.popUpActivity" android:theme="@android:style/Theme.Dialog"/>
+
         <activity android:name=".view.login.KaKaoSignupActivity" />
         <activity android:name=".SearchActivity"></activity>
         <activity

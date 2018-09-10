@@ -1,9 +1,12 @@
 package com.hello.seoulnuri.network
 
+import com.hello.seoulnuri.base.BaseModel
+import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 /**
@@ -17,4 +20,12 @@ interface NetworkService {
     fun signUp(
             @Body loginUserData: LoginUserData
     ) : Call<LoginUserResponse>
+
+
+    // 2. 로그인 카테고리 선택
+    @POST("api/user")
+    fun selectCategory(
+            @Header("token") token : String,
+            @Body loginCategoryRequest: LoginCategoryRequest
+    ) : Call<BaseModel>
 }

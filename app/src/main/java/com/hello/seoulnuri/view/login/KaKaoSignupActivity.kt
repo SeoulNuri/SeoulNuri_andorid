@@ -71,7 +71,7 @@ class KaKaoSignupActivity : Activity() {
                 if(SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
                     loginPost(kakao_age, result!!.kakaoAccount.birthday.toString(),result!!.nickname,result!!.id.toString())
                 }else{
-                    redirectMainActivity()
+                    redirectLoginCategoryActivity()
                 }
 
 
@@ -132,7 +132,7 @@ class KaKaoSignupActivity : Activity() {
         }, list,fa)*/
     }
 
-    // 로그인 요
+    // 로그인 요청
     fun loginPost(age : String, birthday : String, nickname : String, id : String){
         Log.v("25","25")
         loginUserData = LoginUserData(age, birthday, nickname, id)

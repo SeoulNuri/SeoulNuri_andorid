@@ -152,7 +152,7 @@ class KaKaoSignupActivity : Activity() {
                     Log.v("login message",response!!.body()!!.message!!.toString())
                     Log.v("login statue",response!!.body()!!.status!!.toString())
                     println("2555 success : ${response!!.body()!!.data}")
-                    Log.v("25555 success",response!!.body()!!.data)
+                    //Log.v("25555 success",response!!.body()!!.data)
                     SharedPreference.instance!!.setPrefData("data",response!!.body()!!.data!!)
                     redirectLoginCategoryActivity()
                 } else{

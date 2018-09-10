@@ -36,7 +36,7 @@ public class CourseTabDataRequest extends AsyncTask<Void, Void, String> {
         String result; // 요청 결과를 저장할 변수.
         RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
         result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-        String[][] parsedData = jsonParserList(result); // 받은 메시지를 json 파싱
+        //String[][] parsedData = jsonParserList(result); // 받은 메시지를 json 파싱
 
         return result;
     }

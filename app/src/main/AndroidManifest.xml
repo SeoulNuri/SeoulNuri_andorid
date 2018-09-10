@@ -13,6 +13,7 @@
         android:icon="@drawable/ic_launcher_app"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher_app"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <uses-library
@@ -29,7 +30,7 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:theme="@style/Splash">
 
         </activity>
@@ -40,7 +41,7 @@
             android:name=".view.login.LoginCategoryActivity"
             android:theme="@style/Login" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SplashActivity"
             android:theme="@style/Main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -60,7 +61,12 @@
         <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
         <activity android:name=".view.planner.PlannerDateActivity" />
         <activity android:name=".Course_detail" />
+        <!-- info -->
         <activity android:name=".info.Info_Detail_Intro" />
+        <activity android:name=".info.Info_stay_detail" />
+        <activity android:name=".info.CommentActivity" />
+        <activity android:name=".info.popUpActivity" android:theme="@android:style/Theme.Dialog"/>
+
         <activity android:name=".view.login.KaKaoSignupActivity" />
         <activity android:name=".SearchActivity"></activity>
         <activity

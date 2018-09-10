@@ -1,5 +1,6 @@
 package com.hello.seoulnuri.info;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;

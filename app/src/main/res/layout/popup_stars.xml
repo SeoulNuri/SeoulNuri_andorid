@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:background="#ffffff"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RatingBar
+            android:id="@+id/rb_big_star"
+            style="@style/custom_rating_bar_big"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="38dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="3" />
+
+        <TextView
+            android:id="@+id/hdtv1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_16dp"
+            android:gravity="center"
+            android:letterSpacing="-0.01"
+            android:text="여행지가 만족스러우셨나요?"
+            android:textColor="#212121"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/hdtv2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            android:letterSpacing="-0.01"
+            android:text="여행지에 대한 평가를 해주세요"
+            android:textAlignment="center"
+            android:textColor="#212121  " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_star_send"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:onClick="mEvaluate"
+            android:padding="16dp"
+            android:text="평가하기"
+            android:textColor="@color/pinkish_orange"
+            android:textSize="13sp" />
+    </LinearLayout>
+</LinearLayout>

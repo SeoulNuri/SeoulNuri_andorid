@@ -16,11 +16,10 @@
 
     <ListView
         android:id="@+id/guidelist"
-        android:layout_width="318dp"
-        android:layout_height="match_parent"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/tv_introinfo"
-        android:layout_marginLeft="20dp"
         android:background="#f7f7f7">
 
     </ListView>

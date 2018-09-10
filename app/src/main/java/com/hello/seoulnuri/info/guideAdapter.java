@@ -1,5 +1,6 @@
 
 package com.hello.seoulnuri.info;
+;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -30,7 +31,6 @@ public class guideAdapter extends RecyclerView.Adapter<guideAdapter.ItemViewHold
     }
     @Override
     public guideAdapter.ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //recycler view에 반복될 아이템 레이아웃 연결
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_detail_guide, null);
         return new guideAdapter.ItemViewHolder(v);
     }
@@ -39,7 +39,7 @@ public class guideAdapter extends RecyclerView.Adapter<guideAdapter.ItemViewHold
     public void onBindViewHolder(@NonNull guideAdapter.ItemViewHolder viewHolder, int i) {
         final InfoData data = datas.get(i); // subtitle 정보 연결되는 부분
 
-        viewHolder.subtitle.setText("이용안내"); // maintitle 부분 정보 받아오면 여기서 변경
+       // viewHolder.subtitle.setText("이용안내"); // maintitle 부분 정보 받아오면 여기서 변경
         gadapter = new DetailcontainAdapter();
         viewHolder.listView.setAdapter(gadapter);
 

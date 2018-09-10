@@ -34,16 +34,15 @@
         android:background="#eeeeee"
         />
 
-    <Button
-        android:id="@+id/btn_bookmark_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="확인"
-        android:textColor="#ff6e2c"
-        android:background="#ffffff"
-        android:layout_marginTop="15dp"
-        />
+        <Button
+            android:id="@+id/btn_bookmark_ok"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:text="확인"
+            android:textColor="#ff6e2c" />
     </LinearLayout>
 
 

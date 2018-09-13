@@ -39,6 +39,7 @@ class KaKaoSignupActivity : Activity() {
         super.onCreate(savedInstanceState)
         SharedPreference.instance!!.load(this)
         networkService = ApplicationController.instance!!.networkService
+
         requestMe()
 
     }
@@ -73,6 +74,7 @@ class KaKaoSignupActivity : Activity() {
                 }else{
                     redirectLoginCategoryActivity()
                 }
+                //redirectMainActivity()
 
 
             }
@@ -138,6 +140,7 @@ class KaKaoSignupActivity : Activity() {
         loginUserData = LoginUserData(age, birthday, nickname, id)
         Log.v("25555 data",loginUserData.toString())
         var loginUserResponse = networkService.signUp(loginUserData)
+        var res = networkService.signUp(loginUserData)
         Log.v("255","255")
         loginUserResponse.enqueue(object : Callback<LoginUserResponse>{
             override fun onFailure(call: Call<LoginUserResponse>?, t: Throwable?) {

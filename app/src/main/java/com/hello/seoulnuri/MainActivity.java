@@ -9,7 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hello.seoulnuri.info.InfoFragment;
+import com.hello.seoulnuri.model.main.MainTourResponse;
+import com.hello.seoulnuri.network.ApplicationController;
+import com.hello.seoulnuri.network.NetworkService;
+import com.hello.seoulnuri.utils.SharedPreference;
 import com.hello.seoulnuri.view.planner.PlannerFragment;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements MainFragment.OnFragmentInteractionListener,
@@ -20,12 +28,40 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    private NetworkService networkService;
+
+    // 메인에서 정보 받아오는 함수!
+    public void requestMainTourInfo(){
+        Call<MainTourResponse> mainTourResponse = networkService.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
+        mainTourResponse.enqueue(new Callback<MainTourResponse>() {
+            @Override
+            public void onResponse(Call<MainTourResponse> call, Response<MainTourResponse> response) {
+                if(response.isSuccessful()){
+                    Log.v("1994 main",String.valueOf(response.code()));
+                    Log.v("1994 main message",String.valueOf(response.message()));
+                    Log.v("1994 main status",String.valueOf(response.body().getStatus()));
+                    Log.v("1994 main body",String.valueOf(response.body()));
+
+                    //System.out.println("1994 main2"+response.body().getData().toString());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainTourResponse> call, Throwable t) {
+
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+        requestMainTourInfo();
       /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             Window w = getWindow(); // in Activity's onCreate() for instance
@@ -34,9 +70,7 @@ public class MainActivity extends AppCompatActivity
         }*/
 
 
-        PagerAdapter adapter = new PagerAdapter(
-                getSupportFragmentManager()
-        );
+        PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager());
         CustomViewPager viewPager = (CustomViewPager) findViewById(R.id.view_pager);
         viewPager.setPagingEnabled(false);
         viewPager.setAdapter(adapter);

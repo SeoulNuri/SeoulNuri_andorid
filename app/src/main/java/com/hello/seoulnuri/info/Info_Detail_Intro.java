@@ -4,15 +4,12 @@ package com.hello.seoulnuri.info;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.method.Touch;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -26,8 +23,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hello.seoulnuri.CourseMapActivity;
-import com.hello.seoulnuri.Course_detail;
+import com.hello.seoulnuri.view.course.CourseMapActivity;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.InfoData;
 

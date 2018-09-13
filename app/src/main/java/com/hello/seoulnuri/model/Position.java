@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.model;
 
 import java.util.ArrayList;
 

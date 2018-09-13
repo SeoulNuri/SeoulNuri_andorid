@@ -1,22 +1,22 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.model.CourseItem;
+import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -73,11 +73,6 @@ public class CourseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        String url = "http://52.78.129.27:3001/api/course";
-
-        // AsyncTask를 통해 HttpURLConnection 수행.
-        CourseTabDataRequest networkTask = new CourseTabDataRequest(url, null);
-        networkTask.execute();
     }
 
     @Override
@@ -88,7 +83,10 @@ public class CourseFragment extends Fragment {
 
         courseList = new ArrayList<CourseItem>();
 
-        CourseItem[] item=new CourseItem[4];
+        CourseGetDataActivity courseGetDataActivity = new CourseGetDataActivity();
+        courseGetDataActivity.courseGetStarData();
+
+        CourseItem[] item = new CourseItem[4];
         item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천");
         item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ");
         item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천");

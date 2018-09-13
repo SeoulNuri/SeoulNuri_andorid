@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,16 +7,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.hello.seoulnuri.model.CourseItem;
+import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.view.course.Course_detail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by shineeseo on 2018. 8. 18..

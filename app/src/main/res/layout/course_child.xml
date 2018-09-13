@@ -3,10 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:id="@+id/course_child_linear1">
+
+    <TextView
+        android:layout_width="29dp"
+        android:layout_height="20dp"
+        tools:text="23분"
+        android:visibility="gone"
+        android:id="@+id/child_time_txt"
+        />
 
     <View
-        android:layout_marginLeft="50dp"
         android:id="@+id/course_path_line_item"
         android:layout_width="3dp"
         android:layout_height="51dp"

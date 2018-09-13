@@ -44,7 +44,14 @@
         android:textStyle="bold"
         tools:text="추천 코스 (시각)"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        tools:text="서울 종로구 사직로 161 경복궁"
+        android:textColor="#aeaeae"
+        android:textSize="11sp"
+        />
     <LinearLayout
         android:layout_marginTop="14dp"
         android:layout_width="wrap_content"

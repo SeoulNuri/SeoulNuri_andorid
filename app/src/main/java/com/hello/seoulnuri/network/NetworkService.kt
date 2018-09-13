@@ -8,6 +8,8 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.GET
+import com.hello.seoulnuri.model.course.CourseStarResponse
 
 /**
  * Created by VictoryWoo
@@ -28,4 +30,9 @@ interface NetworkService {
             @Header("token") token : String,
             @Body loginCategoryRequest: LoginCategoryRequest
     ) : Call<BaseModel>
+
+    @GET("api/course")
+    fun getCourseStar(
+    ) : Call<CourseStarResponse>
+
 }

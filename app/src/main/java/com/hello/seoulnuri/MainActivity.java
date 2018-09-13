@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hello.seoulnuri.info.InfoFragment;
+import com.hello.seoulnuri.view.course.CourseFragment;
 import com.hello.seoulnuri.view.planner.PlannerFragment;
 
 public class MainActivity extends AppCompatActivity

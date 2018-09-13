@@ -1,42 +1,37 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course;
 
 import android.app.Dialog;
-import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.hello.seoulnuri.model.Position;
+import com.hello.seoulnuri.view.course.adapter.Course_info_list_adapter;
+import com.hello.seoulnuri.view.course.adapter.ExpandableListAdapter;
+import com.hello.seoulnuri.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hello.seoulnuri.CourseAdapter.COURSE_EAR;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_ELDER;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_EYE;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_WHEEL;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EAR;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_ELDER;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EYE;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_WHEEL;
 
 /**
  * Created by shineeseo on 2018. 8. 21..
@@ -210,13 +205,13 @@ public class Course_detail extends AppCompatActivity {
 
 
         //set onclick listener
-        elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                Toast.makeText(getApplicationContext(), position.get(groupPosition).players.get(childPosition), Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
+//        elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+////                Toast.makeText(getApplicationContext(), position.get(groupPosition).players.get(childPosition), Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//        });
 
 
 //    @Override

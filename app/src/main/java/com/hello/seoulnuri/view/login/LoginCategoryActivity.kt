@@ -85,6 +85,7 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
                 if(response!!.isSuccessful){
                     Log.v("1994 category response",response.message().toString())
                     startActivity(Intent(this@LoginCategoryActivity, MainActivity::class.java))
+                    finish()
                 }
             }
 
@@ -106,6 +107,7 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
         Log.v("1994", loginCategory.toString())
         requestCategoryInfo()
 
+
         //requestCategoryInfo()
 
         //val intent = Intent(this, MainActivity::class.java)
@@ -119,7 +121,7 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
                 run {
                     if (toggle_eye.isChecked) {
                         toggle_eye.setBackgroundResource(R.drawable.button_eye_active)
-                        loginCategory.remove(0)
+
 
                     } else {
                         toggle_eye.setBackgroundResource(R.drawable.button_eye)
@@ -129,7 +131,6 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
                 run {
                     if (toggle_wheel.isChecked) {
                         toggle_wheel.setBackgroundResource(R.drawable.button_wheel_active)
-                        loginCategory.remove(2)
 
                     } else {
                         toggle_wheel.setBackgroundResource(R.drawable.button_wheel)

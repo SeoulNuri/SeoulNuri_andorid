@@ -13,6 +13,7 @@ import com.hello.seoulnuri.model.main.MainTourResponse;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
+import com.hello.seoulnuri.view.mypage.MypageFragment;
 import com.hello.seoulnuri.view.planner.PlannerFragment;
 
 import retrofit2.Call;

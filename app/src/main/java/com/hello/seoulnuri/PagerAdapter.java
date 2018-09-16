@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hello.seoulnuri.info.InfoFragment;
+import com.hello.seoulnuri.view.mypage.MypageFragment;
 import com.hello.seoulnuri.view.planner.PlannerFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {

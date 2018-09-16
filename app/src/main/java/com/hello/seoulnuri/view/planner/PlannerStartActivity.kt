@@ -46,8 +46,6 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
 
     fun init() {
 
-
-
         var selectedDate = intent.getStringExtra("date")
 
         if (selectedDate != null) date_text.text = selectedDate

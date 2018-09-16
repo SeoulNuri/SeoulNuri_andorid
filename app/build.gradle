@@ -43,6 +43,8 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.+'
     implementation 'com.android.support:gridlayout-v7:28.0.+'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+
 }
 repositories {
     mavenCentral()

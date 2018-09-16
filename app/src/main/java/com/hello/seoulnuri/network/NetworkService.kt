@@ -42,4 +42,11 @@ interface NetworkService {
     fun getMainSearchData(
             @Header("token") token : String
     )
+
+    // 5. 마이 페이지에서 장애 유형 변경
+    @POST("api/mypage")
+    fun changeType(
+            @Header("token") token : String,
+            @Body changedType: LoginCategoryRequest
+    ) : Call<BaseModel>
 }

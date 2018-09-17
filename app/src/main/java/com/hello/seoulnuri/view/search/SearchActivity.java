@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.hello.seoulnuri.MainActivity;
+import com.hello.seoulnuri.view.main.MainActivity;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.SearchListViewAdapter;
 import com.hello.seoulnuri.network.ApplicationController;
@@ -23,7 +21,6 @@ import com.hello.seoulnuri.rowItem;
 import com.hello.seoulnuri.utils.SharedPreference;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 

@@ -118,28 +118,15 @@
         android:layout_marginTop="291dp"
         app:tabIndicatorColor="#ff6e2c"
         app:tabTextAppearance="@style/tabTextStyle"
-        app:tabTextColor="#2c2c2c" />
+        app:tabTextColor="#2c2c2c"
+        android:elevation="4dp"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/mypageTab"
-        android:layout_marginTop="315dp"
-        android:background="#eeeeee" />
 
     <FrameLayout
+        android:id="@+id/mypageFrame"
+        android:layout_below="@+id/mypageTab"
         android:layout_width="match_parent"
-        android:layout_height="268dp"
-        android:layout_marginTop="315dp">
+        android:layout_height="268dp" />
 
-        <ScrollView
-            android:id="@+id/myTourScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ScrollView>
 
-        <ScrollView
-            android:id="@+id/myCourseScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ScrollView>
-    </FrameLayout>
 </RelativeLayout>

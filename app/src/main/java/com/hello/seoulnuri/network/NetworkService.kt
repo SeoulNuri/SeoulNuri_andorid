@@ -5,11 +5,9 @@ import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
+import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Created by VictoryWoo
@@ -20,8 +18,6 @@ interface NetworkService {
     // 1. 회원가입 - 0
     @POST("api/user/signup")
     fun signUp(@Body loginUserData: LoginUserData) : Call<LoginUserResponse>
-
-
 
     // 2. 로그인 카테고리 선택 - 0
     @POST("api/user")
@@ -38,10 +34,11 @@ interface NetworkService {
     ) : Call<MainTourResponse>
 
     // 4. 메인에서 Search
-    @GET("api/main/search/keyword")
+    @GET("api/main/search/keyword/{word}")
     fun getMainSearchData(
-            @Header("token") token : String
-    )
+            @Header("token") token : String,
+            @Path("word") word : String
+    ) : Call<SearchResponse>
 
     // 5. 마이 페이지에서 장애 유형 변경
     @POST("api/mypage")

@@ -30,7 +30,7 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".view.main.MainActivity"
             android:theme="@style/Splash" />
         <activity
             android:name=".view.login.LoginActivity"
@@ -77,7 +77,8 @@
         <activity
             android:name=".view.mypage.ChangeTypeActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".view.search.Search2Activity"></activity>
+        <activity android:name=".view.search.Search2Activity"
+            android:theme="@style/Splash"></activity>
     </application>
 
 </manifest>

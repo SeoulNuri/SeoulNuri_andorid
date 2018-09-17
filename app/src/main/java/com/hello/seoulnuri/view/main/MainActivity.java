@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.main;
 
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.hello.seoulnuri.CourseFragment;
+import com.hello.seoulnuri.CustomViewPager;
+import com.hello.seoulnuri.PagerAdapter;
+import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.info.InfoFragment;
 import com.hello.seoulnuri.model.main.MainTourResponse;
 import com.hello.seoulnuri.network.ApplicationController;

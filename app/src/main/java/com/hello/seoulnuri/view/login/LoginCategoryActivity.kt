@@ -9,12 +9,11 @@ import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
 
-import com.hello.seoulnuri.MainActivity
+import com.hello.seoulnuri.view.main.MainActivity
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.login.LoginCategoryRequest

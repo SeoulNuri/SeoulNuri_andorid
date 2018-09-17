@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.hello.seoulnuri.MainActivity
+import com.hello.seoulnuri.view.main.MainActivity
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.network.ApplicationController

@@ -76,6 +76,11 @@ public class CommentActivity extends Activity implements OnClickListener {
                 btn_cmtin.setTextColor(Color.parseColor("#2c2c2c"));
                 layout_footer.setBackgroundColor(Color.parseColor("#00000000"));
                 cmtEdit.clearFocus();
+                /*FIXME
+                * inputManager.hideSoftInputFromWindow(cmtEdit.getWindowToken(),0);
+                * cmtEdit.clearFocus();
+                * 위의 코드 두 줄이 키보드 올라왔을 때 바깥 배경 클릭하면 키보드 내려가게 하는 코드!
+                 * */
             }
         });
 

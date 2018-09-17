@@ -49,6 +49,7 @@
         android:hint="여행하고 싶은 관광지를 선택하세요"
         android:layout_width="wrap_content"
         android:layout_height="27dp"
+
         android:inputType="text"/>
 
     <TextView

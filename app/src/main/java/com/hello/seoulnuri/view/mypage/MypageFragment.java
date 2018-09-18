@@ -101,12 +101,28 @@ public class MypageFragment extends Fragment implements View.OnClickListener, In
         mypageTab = view.findViewById(R.id.mypageTab);
         mypageTab.addTab(mypageTab.newTab().setText("관광지"));
         mypageTab.addTab(mypageTab.newTab().setText("여행정보"));
+        mypageTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
 
-        tourScrollView = (ScrollView) view.findViewById(R.id.myTourScrollView);
-        courseScrollView = (ScrollView) view.findViewById(R.id.myCourseScrollView);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        //tourScrollView = (ScrollView) view.findViewById(R.id.myTourScrollView);
+        //courseScrollView = (ScrollView) view.findViewById(R.id.myCourseScrollView);
         mypageTab.setTabTextColors(
                 ContextCompat.getColor(getContext(), R.color.unselected_text_color), // 선택되지 않은 텍스트 컬러
-                ContextCompat.getColor(getContext(), R.color.selected_text_color) // 선택된 텍스트 컬러\
+                ContextCompat.getColor(getContext(), R.color.selected_text_color) // 선택된 텍스트 컬러
         );
 
         init(); // 초기화 함수 호출

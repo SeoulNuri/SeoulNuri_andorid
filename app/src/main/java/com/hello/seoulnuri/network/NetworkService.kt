@@ -1,6 +1,7 @@
 package com.hello.seoulnuri.network
 
 import com.hello.seoulnuri.base.BaseModel
+import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
@@ -33,17 +34,23 @@ interface NetworkService {
             @Header("token") token : String
     ) : Call<MainTourResponse>
 
-    // 4. 메인에서 Search
+    // 4. 메인에서 Search - 0
     @GET("api/main/search/keyword/{word}")
     fun getMainSearchData(
             @Header("token") token : String,
             @Path("word") word : String
     ) : Call<SearchResponse>
 
-    // 5. 마이 페이지에서 장애 유형 변경
+    // 5. 마이 페이지에서 장애 유형 변경 - 0
     @POST("api/mypage")
     fun changeType(
             @Header("token") token : String,
             @Body changedType: LoginCategoryRequest
     ) : Call<BaseModel>
+
+    // 6. 즐겨찾기 리스트 불러오기 - 0
+    @GET("api/mypage/bookmark/tour")
+    fun getBookmarkList(
+            @Header("token") token: String
+    ) : Call<BookmarkListResponse>
 }

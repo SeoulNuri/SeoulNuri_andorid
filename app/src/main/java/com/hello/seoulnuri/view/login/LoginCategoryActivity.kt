@@ -77,7 +77,8 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
         val categoryResponse = networkService.selectCategory(SharedPreference.instance!!.getPrefStringData("data")!!,loginCategoryRequest)
         categoryResponse.enqueue(object : Callback<BaseModel>{
             override fun onFailure(call: Call<BaseModel>?, t: Throwable?) {
-
+                Log.v("1994 onFailure",t!!.message)
+                Log.v("1994 onFailure",t!!.toString())
             }
 
             override fun onResponse(call: Call<BaseModel>?, response: Response<BaseModel>?) {
@@ -85,6 +86,9 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
                     Log.v("1994 category response",response.message().toString())
                     startActivity(Intent(this@LoginCategoryActivity, MainActivity::class.java))
                     finish()
+                }else{
+                    Log.v("1994 onResponse else",response.message().toString())
+                    Log.v("1994 onResponse code",response!!.code().toString())
                 }
             }
 

@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.bookmark.BookmarkListData
 import com.hello.seoulnuri.model.search.SearchTourData
 
 /**
  * Created by VictoryWoo
  */
-class SearchAdapter(var item_list : ArrayList<SearchTourData>, val context : Context) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+class SearchAdapter(var item_list : ArrayList<BookmarkListData>, val context : Context) : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
+
 
     private lateinit var onItemClick: View.OnClickListener
 

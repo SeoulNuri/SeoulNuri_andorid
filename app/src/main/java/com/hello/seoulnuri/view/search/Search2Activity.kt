@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.View
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.model.bookmark.BookmarkListData
+import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.search.SearchResponse
 import com.hello.seoulnuri.model.search.SearchTourData
 import com.hello.seoulnuri.network.ApplicationController
@@ -48,12 +50,15 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
     lateinit var searchAdapter: SearchAdapter
     lateinit var searchItems: ArrayList<SearchTourData>
     lateinit var networkService: NetworkService
+    lateinit var bookmarkListItems : ArrayList<BookmarkListData>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search2)
 
         init() // 초기화
         searchItems = ArrayList()
+        bookmarkListItems = ArrayList()
 
         searchContentEditText.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(e: Editable?) {
@@ -74,9 +79,33 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
 
         })
 
-        requestSearchResponse(searchContentEditText.text.toString())
+        requestBookmarkList()
+
+        //requestSearchResponse(searchContentEditText.text.toString())
     }
 
+
+    fun requestBookmarkList(){
+        var bookmarkListResponse = networkService.getBookmarkList(SharedPreference.instance!!.getPrefStringData("data")!!)
+        bookmarkListResponse.enqueue(object : Callback<BookmarkListResponse>{
+            override fun onFailure(call: Call<BookmarkListResponse>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(call: Call<BookmarkListResponse>?, response: Response<BookmarkListResponse>?) {
+                if(response!!.isSuccessful){
+                    bookmarkListItems = response!!.body()!!.data
+                    searchAdapter = SearchAdapter(bookmarkListItems, this@Search2Activity)
+                    searchAdapter.setOnItemClickListener(this@Search2Activity)
+                    searchRecyclerView.layoutManager = LinearLayoutManager(this@Search2Activity)
+                    searchRecyclerView.adapter = searchAdapter
+                }
+            }
+
+        })
+    }
+
+    // 메인에서 search
     fun requestSearchResponse(word: String) {
         val searchData = networkService
                 .getMainSearchData(SharedPreference.instance!!.getPrefStringData("data")!!
@@ -91,7 +120,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
                 if (response!!.isSuccessful) {
                     Log.v("946", response!!.message())
                     searchItems = response!!.body()!!.data
-                    searchAdapter = SearchAdapter(searchItems,this@Search2Activity)
+                    //searchAdapter = SearchAdapter(searchItems,this@Search2Activity)
                     searchAdapter.setOnItemClickListener(this@Search2Activity)
                     searchRecyclerView.layoutManager = LinearLayoutManager(this@Search2Activity)
                     searchRecyclerView.adapter = searchAdapter

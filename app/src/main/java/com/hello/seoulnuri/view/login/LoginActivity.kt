@@ -26,7 +26,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, Init {
     override fun onClick(v: View?) {
         when (v!!) {
             login_kakao_custom_btn -> {
-                ToastMaker.makeLongToast(this, "눌리니?")
+                ToastMaker.makeShortToast(this, "로그인")
                 if(!SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
                     redirectLoginCategory()
 

@@ -32,7 +32,11 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.login.LoginActivity"
@@ -43,11 +47,7 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Main" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.hello.seoulnuri.view.planner.PlannerStartActivity"
@@ -74,6 +74,7 @@
             android:name=".view.course.CourseMapActivity"
             android:label="@string/title_activity_course_map"
             android:theme="@style/Login"></activity>
+        <activity android:name=".view.course.CourseGetDataActivity" />
     </application>
 
 </manifest>

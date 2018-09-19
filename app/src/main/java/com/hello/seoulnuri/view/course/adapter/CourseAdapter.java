@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hello.seoulnuri.model.CourseItem;
@@ -52,6 +53,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         final int pos = position;
         Drawable drawable=context.getResources().getDrawable(item.getImage());
         holder.image1.setBackground(drawable);
+        holder.course_item_rate_star.setRating(3);
         holder.course_item_rate_txt.setText("(21)");
 
         drawable=context.getResources().getDrawable(item.getIcon());
@@ -78,9 +80,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         TextView title;
         CardView cardview;
         TextView course_item_rate_txt;
+        RatingBar course_item_rate_star;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            course_item_rate_star = (RatingBar) itemView.findViewById(R.id.course_item_rate_star);
             course_item_rate_txt = (TextView) itemView.findViewById(R.id.course_item_rate_txt);
             image1=(ImageView)itemView.findViewById(R.id.iv_image);
             image2 = (ImageView) itemView.findViewById(R.id.iv_icon);

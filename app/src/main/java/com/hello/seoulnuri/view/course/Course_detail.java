@@ -57,6 +57,7 @@ public class Course_detail extends AppCompatActivity {
         setContentView(R.layout.activity_course);
 
         TextView course_item_txt = (TextView) findViewById(R.id.course_item_txt);
+        TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
 
         intent = new Intent(this.getIntent());
         int select_type = intent.getIntExtra("select_type", 3);
@@ -64,16 +65,16 @@ public class Course_detail extends AppCompatActivity {
 
         switch (select_type) {
             case COURSE_EYE:
-                course_item_txt.setText("추천 코스 (시각)");
+                course_type_txt.setText("시각장애인 여행 추천 코스");
                 break;
             case COURSE_EAR:
-                course_item_txt.setText("추천 코스 (청각)");
+                course_type_txt.setText("청각장애인 여행 추천 코스");
                 break;
             case COURSE_WHEEL:
-                course_item_txt.setText("추천 코스 (지체)");
+                course_type_txt.setText("지체장애인 여행 추천 코스");
                 break;
             case COURSE_ELDER:
-                course_item_txt.setText("추천 코스 (노인)");
+                course_type_txt.setText("어르신 여행 추천 코스");
                 break;
 
         }

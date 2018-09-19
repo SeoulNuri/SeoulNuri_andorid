@@ -1,6 +1,7 @@
 package com.hello.seoulnuri.view.course;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +15,14 @@ import android.view.ViewGroup;
 
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.CourseItem;
+import com.hello.seoulnuri.model.course.CourseStarData;
 import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -42,6 +48,10 @@ public class CourseFragment extends Fragment {
     ArrayList<CourseItem> courseList;
     private RecyclerView rv;
     private LinearLayoutManager mLinearLayoutManager;
+    Map<String, Map<String, CourseStarData>> courseStarDataValue = new HashMap<>();
+    String[] courseStarKeys = new String[4];
+
+    final int REQ_CODE = 100;
 //    private RecyclerView.LayoutManager layoutManager;
 
     public CourseFragment() {
@@ -73,6 +83,23 @@ public class CourseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQ_CODE :
+                if (resultCode == RESULT_OK) {
+
+                }
+                else {
+
+                }
+                break;
+
+        }
     }
 
     @Override
@@ -80,11 +107,22 @@ public class CourseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_course, container, false);
-
         courseList = new ArrayList<CourseItem>();
 
-        CourseGetDataActivity courseGetDataActivity = new CourseGetDataActivity();
-        courseGetDataActivity.courseGetStarData();
+        Intent intent = new Intent(getActivity(), CourseGetDataActivity.class);
+        startActivityForResult(intent, REQ_CODE);
+
+//        Log.v("courseFragment", "1");
+//        for (Map.Entry<String, Map<String, CourseStarData>> entry : courseStarDataValue.entrySet()) {
+//            Log.v("courseFragment", "2");
+//            String key = entry.getKey();
+//
+//            Map<String, CourseStarData> value = entry.getValue();
+//
+//            CourseStarData mapValue = value.get("cour_star");
+//
+//            Log.v("mapValue", "value = " + mapValue);
+//        }
 
         CourseItem[] item = new CourseItem[4];
         item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천");
@@ -116,6 +154,13 @@ public class CourseFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
     }
 
     @Override

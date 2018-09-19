@@ -1,34 +1,47 @@
 package com.hello.seoulnuri.view.course
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import com.google.gson.Gson
 import com.hello.seoulnuri.model.course.CourseStarData
 import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import javax.security.auth.callback.Callback
-
+import com.google.gson.reflect.TypeToken
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.hello.seoulnuri.model.CourseItem
+import com.hello.seoulnuri.view.login.LoginCategoryActivity
 
 /**
  * Created by shineeseo on 2018. 9. 12..
  */
-class CourseGetDataActivity : Activity() {
+public class CourseGetDataActivity : Activity() {
 
     lateinit var courseStarData : CourseStarData //cour_star, cour_star_count 객체
+    var map : Map<String, Map<String,CourseStarData>> = HashMap<String, Map<String,CourseStarData>>()
     lateinit var networkService : NetworkService
+    var courseStarDataMap : Map<String, CourseStarData> = HashMap<String, CourseStarData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SharedPreference.instance!!.load(this)
-
+        courseGetStarData();
     }
 
-    fun courseGetStarData() {
+    fun courseGetStarData(){
         networkService = ApplicationController.instance!!.networkService
         Log.v("course", "course_star_data");
 //        courseStarData = CourseStarData(cour_star, cour_star_count )
@@ -46,8 +59,27 @@ class CourseGetDataActivity : Activity() {
                     Log.v("course code",response!!.body()!!.code!!.toString())
                     Log.v("course message",response!!.body()!!.message!!.toString())
                     Log.v("course statue",response!!.body()!!.status!!.toString())
-                    println("course_5 success : ${response!!.body()!!.data}")
-                    Log.v("course_5 success",response!!.body()!!.data!!.get(0).cour_star)
+//                    Log.v("response body",response!!.body()!!.toString())
+//                    var map: Map<String, CourseStarData> = HashMap<String, CourseStarData>()
+                    map = response!!.body()!!.data!!
+
+                    var i = 0;
+
+                    val item = arrayOfNulls<CourseItem>(4)
+
+                    for (keys in map.entries) {
+                        Log.v("successss", "keys = " + keys.key)
+                        Log.v("map value", "values = " + keys.value)
+                        courseStarDataMap = keys.value; //Map<String, CourstarData
+//                        courseStarValues.set(i, keys.value[])
+                    }
+
+                    Log.v("map to String", map.toString())
+                    val intent = Intent()
+//                    intent.putExtra("course_star_data", courseStarKeys)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+
                 } else{
                     Log.v("course else",response!!.code().toString())
                 }
@@ -55,5 +87,7 @@ class CourseGetDataActivity : Activity() {
 
         })
 
+
     }
+
 }

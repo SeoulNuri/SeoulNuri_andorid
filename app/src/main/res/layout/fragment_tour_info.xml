@@ -5,10 +5,37 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Info"
-        android:textSize="30dp"/>
+    <RelativeLayout
+        android:id="@+id/tourCourseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:scaleType="fitXY"
+        android:background="#ff6e2c">
+
+        <ImageView
+            android:id="@+id/tourCourseImage"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="56dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_plus_course"/>
+
+        <TextView
+            android:id="@+id/tourCourseText"
+            android:layout_below="@+id/tourCourseImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:textColor="#ffffff"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="12sp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            />
+
+
+
+
+    </RelativeLayout>
 
 </LinearLayout>

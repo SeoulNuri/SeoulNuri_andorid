@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.bookmark.BookmarkListData
@@ -22,7 +25,15 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
+class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextView.OnEditorActionListener {
+    override fun onEditorAction(textView: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+
+        if(textView!!.id == R.id.searchText && actionId == EditorInfo.IME_ACTION_DONE){
+            requestSearchResponse(searchText.text.toString())
+        }
+        return false
+    }
+
     override fun onClick(v: View?) {
         when(v!!){
             searchBackBtn->{
@@ -35,7 +46,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
             }
             v!!->{
                 val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
-                ToastMaker.makeLongToast(this, searchItems[itemListIndex].tour_idx.toString())
+                ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
             }
         }
     }
@@ -66,6 +77,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
                     searchText.text = "즐겨찾기"
                     searchCancelBtn.visibility = View.INVISIBLE
                 }
+                requestSearchResponse(searchText.text.toString())
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -74,17 +86,15 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchCancelBtn.visibility = View.VISIBLE
                 searchText.text = "검색 결과"
-
             }
 
         })
 
         requestBookmarkList()
-
         //requestSearchResponse(searchContentEditText.text.toString())
     }
 
-
+    // 북마크 리스트 불러오기
     fun requestBookmarkList(){
         var bookmarkListResponse = networkService.getBookmarkList(SharedPreference.instance!!.getPrefStringData("data")!!)
         bookmarkListResponse.enqueue(object : Callback<BookmarkListResponse>{
@@ -111,20 +121,20 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener {
                 .getMainSearchData(SharedPreference.instance!!.getPrefStringData("data")!!
                         , word)
 
-        searchData.enqueue(object : Callback<SearchResponse> {
-            override fun onFailure(call: Call<SearchResponse>?, t: Throwable?) {
+        searchData.enqueue(object : Callback<BookmarkListResponse> {
+            override fun onFailure(call: Call<BookmarkListResponse>?, t: Throwable?) {
                 Log.v("945", t!!.message)
             }
 
-            override fun onResponse(call: Call<SearchResponse>?, response: Response<SearchResponse>?) {
+            override fun onResponse(call: Call<BookmarkListResponse>?, response: Response<BookmarkListResponse>?) {
                 if (response!!.isSuccessful) {
                     Log.v("946", response!!.message())
-                    searchItems = response!!.body()!!.data
+                    bookmarkListItems = response!!.body()!!.data
                     //searchAdapter = SearchAdapter(searchItems,this@Search2Activity)
                     searchAdapter.setOnItemClickListener(this@Search2Activity)
+                    searchAdapter.notifyDataSetChanged()
                     searchRecyclerView.layoutManager = LinearLayoutManager(this@Search2Activity)
                     searchRecyclerView.adapter = searchAdapter
-
                 }
             }
 

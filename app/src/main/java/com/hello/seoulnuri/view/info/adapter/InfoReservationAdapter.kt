@@ -26,11 +26,17 @@ class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoI
     lateinit var datas: ArrayList<InfoData>
 
     internal var drawable: Drawable? = null
+    private lateinit var onItemClick: View.OnClickListener
+
+    fun setOnItemClickListener(l : View.OnClickListener){
+        onItemClick = l
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         //recycler view에 반복될 아이템 레이아웃 연결
         val v = LayoutInflater.from(parent.context).inflate(R.layout.info_view, null)
+        v.setOnClickListener(onItemClick)
         return ItemViewHolder(v)
     }
 

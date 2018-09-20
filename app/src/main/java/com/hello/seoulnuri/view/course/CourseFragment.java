@@ -16,11 +16,19 @@ import android.view.ViewGroup;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.CourseItem;
 import com.hello.seoulnuri.model.course.CourseStarData;
+import com.hello.seoulnuri.model.course.CourseStarResponse;
+import com.hello.seoulnuri.network.ApplicationController;
+import com.hello.seoulnuri.network.NetworkService;
+import com.hello.seoulnuri.utils.SharedPreference;
 import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -45,14 +53,10 @@ public class CourseFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private NetworkService networkService;
     ArrayList<CourseItem> courseList;
     private RecyclerView rv;
     private LinearLayoutManager mLinearLayoutManager;
-    Map<String, Map<String, CourseStarData>> courseStarDataValue = new HashMap<>();
-    String[] courseStarKeys = new String[4];
-
-    final int REQ_CODE = 100;
-//    private RecyclerView.LayoutManager layoutManager;
 
     public CourseFragment() {
         // Required empty public constructor
@@ -87,31 +91,15 @@ public class CourseFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case REQ_CODE :
-                if (resultCode == RESULT_OK) {
-
-                }
-                else {
-
-                }
-                break;
-
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_course, container, false);
         courseList = new ArrayList<CourseItem>();
 
-        Intent intent = new Intent(getActivity(), CourseGetDataActivity.class);
-        startActivityForResult(intent, REQ_CODE);
-
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+        Networking();
 //        Log.v("courseFragment", "1");
 //        for (Map.Entry<String, Map<String, CourseStarData>> entry : courseStarDataValue.entrySet()) {
 //            Log.v("courseFragment", "2");
@@ -147,6 +135,34 @@ public class CourseFragment extends Fragment {
 
         return view;
     }
+    public void Networking(){
+        Call<CourseStarResponse> requestDetail = networkService.getCourseStar();
+        requestDetail.enqueue(new Callback<CourseStarResponse>() {
+            @Override
+            public void onResponse(Call<CourseStarResponse> call, Response<CourseStarResponse> response) {
+                if(response.isSuccessful()) {
+                    Map<String, Map<String, CourseStarData>> courseStarData = new HashMap<String, Map<String, CourseStarData>>();
+                    courseStarData = response.body().getData();
+                    for (Map.Entry<String, Map<String, CourseStarData>> entry : courseStarData.entrySet()) {
+
+                        String key = entry.getKey();
+                        Log.v("courseFragment", key);
+                        Map<String, CourseStarData> courseStarDataMap = entry.getValue();
+//                        courseStarDataMap = keys.value; //Map<String, CourstarData
+////                        courseStarValues.set(i, keys.value[])
+
+
+                        Log.v("mapValue", "value = " + mapValue);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CourseStarResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -154,13 +170,6 @@ public class CourseFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-
     }
 
     @Override

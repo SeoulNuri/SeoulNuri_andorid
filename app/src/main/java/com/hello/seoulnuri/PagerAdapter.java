@@ -5,8 +5,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.hello.seoulnuri.info.InfoFragment;
-import com.hello.seoulnuri.view.course.CourseFragment;
+import com.hello.seoulnuri.view.main.MainFragment;
+import com.hello.seoulnuri.view.mypage.MypageFragment;
 import com.hello.seoulnuri.view.planner.PlannerFragment;
+import com.hello.seoulnuri.view.course.CourseFragment;
 
 public class PagerAdapter extends FragmentPagerAdapter {
     public PagerAdapter(FragmentManager fm) {

@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.view.search.Search2Activity;
+import com.hello.seoulnuri.view.search.SearchActivity;
 
 
 /**
@@ -106,7 +109,7 @@ public class MainFragment extends Fragment {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                Intent intent = new Intent(getActivity(), Search2Activity.class);
                 startActivity(intent);
             }
         });

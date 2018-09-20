@@ -62,6 +62,11 @@
         <item name="android:minHeight">32dp</item>
         <item name="android:maxHeight">50dp</item>
     </style>
+    
+    <style name="tabTextStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
 </resources>

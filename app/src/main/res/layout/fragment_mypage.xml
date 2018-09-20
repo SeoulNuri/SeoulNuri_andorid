@@ -1,157 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".MypageFragment">
+    tools:context=".view.mypage.MypageFragment">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="#ffffff">
-        </View>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#aeaeae" />
-    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/mypage_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="5dp"
+        android:background="#ffffff">
 
-    <TextView
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#ff5722"
-        android:letterSpacing="-0.01"
-        android:gravity="center_horizontal"
-        android:text="마이페이지" />
-    
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:letterSpacing="-0.01"
+            android:text="마이페이지"
+            android:textColor="#ff5722"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/mypage_layout"
+        android:background="#aeaeae" />
+
+
     <ImageView
-        android:background="@drawable/img_profile"
-        android:layout_marginTop="114dp"
-        android:layout_marginLeft="24dp"
         android:id="@+id/profileImageView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="114dp"
+        android:background="@drawable/img_profile" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
         android:layout_marginTop="139dp"
-        android:layout_marginLeft="140dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="#bdbdbd"
         android:letterSpacing="-0.01"
-        android:text="장애 유형" />
+        android:text="장애 유형"
+        android:textColor="#bdbdbd"
+        android:textSize="12sp" />
 
     <TextView
-        android:layout_marginTop="157dp"
-        android:layout_marginLeft="140dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="#2c2c2c"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="157dp"
         android:letterSpacing="-0.01"
-        android:text="시각 장애" />
-    
+        android:text="시각 장애"
+        android:textColor="#2c2c2c"
+        android:textSize="16sp" />
+
     <ImageButton
-        android:layout_marginTop="160dp"
-        android:layout_marginLeft="206dp"
-        android:background="@drawable/ic_setting"
+        android:id="@+id/mypageSettingButton"
         android:layout_width="20dp"
-        android:layout_height="20dp" />
+        android:layout_height="20dp"
+        android:layout_marginLeft="206dp"
+        android:layout_marginTop="158dp"
+        android:background="@drawable/ic_setting" />
 
     <TextView
         android:id="@+id/nameTextView"
-        android:layout_marginTop="186dp"
-        android:layout_marginLeft="24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textColor="#212121"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="186dp"
         android:letterSpacing="-0.01"
-        android:text="이은경" />
+        android:text="이은경"
+        android:textColor="#212121"
+        android:textSize="24sp" />
 
     <TextView
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="220dp"
         android:id="@+id/idTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:textColor="#757575"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="220dp"
         android:letterSpacing="-0.01"
-        android:text="ekeknm0101" />
+        android:text="ekeknm0101"
+        android:textColor="#757575"
+        android:textSize="15sp" />
 
     <TextView
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="140dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="#bdbdbd"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="200dp"
         android:letterSpacing="-0.01"
-        android:text="생년월일" />
+        android:text="생년월일"
+        android:textColor="#bdbdbd"
+        android:textSize="12sp" />
 
     <TextView
-        android:layout_marginTop="218dp"
-        android:layout_marginLeft="140dp"
         android:id="@+id/birthdayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="#2c2c2c"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="218dp"
         android:letterSpacing="-0.01"
-        android:text="1996년 01월 01일" />
+        android:text="1996년 01월 01일"
+        android:textColor="#2c2c2c"
+        android:textSize="16sp" />
 
-    <LinearLayout
+    <android.support.design.widget.TabLayout
+        android:id="@+id/mypageTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="291dp"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/myTourButton"
-            android:layout_marginLeft="72dp"
-            android:textColor="#ff6e2c"
-            android:text="관광지"
-            android:background="#ffffff"
-            android:layout_width="56dp"
-            android:layout_height="24dp" />
+        app:tabIndicatorColor="#ff6e2c"
+        app:tabTextAppearance="@style/tabTextStyle"
+        app:tabTextColor="#2c2c2c"
+        android:elevation="4dp"/>
 
-        <Button
-            android:id="@+id/myCourseButton"
-            android:layout_marginLeft="107dp"
-            android:textColor="#212121"
-            android:text="관광투어"
-            android:background="#ffffff"
-            android:layout_width="56dp"
-            android:layout_height="24dp" />
-    </LinearLayout>
 
-    <View
-        android:layout_marginTop="315dp"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#eeeeee" />
-    
     <FrameLayout
-        android:layout_marginTop="315dp"
+        android:id="@+id/mypageFrame"
+        android:layout_below="@+id/mypageTab"
         android:layout_width="match_parent"
-        android:layout_height="268dp">
-        <ScrollView
-            android:id="@+id/myTourScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ScrollView>
+        android:layout_height="268dp" />
 
-        <ScrollView
-            android:id="@+id/myCourseScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></ScrollView>
-    </FrameLayout>
+
 </RelativeLayout>

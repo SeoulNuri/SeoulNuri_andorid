@@ -9,15 +9,21 @@ import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ToggleButton
 
-import com.hello.seoulnuri.MainActivity
+import com.hello.seoulnuri.view.main.MainActivity
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.base.BaseModel
+import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
+import kotlinx.android.synthetic.main.activity_login_category.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -29,13 +35,14 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var textView: TextView
     lateinit var loginCategory: ArrayList<Int>
     lateinit var networkService: NetworkService
+    lateinit var loginCategoryRequest: LoginCategoryRequest
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_category)
-        loginCategory = ArrayList(); // 초기화 진행
+        loginCategory = ArrayList() // 초기화 진행
         networkService = ApplicationController.instance!!.networkService
-
+        SharedPreference.instance!!.load(this)
         textView = findViewById<View>(R.id.t2) as TextView
         val sb = SpannableStringBuilder()
 
@@ -59,20 +66,55 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
         toggle_elder.setOnClickListener(this)
 
         startButton.isEnabled = false
+        Log.v("User data : ",SharedPreference.instance!!.getPrefStringData("data"))
 
 
     }
 
     fun requestCategoryInfo(){
+        loginCategoryRequest = LoginCategoryRequest(loginCategory)
+        Log.v("1994 test",loginCategoryRequest.toString())
+        val categoryResponse = networkService.selectCategory(SharedPreference.instance!!.getPrefStringData("data")!!,loginCategoryRequest)
+        categoryResponse.enqueue(object : Callback<BaseModel>{
+            override fun onFailure(call: Call<BaseModel>?, t: Throwable?) {
+                Log.v("1994 onFailure",t!!.message)
+                Log.v("1994 onFailure",t!!.toString())
+            }
+
+            override fun onResponse(call: Call<BaseModel>?, response: Response<BaseModel>?) {
+                if(response!!.isSuccessful){
+                    Log.v("1994 category response",response.message().toString())
+                    startActivity(Intent(this@LoginCategoryActivity, MainActivity::class.java))
+                    finish()
+                }else{
+                    Log.v("1994 onResponse else",response.message().toString())
+                    Log.v("1994 onResponse code",response!!.code().toString())
+                }
+            }
+
+        })
 
     }
 
     fun startClick(view: View) {
 
+        if(button_eye.isChecked)
+            loginCategory.add(0)
+        if(button_ear.isChecked)
+            loginCategory.add(1)
+        if(button_wheel.isChecked)
+            loginCategory.add(2)
+        if(button_elder.isChecked)
+            loginCategory.add(3)
+
+        Log.v("1994", loginCategory.toString())
         requestCategoryInfo()
 
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+
+        //requestCategoryInfo()
+
+        //val intent = Intent(this, MainActivity::class.java)
+        //startActivity(intent)
     }
 
     override fun onClick(view: View) {
@@ -82,41 +124,36 @@ class LoginCategoryActivity : AppCompatActivity(), View.OnClickListener {
                 run {
                     if (toggle_eye.isChecked) {
                         toggle_eye.setBackgroundResource(R.drawable.button_eye_active)
-                        loginCategory.add(1)
-                        Log.v("949", loginCategory.toString())
+
+
                     } else {
                         toggle_eye.setBackgroundResource(R.drawable.button_eye)
-                        loginCategory.remove(1)
-                        Log.v("9492", loginCategory.toString())
+
                     }
                 }
                 run {
                     if (toggle_wheel.isChecked) {
                         toggle_wheel.setBackgroundResource(R.drawable.button_wheel_active)
-                        loginCategory.add(2)
+
                     } else {
                         toggle_wheel.setBackgroundResource(R.drawable.button_wheel)
-                        loginCategory.remove(2)
+
                     }
                 }
                 run {
                     if (toggle_ear.isChecked) {
 
                         toggle_ear.setBackgroundResource(R.drawable.button_ear_active)
-                        loginCategory.add(3)
                     } else {
                         toggle_ear.setBackgroundResource(R.drawable.button_ear)
-                        loginCategory.remove(3)
                     }
                 }
                 run {
                     if (toggle_elder.isChecked) {
 
                         toggle_elder.setBackgroundResource(R.drawable.button_elder_active)
-                        loginCategory.add(4)
                     } else {
                         toggle_elder.setBackgroundResource(R.drawable.button_elder)
-                        loginCategory.remove(4)
                     }
                 }
             }

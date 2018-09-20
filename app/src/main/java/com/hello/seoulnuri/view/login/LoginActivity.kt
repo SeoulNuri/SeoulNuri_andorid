@@ -8,6 +8,7 @@ import android.view.View
 
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
@@ -19,15 +20,26 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, Init {
     override fun init() {
         login_kakao_custom_btn.setOnClickListener(this)
         login_kakao_btn.setOnClickListener(this)
+        SharedPreference.instance!!.load(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!) {
             login_kakao_custom_btn -> {
-                ToastMaker.makeLongToast(this, "눌리니?")
-                login_kakao_btn.performClick()
+                ToastMaker.makeShortToast(this, "로그인")
+                if(!SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
+                    redirectLoginCategory()
+
+                }else{
+                    login_kakao_btn.performClick()
+                }
             }
         }
+    }
+
+    fun redirectLoginCategory(){
+        startActivity(Intent(this, LoginCategoryActivity::class.java))
+        finish()
     }
 
 
@@ -79,8 +91,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, Init {
     fun redirectSignupActivity(){
         val intent : Intent = Intent(this, KaKaoSignupActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-        startActivity(intent)
         finish()
+        startActivity(intent)
+
     }
 
 }

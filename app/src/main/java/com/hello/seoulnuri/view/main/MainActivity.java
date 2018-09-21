@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.hello.seoulnuri.view.course.CourseFragment;
 import com.hello.seoulnuri.CustomViewPager;
-import com.hello.seoulnuri.PagerAdapter;
+import com.hello.seoulnuri.view.main.adapter.PagerAdapter;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.info.InfoFragment;
 import com.hello.seoulnuri.model.main.MainTourResponse;
@@ -64,9 +64,11 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        networkService = ApplicationController.Companion.getInstance().getNetworkService();
-//        SharedPreference.Companion.getInstance();
-//        requestMainTourInfo();
+
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+        //requestMainTourInfo();
+
       /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             Window w = getWindow(); // in Activity's onCreate() for instance

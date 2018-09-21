@@ -41,7 +41,7 @@ interface NetworkService {
     fun getMainSearchData(
             @Header("token") token : String,
             @Path("word") word : String
-    ) : Call<SearchResponse>
+    ) : Call<BookmarkListResponse>
 
     // 5. 마이 페이지에서 장애 유형 변경 - 0
     @POST("api/mypage")

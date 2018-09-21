@@ -64,7 +64,8 @@
         <!-- info -->
         <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".info.Info_stay_detail" />
-        <activity android:name=".info.CommentActivity" />
+        <activity android:name=".info.CommentActivity"
+            android:theme="@style/Splash"/>
         <activity
             android:name=".info.popUpActivity"
             android:theme="@android:style/Theme.Dialog" />
@@ -79,7 +80,10 @@
         <activity
             android:name=".view.mypage.ChangeTypeActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".view.search.Search2Activity"
+        <activity
+            android:name=".view.search.Search2Activity"
+            android:theme="@style/Splash" />
+        <activity android:name=".view.info.InfoReservationDetailActivity"
             android:theme="@style/Splash"></activity>
         <activity android:name=".view.course.CourseCommentActivity"
             android:theme="@style/Splash"></activity>

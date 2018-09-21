@@ -30,12 +30,13 @@
         <EditText
             android:id="@+id/searchContentEditText"
             android:layout_width="wrap_content"
+            android:imeOptions="actionDone"
             android:layout_height="27dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
             android:background="@android:color/transparent"
             android:hint="여행하고 싶은 관광지를 선택하세요"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
             android:textColorHint="#bdbdbd"
             android:textSize="18sp" />
 

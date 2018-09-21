@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Info"
-        android:textSize="30dp"/>
+    <RelativeLayout
+        android:id="@+id/tourCourseLayout"
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:background="@drawable/graphic_mypage_course">
+
+
+        <TextView
+            android:id="@+id/tourCourseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="74dp"
+            android:layout_marginLeft="24dp"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="12sp"
+            android:textColor="#ffffff"
+            android:textSize="21sp" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

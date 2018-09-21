@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity
         viewPager.setAdapter(adapter);
         
 
-
-
-
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         //tabLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 56));

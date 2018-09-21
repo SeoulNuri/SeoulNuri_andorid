@@ -20,6 +20,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hello.seoulnuri.info.CommentActivity;
+import com.hello.seoulnuri.info.Info_Detail_Intro;
 import com.hello.seoulnuri.model.Position;
 import com.hello.seoulnuri.view.course.adapter.Course_info_list_adapter;
 import com.hello.seoulnuri.view.course.adapter.ExpandableListAdapter;
@@ -44,6 +46,7 @@ public class Course_detail extends AppCompatActivity {
     ImageView btn_course_bookmark;
     ImageView btn_course_share;
     ImageView btn_course_map;
+    ImageView btn_course_comment;
     Dialog bookmark_Dialog;
     BottomSheetDialog link_share_dialog;
     Button btn_bookmark_ok;
@@ -96,6 +99,18 @@ public class Course_detail extends AppCompatActivity {
         ts2.setContent(R.id.content2);
         ts2.setIndicator("코스");
         tabHost1.addTab(ts2);
+
+        btn_course_comment = (ImageView) findViewById(R.id.btn_course_comment);
+
+        btn_course_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Course_detail.this,CourseCommentActivity.class);
+                // intent.
+                intent.putExtra("course_idx", 1);
+                startActivity(intent);
+            }
+        });
 
         btn_course_bookmark = (ImageView) findViewById(R.id.btn_course_bookmark);
 
@@ -204,25 +219,6 @@ public class Course_detail extends AppCompatActivity {
             }
         });
 
-
-        //set onclick listener
-//        elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-////                Toast.makeText(getApplicationContext(), position.get(groupPosition).players.get(childPosition), Toast.LENGTH_LONG).show();
-//                return false;
-//            }
-//        });
-
-
-//    @Override
-//    public void onTabChanged(String tabId) {
-//        // Tab 색 변경
-//        for(int i = 0; i < tabHost1.getTabWidget().getChildCount(); i++) {
-//            tabHost1.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#7392B5"));
-//        }
-//        tabHost1.getTabWidget().getChildAt(tabHost1.getCurrentTab()).setBackgroundColor(Color.parseColor("#4E4E9C"));
-//    }
     }
 
     public void Course_bookmark_custom_dialog() {

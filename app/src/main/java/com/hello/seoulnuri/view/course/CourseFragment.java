@@ -24,7 +24,9 @@ import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -100,25 +102,6 @@ public class CourseFragment extends Fragment {
         networkService = ApplicationController.Companion.getInstance().getNetworkService();
         SharedPreference.Companion.getInstance();
         Networking();
-//        Log.v("courseFragment", "1");
-//        for (Map.Entry<String, Map<String, CourseStarData>> entry : courseStarDataValue.entrySet()) {
-//            Log.v("courseFragment", "2");
-//            String key = entry.getKey();
-//
-//            Map<String, CourseStarData> value = entry.getValue();
-//
-//            CourseStarData mapValue = value.get("cour_star");
-//
-//            Log.v("mapValue", "value = " + mapValue);
-//        }
-
-        CourseItem[] item = new CourseItem[4];
-        item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천");
-        item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ");
-        item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천");
-        item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천");
-
-        for(int i=0;i<4;i++) courseList.add(item[i]);
 
         //레이아웃매니저
         mLinearLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -127,11 +110,6 @@ public class CourseFragment extends Fragment {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(mLinearLayoutManager);
 
-        //course adapter 연결
-        CourseAdapter adapter = new CourseAdapter(getActivity(),courseList);
-        Log.e("onCreate[courseList]", "" + courseList.size());
-        rv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         return view;
     }
@@ -141,19 +119,42 @@ public class CourseFragment extends Fragment {
             @Override
             public void onResponse(Call<CourseStarResponse> call, Response<CourseStarResponse> response) {
                 if(response.isSuccessful()) {
-                    Map<String, Map<String, CourseStarData>> courseStarData = new HashMap<String, Map<String, CourseStarData>>();
+                    Map<String, Map<String, Double>> courseStarData;
+                    double[] c_data_array = new double[8];
+
                     courseStarData = response.body().getData();
-                    for (Map.Entry<String, Map<String, CourseStarData>> entry : courseStarData.entrySet()) {
+                    int i = 0;
+
+                    for (Map.Entry<String, Map<String, Double>> entry : courseStarData.entrySet()) {
 
                         String key = entry.getKey();
                         Log.v("courseFragment", key);
-                        Map<String, CourseStarData> courseStarDataMap = entry.getValue();
-//                        courseStarDataMap = keys.value; //Map<String, CourstarData
-////                        courseStarValues.set(i, keys.value[])
+                        Log.v("mapValue", "value = " + entry.getValue());
 
-
-                        Log.v("mapValue", "value = " + mapValue);
+                        for (String mapkey : entry.getValue().keySet()){
+                            Log.v("mapvalue" ,"key:"+mapkey+",value:"+entry.getValue().get(mapkey));
+                            c_data_array[i] = entry.getValue().get(mapkey);
+                            i++;
+                        }
                     }
+
+                    for (int j = 0; j < c_data_array.length; j++) {
+                        Log.v("c_data_array", "value = " + c_data_array[j]);
+                    }
+
+                    CourseItem[] item = new CourseItem[4];
+                    item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천", c_data_array[0], c_data_array[1]);
+                    item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ", c_data_array[4], c_data_array[5]);
+                    item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천", c_data_array[2], c_data_array[3]);
+                    item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천",c_data_array[6], c_data_array[7]);
+
+                    for(int j=0;j<4;j++) courseList.add(item[j]);
+
+                    //course adapter 연결
+                    CourseAdapter adapter = new CourseAdapter(getActivity(),courseList);
+                    Log.e("onCreate[courseList]", "" + courseList.size());
+                    rv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

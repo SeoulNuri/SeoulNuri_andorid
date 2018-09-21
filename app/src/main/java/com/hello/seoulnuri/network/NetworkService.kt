@@ -2,6 +2,7 @@ package com.hello.seoulnuri.network
 
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
+import com.hello.seoulnuri.model.course.CourseCmtResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
@@ -55,6 +56,16 @@ interface NetworkService {
             @Header("token") token: String
     ) : Call<BookmarkListResponse>
 
+    //코스 메인 유형별 별점 불러오기
     @GET("api/course")
     fun getCourseStar() : Call<CourseStarResponse>
+
+    //코스별 댓글 불러오기
+    @GET("api/course/comment")
+    fun getCourseCmt(
+            @Query("course_idx") course_idx : Int
+    ) : Call<CourseCmtResponse>
+
+    @POST("api/course/comment")
+    fun postCourseCmt() //토큰을 보내야 하는데 어떻게 해야하는걸까..ㅜ
 }

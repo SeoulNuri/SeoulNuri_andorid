@@ -81,6 +81,9 @@
             android:theme="@style/Splash" />
         <activity android:name=".view.search.Search2Activity"
             android:theme="@style/Splash"></activity>
+        <activity android:name=".view.course.CourseCommentActivity"
+            android:theme="@style/Splash"></activity>
+
     </application>
 
 </manifest>

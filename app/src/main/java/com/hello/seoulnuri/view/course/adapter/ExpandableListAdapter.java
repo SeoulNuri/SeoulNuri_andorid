@@ -62,19 +62,9 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 return header;
 
             case CHILD:
-//                TextView itemTextView = new TextView(context);
-//                itemTextView.setPadding(subItemPaddingLeft, subItemPaddingTopAndBottom, 0, subItemPaddingTopAndBottom);
-//                itemTextView.setTextColor(0x88000000);
-//                itemTextView.setLayoutParams(
-//                        new ViewGroup.LayoutParams(
-//                                ViewGroup.LayoutParams.MATCH_PARENT,
-//                                ViewGroup.LayoutParams.WRAP_CONTENT));
-//                return new RecyclerView.ViewHolder(itemTextView) {
-//                };
                 inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_child, parent, false);
                 ViewHolder child = new ViewHolder(view);
-//                LinearLayout course_child_linear1 = (LinearLayout) view.findViewById(R.id.course_child_linear1);
                 LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)child.line.getLayoutParams();
 
                 if (cnt == 0) {

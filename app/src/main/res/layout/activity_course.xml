@@ -140,7 +140,7 @@
                                 tools:text="시각장애인 여행 추천 코스"
                                 android:textColor="#000000"
                                 android:textSize="14sp"
-                                android:letterSpacing="-0.2" />
+                                android:letterSpacing="-0.02" />
 
                             <ImageView
                                 android:layout_marginTop="32dp"

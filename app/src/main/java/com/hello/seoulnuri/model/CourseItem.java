@@ -8,10 +8,10 @@ public class CourseItem {
     int image;
     int icon;
     String content;
-    int cour_star;
-    int cour_star_count;
+    double cour_star;
+    double cour_star_count;
 
-    public CourseItem(int image, int icon, String content, int cour_star, int cour_star_count) {
+    public CourseItem(int image, int icon, String content, double cour_star, double cour_star_count) {
         this.image = image;
         this.icon = icon;
         this.content = content;
@@ -49,19 +49,19 @@ public class CourseItem {
         this.content = content;
     }
 
-    public int getCour_star() {
+    public double getCour_star() {
         return cour_star;
     }
 
-    public void setCour_star(int cour_star) {
+    public void setCour_star(double cour_star) {
         this.cour_star = cour_star;
     }
 
-    public int getCour_star_count() {
+    public double getCour_star_count() {
         return cour_star_count;
     }
 
-    public void setCour_star_count(int cour_star_count) {
+    public void setCour_star_count(double cour_star_count) {
         this.cour_star_count = cour_star_count;
     }
 }

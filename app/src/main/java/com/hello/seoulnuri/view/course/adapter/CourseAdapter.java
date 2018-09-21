@@ -53,8 +53,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         final int pos = position;
         Drawable drawable=context.getResources().getDrawable(item.getImage());
         holder.image1.setBackground(drawable);
-        holder.course_item_rate_star.setRating(3);
-        holder.course_item_rate_txt.setText("(21)");
+        holder.course_item_rate_star.setRating((float) item.getCour_star());
+        holder.course_item_rate_txt.setText("(" + String.valueOf(item.getCour_star_count()) + ")");
 
         drawable=context.getResources().getDrawable(item.getIcon());
         holder.image2.setBackground(drawable);

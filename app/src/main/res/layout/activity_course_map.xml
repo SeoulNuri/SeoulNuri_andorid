@@ -6,7 +6,7 @@
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hello.seoulnuri.CourseMapActivity" >
+    tools:context="com.hello.seoulnuri.view.course.CourseMapActivity" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="com.hello.seoulnuri.CourseMapActivity" />
+            tools:context="com.hello.seoulnuri.view.course.CourseMapActivity" />
     </RelativeLayout>
 
     <RelativeLayout

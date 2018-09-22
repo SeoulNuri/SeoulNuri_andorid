@@ -2,6 +2,7 @@ package com.hello.seoulnuri.network
 
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
+import com.hello.seoulnuri.model.course.CourseCmtResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
@@ -11,6 +12,8 @@ import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
+import com.hello.seoulnuri.model.course.CourseStarResponse
+
 
 /**
  * Created by VictoryWoo
@@ -28,7 +31,6 @@ interface NetworkService {
             @Header("token") token : String,
             @Body loginCategoryRequest: LoginCategoryRequest
     ) : Call<BaseModel>
-
 
     // 3. 메인에서 정보 받아오기 - 0 , 근데, 서버에서 값을 뿌려 줄 때 조금 이상한 것 같음. 값이 없음
     @GET("api/main")
@@ -56,7 +58,6 @@ interface NetworkService {
             @Header("token") token: String
     ) : Call<BookmarkListResponse>
 
-
     // 7. google map directions
     @GET("/maps/api/directions/json")
     fun getJson(
@@ -64,5 +65,18 @@ interface NetworkService {
             @Query("destination") destination : String,
             @Query("waypoints") waypoints : String
     ) : Callback<DirectionResults>
+
+    //코스 메인 유형별 별점 불러오기
+    @GET("api/course")
+    fun getCourseStar() : Call<CourseStarResponse>
+
+    //코스별 댓글 불러오기
+    @GET("api/course/comment")
+    fun getCourseCmt(
+            @Query("course_idx") course_idx : Int
+    ) : Call<CourseCmtResponse>
+
+    @POST("api/course/comment")
+    fun postCourseCmt() //토큰을 보내야 하는데 어떻게 해야하는걸까..ㅜ
 
 }

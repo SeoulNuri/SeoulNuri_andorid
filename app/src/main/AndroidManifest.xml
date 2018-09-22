@@ -31,7 +31,11 @@
 
         <activity
             android:name=".view.main.MainActivity"
-            android:theme="@style/Splash" />
+            android:theme="@style/Splash" ><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".view.login.LoginActivity"
             android:theme="@style/Login" />
@@ -41,11 +45,7 @@
         <activity
             android:name=".view.splash.SplashActivity"
             android:theme="@style/Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.planner.PlannerStartActivity"
@@ -56,10 +56,11 @@
             android:name=".view.planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
         <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
-        <activity
-            android:name=".view.planner.PlannerDateActivity"
-            android:theme="@style/Splash" />
-        <activity android:name=".Course_detail" />
+
+        <activity android:name=".view.planner.PlannerDateActivity" />
+        <activity android:name=".view.course.Course_detail"
+            android:theme="@style/Login"/>
+
         <!-- info -->
         <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".info.Info_stay_detail" />
@@ -73,8 +74,9 @@
             android:name=".view.search.SearchActivity"
             android:theme="@style/Splash" />
         <activity
-            android:name=".CourseMapActivity"
-            android:label="@string/title_activity_course_map" />
+            android:name=".view.course.CourseMapActivity"
+            android:label="@string/title_activity_course_map"
+            android:theme="@style/Login"></activity>
         <activity
             android:name=".view.mypage.ChangeTypeActivity"
             android:theme="@style/Splash" />
@@ -83,6 +85,9 @@
             android:theme="@style/Splash" />
         <activity android:name=".view.info.InfoReservationDetailActivity"
             android:theme="@style/Splash"></activity>
+        <activity android:name=".view.course.CourseCommentActivity"
+            android:theme="@style/Splash"></activity>
+
     </application>
 
 </manifest>

@@ -7,8 +7,10 @@ import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
+import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
 import com.hello.seoulnuri.model.course.CourseStarResponse
 
@@ -56,6 +58,14 @@ interface NetworkService {
             @Header("token") token: String
     ) : Call<BookmarkListResponse>
 
+    // 7. google map directions
+    @GET("/maps/api/directions/json")
+    fun getJson(
+            @Query("origin") origin : String,
+            @Query("destination") destination : String,
+            @Query("waypoints") waypoints : String
+    ) : Callback<DirectionResults>
+
     //코스 메인 유형별 별점 불러오기
     @GET("api/course")
     fun getCourseStar() : Call<CourseStarResponse>
@@ -68,4 +78,5 @@ interface NetworkService {
 
     @POST("api/course/comment")
     fun postCourseCmt() //토큰을 보내야 하는데 어떻게 해야하는걸까..ㅜ
+
 }

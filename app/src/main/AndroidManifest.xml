@@ -22,7 +22,7 @@
         <!-- API 9 이상부터 버그가 있어서 이거 추가해줘야함 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB4t8F1Tl2eu2gWU_cCP-881iKHQS-RM-U" />
+            android:value="AIzaSyBx-xmwLRXuUZaWKAcgzW4Fc34CvXAIcKw 	" />
 
         <!-- 카카오톡 메타데이터 -->
         <meta-data
@@ -30,7 +30,7 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.splash.SplashActivity"
             android:theme="@style/Splash" ><intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -43,7 +43,7 @@
             android:name=".view.login.LoginCategoryActivity"
             android:theme="@style/Login" />
         <activity
-            android:name=".view.splash.SplashActivity"
+            android:name=".view.main.MainActivity"
             android:theme="@style/Splash">
 
         </activity>

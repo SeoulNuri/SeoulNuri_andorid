@@ -20,6 +20,7 @@ import android.util.Log
 import com.google.android.gms.maps.model.*
 import com.hello.seoulnuri.model.MarkerData
 import com.hello.seoulnuri.utils.ToastMaker
+import java.util.*
 
 
 class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener, Init, GoogleMap.OnMyLocationButtonClickListener,
@@ -53,6 +54,13 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         list = listOf<String>(
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
+
+        locations = ArrayList()
+        locations.add(SEOUL)
+        locations.add(Gyeonghui_Palace)
+        locations.add(Chungjeongno_Station)
+        locations.add(City_Hall_Station)
+
 
     }
 
@@ -168,6 +176,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
     val Chungjeongno_Station: LatLng = LatLng(37.560055,126.96367199999997)
     val City_Hall_Station: LatLng = LatLng(37.5658049,126.97514610000007)
+    lateinit var locations : ArrayList<LatLng>
 
     lateinit var marker_seoul : Marker
     lateinit var marker_Gyeonghui_Palace : Marker
@@ -187,6 +196,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
              //managePermissions.checkPermissions()
 
          }*/
+
 
 
         // 권한을 요청하기

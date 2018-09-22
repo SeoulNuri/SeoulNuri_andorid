@@ -8,6 +8,7 @@ import android.widget.RatingBar
 import android.widget.TextView
 import com.hello.seoulnuri.model.PlannerPathData
 import com.hello.seoulnuri.R
+import java.util.*
 
 /**
  * Created by VictoryWoo

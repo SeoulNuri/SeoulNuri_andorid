@@ -1,5 +1,7 @@
 package com.hello.seoulnuri.model.main
 
+import java.util.*
+
 /**
  * Created by VictoryWoo
  */

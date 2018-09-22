@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,10 +11,10 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_marginLeft="24dp"
-            android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="24dp"
             android:orientation="vertical">
 
             <ImageView
@@ -28,18 +27,18 @@
 
             <TextView
                 android:id="@+id/tv_all"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="전체" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_toLeftOf="@+id/three_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/three_layout"
             android:orientation="vertical">
 
             <ImageView
@@ -59,12 +58,14 @@
                 android:layout_gravity="center_horizontal"
                 android:text="시각" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/three_layout"
-            android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
             android:orientation="vertical">
+
             <ImageView
                 android:id="@+id/information_toggle_ear"
                 android:layout_width="50dp"
@@ -84,10 +85,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_toRightOf="@+id/three_layout"
-            android:layout_marginLeft="30dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/three_layout"
             android:orientation="vertical">
 
             <ImageView
@@ -110,12 +111,11 @@
         </LinearLayout>
 
 
-
         <LinearLayout
-            android:layout_marginRight="24dp"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="24dp"
             android:orientation="vertical">
 
 
@@ -142,12 +142,67 @@
 
 
     <RelativeLayout
+        android:id="@+id/filter_layout"
         android:layout_width="match_parent"
-        android:layout_height="90dp">
+        android:layout_height="150dp"
+        android:visibility="visible">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/filter_list"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+             />
+
+        <View
+            android:id="@+id/filter_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/filter_list"
+            android:layout_marginTop="24dp"
+            android:background="#eeeeee" />
+
+
+        <RelativeLayout
+            android:id="@+id/filter_search_btn"
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/filter_line"
+            android:orientation="horizontal"
+            android:layout_marginRight="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/filter_search_icon"
+                android:letterSpacing="-0.01"
+                android:text="적용하기"
+                android:layout_centerVertical="true"
+                android:textColor="@color/pinkish_orange"
+                android:layout_marginRight="5dp"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/filter_search_icon"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_search_filter"
+                />
+
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="22dp"
+        android:id="@+id/info_tour_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
 </LinearLayout>

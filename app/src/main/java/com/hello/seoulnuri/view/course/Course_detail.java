@@ -1,42 +1,39 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course;
 
 import android.app.Dialog;
-import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.hello.seoulnuri.info.CommentActivity;
+import com.hello.seoulnuri.info.Info_Detail_Intro;
+import com.hello.seoulnuri.model.Position;
+import com.hello.seoulnuri.view.course.adapter.Course_info_list_adapter;
+import com.hello.seoulnuri.view.course.adapter.ExpandableListAdapter;
+import com.hello.seoulnuri.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hello.seoulnuri.CourseAdapter.COURSE_EAR;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_ELDER;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_EYE;
-import static com.hello.seoulnuri.CourseAdapter.COURSE_WHEEL;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EAR;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_ELDER;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EYE;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_WHEEL;
 
 /**
  * Created by shineeseo on 2018. 8. 21..
@@ -49,6 +46,7 @@ public class Course_detail extends AppCompatActivity {
     ImageView btn_course_bookmark;
     ImageView btn_course_share;
     ImageView btn_course_map;
+    ImageView btn_course_comment;
     Dialog bookmark_Dialog;
     BottomSheetDialog link_share_dialog;
     Button btn_bookmark_ok;
@@ -62,6 +60,7 @@ public class Course_detail extends AppCompatActivity {
         setContentView(R.layout.activity_course);
 
         TextView course_item_txt = (TextView) findViewById(R.id.course_item_txt);
+        TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
 
         intent = new Intent(this.getIntent());
         int select_type = intent.getIntExtra("select_type", 3);
@@ -69,16 +68,16 @@ public class Course_detail extends AppCompatActivity {
 
         switch (select_type) {
             case COURSE_EYE:
-                course_item_txt.setText("추천 코스 (시각)");
+                course_type_txt.setText("시각장애인 여행 추천 코스");
                 break;
             case COURSE_EAR:
-                course_item_txt.setText("추천 코스 (청각)");
+                course_type_txt.setText("청각장애인 여행 추천 코스");
                 break;
             case COURSE_WHEEL:
-                course_item_txt.setText("추천 코스 (지체)");
+                course_type_txt.setText("지체장애인 여행 추천 코스");
                 break;
             case COURSE_ELDER:
-                course_item_txt.setText("추천 코스 (노인)");
+                course_type_txt.setText("어르신 여행 추천 코스");
                 break;
 
         }
@@ -100,6 +99,18 @@ public class Course_detail extends AppCompatActivity {
         ts2.setContent(R.id.content2);
         ts2.setIndicator("코스");
         tabHost1.addTab(ts2);
+
+        btn_course_comment = (ImageView) findViewById(R.id.btn_course_comment);
+
+        btn_course_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Course_detail.this,CourseCommentActivity.class);
+                // intent.
+                intent.putExtra("course_idx", 1);
+                startActivity(intent);
+            }
+        });
 
         btn_course_bookmark = (ImageView) findViewById(R.id.btn_course_bookmark);
 
@@ -208,25 +219,6 @@ public class Course_detail extends AppCompatActivity {
             }
         });
 
-
-        //set onclick listener
-        elv.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                Toast.makeText(getApplicationContext(), position.get(groupPosition).players.get(childPosition), Toast.LENGTH_LONG).show();
-                return false;
-            }
-        });
-
-
-//    @Override
-//    public void onTabChanged(String tabId) {
-//        // Tab 색 변경
-//        for(int i = 0; i < tabHost1.getTabWidget().getChildCount(); i++) {
-//            tabHost1.getTabWidget().getChildAt(i).setBackgroundColor(Color.parseColor("#7392B5"));
-//        }
-//        tabHost1.getTabWidget().getChildAt(tabHost1.getCurrentTab()).setBackgroundColor(Color.parseColor("#4E4E9C"));
-//    }
     }
 
     public void Course_bookmark_custom_dialog() {

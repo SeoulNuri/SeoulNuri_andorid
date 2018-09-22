@@ -19,7 +19,9 @@ class ApplicationController : Application() {
     //private val currentActivity: Activity? = null
 
     lateinit var networkService: NetworkService
-    private val baseUrl = "http://52.78.129.27:3001/"
+    private var baseUrl = "http://52.78.129.27:3001/" // 우리 주소
+    private var googleMapUrl = "http://"
+
 
     companion object {
         var instance: ApplicationController? = null

@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course.adapter;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -7,16 +7,18 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.hello.seoulnuri.model.CourseItem;
+import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.view.course.Course_detail;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by shineeseo on 2018. 8. 18..
@@ -51,7 +53,8 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         final int pos = position;
         Drawable drawable=context.getResources().getDrawable(item.getImage());
         holder.image1.setBackground(drawable);
-        holder.course_item_rate_txt.setText("(21)");
+        holder.course_item_rate_star.setRating((float) item.getCour_star());
+        holder.course_item_rate_txt.setText("(" + String.valueOf(item.getCour_star_count()) + ")");
 
         drawable=context.getResources().getDrawable(item.getIcon());
         holder.image2.setBackground(drawable);
@@ -77,9 +80,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         TextView title;
         CardView cardview;
         TextView course_item_rate_txt;
+        RatingBar course_item_rate_star;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            course_item_rate_star = (RatingBar) itemView.findViewById(R.id.course_item_rate_star);
             course_item_rate_txt = (TextView) itemView.findViewById(R.id.course_item_rate_txt);
             image1=(ImageView)itemView.findViewById(R.id.iv_image);
             image2 = (ImageView) itemView.findViewById(R.id.iv_icon);

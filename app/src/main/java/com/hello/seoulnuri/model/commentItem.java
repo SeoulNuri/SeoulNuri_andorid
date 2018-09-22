@@ -37,4 +37,9 @@ public class commentItem {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public commentItem(String nickname, String say) {
+        this.nickname = nickname;
+        this.say = say;
+    }
 }

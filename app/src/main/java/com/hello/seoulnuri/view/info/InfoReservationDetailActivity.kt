@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomSheetDialog
 import android.view.View
+import android.widget.LinearLayout
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.info.CommentActivity
@@ -27,15 +29,17 @@ class InfoReservationDetailActivity : AppCompatActivity(), View.OnClickListener,
                 startActivity(Intent(this, CommentActivity::class.java))
             }
             reservation_detail_bookmark->{
-                val bookmark_dialog = BookmarkDialog(this)
+                val bookmark_dialog = BookmarkDialog(this@InfoReservationDetailActivity)
                 bookmark_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
                 bookmark_dialog.show()
             }
             reservation_detail_share->{
-                val shard_dialog = ShareDialog(this)
-                //shard_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                shard_dialog.setCanceledOnTouchOutside(true)
-                shard_dialog.show()
+                val share_dialog : BottomSheetDialog = ShareDialog(this@InfoReservationDetailActivity)
+                share_dialog.setContentView(ShareDialog.LAYOUT)
+                share_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                share_dialog.setTitle("공유하기")
+                //shard_dialog.setCanceledOnTouchOutside(true)
+                share_dialog.show()
 
             }
             reservation_detail_location->{

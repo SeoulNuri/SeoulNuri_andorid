@@ -1,22 +1,38 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.model.CourseItem;
+import com.hello.seoulnuri.model.course.CourseStarData;
+import com.hello.seoulnuri.model.course.CourseStarResponse;
+import com.hello.seoulnuri.network.ApplicationController;
+import com.hello.seoulnuri.network.NetworkService;
+import com.hello.seoulnuri.utils.SharedPreference;
+import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -39,10 +55,10 @@ public class CourseFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private NetworkService networkService;
     ArrayList<CourseItem> courseList;
     private RecyclerView rv;
     private LinearLayoutManager mLinearLayoutManager;
-//    private RecyclerView.LayoutManager layoutManager;
 
     public CourseFragment() {
         // Required empty public constructor
@@ -73,11 +89,7 @@ public class CourseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        String url = "http://52.78.129.27:3001/api/course";
 
-        // AsyncTask를 통해 HttpURLConnection 수행.
-        CourseTabDataRequest networkTask = new CourseTabDataRequest(url, null);
-        networkTask.execute();
     }
 
     @Override
@@ -85,16 +97,11 @@ public class CourseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_course, container, false);
-
         courseList = new ArrayList<CourseItem>();
 
-        CourseItem[] item=new CourseItem[4];
-        item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천");
-        item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ");
-        item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천");
-        item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천");
-
-        for(int i=0;i<4;i++) courseList.add(item[i]);
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+        Networking();
 
         //레이아웃매니저
         mLinearLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -103,13 +110,59 @@ public class CourseFragment extends Fragment {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(mLinearLayoutManager);
 
-        //course adapter 연결
-        CourseAdapter adapter = new CourseAdapter(getActivity(),courseList);
-        Log.e("onCreate[courseList]", "" + courseList.size());
-        rv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
         return view;
+    }
+    public void Networking(){
+        Call<CourseStarResponse> requestDetail = networkService.getCourseStar();
+        requestDetail.enqueue(new Callback<CourseStarResponse>() {
+            @Override
+            public void onResponse(Call<CourseStarResponse> call, Response<CourseStarResponse> response) {
+                if(response.isSuccessful()) {
+                    Map<String, Map<String, Double>> courseStarData;
+                    double[] c_data_array = new double[8];
+
+                    courseStarData = response.body().getData();
+                    int i = 0;
+
+                    for (Map.Entry<String, Map<String, Double>> entry : courseStarData.entrySet()) {
+
+                        String key = entry.getKey();
+                        Log.v("courseFragment", key);
+                        Log.v("mapValue", "value = " + entry.getValue());
+
+                        for (String mapkey : entry.getValue().keySet()){
+                            Log.v("mapvalue" ,"key:"+mapkey+",value:"+entry.getValue().get(mapkey));
+                            c_data_array[i] = entry.getValue().get(mapkey);
+                            i++;
+                        }
+                    }
+
+                    for (int j = 0; j < c_data_array.length; j++) {
+                        Log.v("c_data_array", "value = " + c_data_array[j]);
+                    }
+
+                    CourseItem[] item = new CourseItem[4];
+                    item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천", c_data_array[0], c_data_array[1]);
+                    item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ", c_data_array[4], c_data_array[5]);
+                    item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천", c_data_array[2], c_data_array[3]);
+                    item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천",c_data_array[6], c_data_array[7]);
+
+                    for(int j=0;j<4;j++) courseList.add(item[j]);
+
+                    //course adapter 연결
+                    CourseAdapter adapter = new CourseAdapter(getActivity(),courseList);
+                    Log.e("onCreate[courseList]", "" + courseList.size());
+                    rv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CourseStarResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
     }
 
 

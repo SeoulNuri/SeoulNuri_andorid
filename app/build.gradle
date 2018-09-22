@@ -42,8 +42,9 @@ dependencies {
     implementation 'com.android.support:cardview-v7:28.0.+'
     implementation 'com.android.support:recyclerview-v7:28.0.+'
     implementation 'com.android.support:gridlayout-v7:28.0.+'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.8.7"
+    implementation "com.google.code.gson:gson:2.3.1"
 
 }
 repositories {

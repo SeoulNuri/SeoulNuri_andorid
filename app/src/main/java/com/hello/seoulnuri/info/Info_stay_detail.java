@@ -23,7 +23,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hello.seoulnuri.CourseMapActivity;
+import com.hello.seoulnuri.view.course.CourseMapActivity;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.InfoData;
 

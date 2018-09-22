@@ -17,15 +17,19 @@ class ShareDialog(context : Context) : BottomSheetDialog(context), View.OnClickL
         }
     }
 
+    lateinit var bottomSheetDialog: BottomSheetDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(LAYOUT)
+        bottomSheetDialog = BottomSheetDialog(context)
+        bottomSheetDialog.setContentView(LAYOUT)
+        bottomSheetDialog.setTitle("공유하기")
+        //bottomSheetDialog.show()
 
 
     }
 
     companion object {
-        val LAYOUT = R.layout.course_share_dialog
+        val LAYOUT = R.layout.custom_share_dialog
 
     }
 }

@@ -1,16 +1,21 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course.adapter;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.hello.seoulnuri.R;
 
 import org.w3c.dom.Text;
 
@@ -33,6 +38,8 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     int select_type;
 
+    int cnt = 0;
+
     public ExpandableListAdapter(int type, List<Item> data) {
         select_type = type;
         this.data = data;
@@ -51,20 +58,25 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_head, parent, false);
                 ListHeaderViewHolder header = new ListHeaderViewHolder(view);
+                cnt = 0;
                 return header;
+
             case CHILD:
-//                TextView itemTextView = new TextView(context);
-//                itemTextView.setPadding(subItemPaddingLeft, subItemPaddingTopAndBottom, 0, subItemPaddingTopAndBottom);
-//                itemTextView.setTextColor(0x88000000);
-//                itemTextView.setLayoutParams(
-//                        new ViewGroup.LayoutParams(
-//                                ViewGroup.LayoutParams.MATCH_PARENT,
-//                                ViewGroup.LayoutParams.WRAP_CONTENT));
-//                return new RecyclerView.ViewHolder(itemTextView) {
-//                };
                 inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_child, parent, false);
                 ViewHolder child = new ViewHolder(view);
+                LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)child.line.getLayoutParams();
+
+                if (cnt == 0) {
+                    child.child_time_txt.setText("23분");
+                    child.child_time_txt.setVisibility(View.VISIBLE);
+                    marginControl.leftMargin = (int) (21 * dp);;
+                    cnt++;
+                }
+                else {
+                    marginControl.leftMargin = (int) (50 * dp);;
+                }
+                child.line.setLayoutParams(marginControl);
                 return child;
         }
         return null;
@@ -134,12 +146,14 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public TextView child_txt;
         public Item childItem;
         public View line;
+        public TextView child_time_txt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             line = (View) itemView.findViewById(R.id.course_path_line_item);
             oval = (ImageView) itemView.findViewById(R.id.oval);
             child_txt = (TextView) itemView.findViewById(R.id.child_txt);
+            child_time_txt = (TextView) itemView.findViewById(R.id.child_time_txt);
         }
     }
     public static class Item {
@@ -155,4 +169,5 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             this.text = text;
         }
     }
+
 }

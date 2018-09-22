@@ -1,4 +1,4 @@
-package com.hello.seoulnuri;
+package com.hello.seoulnuri.view.course;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -13,6 +13,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.hello.seoulnuri.R;
 
 import java.util.ArrayList;
 

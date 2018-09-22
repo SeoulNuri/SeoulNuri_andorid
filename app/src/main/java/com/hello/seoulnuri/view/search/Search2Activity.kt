@@ -77,7 +77,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                     searchText.text = "즐겨찾기"
                     searchCancelBtn.visibility = View.INVISIBLE
                 }
-                requestSearchResponse(searchText.text.toString())
+
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -86,6 +86,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchCancelBtn.visibility = View.VISIBLE
                 searchText.text = "검색 결과"
+                requestSearchResponse(searchText.text.toString())
             }
 
         })

@@ -6,8 +6,10 @@ import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
+import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
 
 /**
@@ -53,4 +55,14 @@ interface NetworkService {
     fun getBookmarkList(
             @Header("token") token: String
     ) : Call<BookmarkListResponse>
+
+
+    // 7. google map directions
+    @GET("/maps/api/directions/json")
+    fun getJson(
+            @Query("origin") origin : String,
+            @Query("destination") destination : String,
+            @Query("waypoints") waypoints : String
+    ) : Callback<DirectionResults>
+
 }

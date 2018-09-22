@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.model.bookmark.BookmarkListData
 import com.hello.seoulnuri.model.search.SearchTourData
+import java.util.*
 
 /**
  * Created by VictoryWoo

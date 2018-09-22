@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.model.search.filter.FilterData
 import kotlinx.android.synthetic.main.filter_item.view.*
+import java.util.*
 
 /**
  * Created by VictoryWoo

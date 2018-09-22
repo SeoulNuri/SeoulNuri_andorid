@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="18dp"
+            android:letterSpacing="-0.02"
+            android:text="공유하기"
+            android:textColor="#9e9e9e"
+            android:textSize="14sp"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="18dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:id="@+id/custom_kakao_share"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_kakao_share"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:letterSpacing="-0.02"
+            android:text="카카오톡으로 링크 보내기"
+            android:layout_marginTop="18dp"
+            android:textSize="14sp"
+            android:textColor="#2c2c2c"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="18dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:id="@+id/custom_link_share"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_link_share"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:letterSpacing="-0.02"
+            android:text="링크 복사하기"
+            android:textColor="#2c2c2c"
+            android:textSize="14sp"
+            android:layout_marginTop="18dp"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="18dp"
+        android:background="#eeeeee" />
+
+    <LinearLayout
+        android:id="@+id/custom_more_share"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_more_share"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:letterSpacing="-0.02"
+            android:text="더보기"
+            android:textColor="#2c2c2c"
+            android:textSize="14sp"
+            android:layout_marginTop="18dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

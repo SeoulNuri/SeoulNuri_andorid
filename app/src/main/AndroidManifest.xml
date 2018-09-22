@@ -30,7 +30,7 @@
             android:value="@string/kakao_app_key" />
 
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.splash.SplashActivity"
             android:theme="@style/Splash" ><intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -43,7 +43,7 @@
             android:name=".view.login.LoginCategoryActivity"
             android:theme="@style/Login" />
         <activity
-            android:name=".view.splash.SplashActivity"
+            android:name=".view.main.MainActivity"
             android:theme="@style/Splash">
 
         </activity>

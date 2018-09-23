@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.view.info
+package com.hello.seoulnuri.view.info.reservation
 
 import android.content.Intent
 import android.graphics.Color
@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.view.View
-import android.widget.LinearLayout
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.info.CommentActivity

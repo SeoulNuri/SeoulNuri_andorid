@@ -145,7 +145,7 @@
         android:id="@+id/filter_layout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/filter_list"

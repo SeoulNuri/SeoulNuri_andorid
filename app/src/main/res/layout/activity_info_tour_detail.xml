@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_weight="1"
+        android:background="#ffffff">
+
+        <RatingBar
+            android:id="@+id/info_tour_detail_stay"
+            style="@style/custom_rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="11dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="7dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="29dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:rating="3" />
+
+        <TextView
+            android:id="@+id/info_tour_detail_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/info_tour_detail_stay"
+            android:layout_toEndOf="@+id/info_tour_detail_stay"
+            android:letterSpacing="-0.01"
+            android:text="(21)"
+            android:textColor="#9e9e9e"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/info_tour_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:letterSpacing="-0.01"
+            android:text="경복궁"
+            android:textColor="#212121"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/info_tour_detail_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_tour_detail_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="1dp"
+            android:gravity="center_horizontal"
+            android:text="서울 종로구 사직로 161 경복궁"
+            android:textColor="#aeaeae"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:id="@+id/info_tour_detail_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_tour_detail_address"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:background="#ffffff"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/info_tour_detail_comment"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/button_oval_comment_g" />
+
+            <ImageView
+                android:id="@+id/info_tour_detail_bookmark"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/button_oval_bookmark_g" />
+
+            <ImageView
+                android:id="@+id/info_tour_detail_share"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/button_oval_share_g" />
+
+            <ImageView
+                android:id="@+id/info_tour_detail_location"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="7dp"
+                android:backgroundTint="#ffffff"
+                android:src="@drawable/button_oval_map_g" />
+
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/info_tour_detail_tab"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_below="@+id/info_tour_detail_layout"
+            android:elevation="4dp"
+            app:tabIndicatorColor="#ff6e2c"
+            app:tabTextAppearance="@style/tabTextStyle"
+            app:tabTextColor="#2c2c2c" />
+
+        <FrameLayout
+            android:id="@+id/info_tour_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/info_tour_detail_tab" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

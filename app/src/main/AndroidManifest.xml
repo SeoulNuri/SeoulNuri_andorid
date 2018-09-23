@@ -22,7 +22,7 @@
         <!-- API 9 이상부터 버그가 있어서 이거 추가해줘야함 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBx-xmwLRXuUZaWKAcgzW4Fc34CvXAIcKw 	" />
+            android:value="AIzaSyBx-xmwLRXuUZaWKAcgzW4Fc34CvXAIcKw  " />
 
         <!-- 카카오톡 메타데이터 -->
         <meta-data
@@ -31,10 +31,12 @@
 
         <activity
             android:name=".view.splash.SplashActivity"
-            android:theme="@style/Splash" ><intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            android:theme="@style/Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.login.LoginActivity"
@@ -44,9 +46,7 @@
             android:theme="@style/Login" />
         <activity
             android:name=".view.main.MainActivity"
-            android:theme="@style/Splash">
-
-        </activity>
+            android:theme="@style/Splash"></activity>
         <activity
             android:name=".view.planner.PlannerStartActivity"
             android:theme="@style/Splash"
@@ -56,16 +56,17 @@
             android:name=".view.planner.PlannerAddFourActivity"
             android:theme="@style/Splash" />
         <activity android:name=".view.planner.PlannerAddPathCheckActivity" />
-
         <activity android:name=".view.planner.PlannerDateActivity" />
-        <activity android:name=".view.course.Course_detail"
-            android:theme="@style/Login"/>
+        <activity
+            android:name=".view.course.Course_detail"
+            android:theme="@style/Login" />
 
         <!-- info -->
         <activity android:name=".info.Info_Detail_Intro" />
         <activity android:name=".info.Info_stay_detail" />
-        <activity android:name=".info.CommentActivity"
-            android:theme="@style/Splash"/>
+        <activity
+            android:name=".info.CommentActivity"
+            android:theme="@style/Splash" />
         <activity
             android:name=".info.popUpActivity"
             android:theme="@android:style/Theme.Dialog" />
@@ -76,19 +77,21 @@
         <activity
             android:name=".view.course.CourseMapActivity"
             android:label="@string/title_activity_course_map"
-            android:theme="@style/Login"></activity>
+            android:theme="@style/Login" />
         <activity
             android:name=".view.mypage.ChangeTypeActivity"
             android:theme="@style/Splash" />
         <activity
             android:name=".view.search.Search2Activity"
             android:theme="@style/Splash" />
-        <activity android:name=".view.info.InfoReservationDetailActivity"
+        <activity
+            android:name=".view.info.reservation.InfoReservationDetailActivity"
+            android:theme="@style/Splash" />
+        <activity
+            android:name=".view.course.CourseCommentActivity"
+            android:theme="@style/Splash" />
+        <activity android:name=".view.info.tour.InfoTourDetailActivity"
             android:theme="@style/Splash"></activity>
-        <activity android:name=".view.course.CourseCommentActivity"
-            android:theme="@style/Splash"></activity>
-
-
     </application>
 
 </manifest>

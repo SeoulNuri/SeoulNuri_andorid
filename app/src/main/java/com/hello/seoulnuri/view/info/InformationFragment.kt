@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
-import kotlinx.android.synthetic.main.fragment_information.*
-import kotlinx.android.synthetic.main.fragment_information.view.*
+import com.hello.seoulnuri.view.info.reservation.InfoReservationFragment
+import com.hello.seoulnuri.view.info.tour.InfoTourFragment
 
 /**
  * Created by VictoryWoo
@@ -31,7 +30,7 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
         }
     }
 
-    fun replaceFrament(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment){
         val fm = activity!!.supportFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.information_frame, fragment)
@@ -47,7 +46,7 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
         informationTab = view.findViewById(R.id.information_tab)
         informationTab.addTab(informationTab!!.newTab().setText("관광정보"))
         informationTab.addTab(informationTab!!.newTab().setText("숙박정보"))
-        replaceFrament(InfoTourFragment())
+        replaceFragment(InfoTourFragment())
 
         informationTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabReselected(p0: TabLayout.Tab?) {
@@ -60,10 +59,10 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
                     0->{
-                        replaceFrament(InfoTourFragment())
+                        replaceFragment(InfoTourFragment())
                     }
                     1->{
-                        replaceFrament(InfoReservationFragment())
+                        replaceFragment(InfoReservationFragment())
                     }
                 }
             }

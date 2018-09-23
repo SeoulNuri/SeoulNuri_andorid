@@ -24,10 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.base.BaseModel;
 import com.hello.seoulnuri.commentItem;
 import com.hello.seoulnuri.info.CommentAdapter;
 import com.hello.seoulnuri.model.CourseItem;
 import com.hello.seoulnuri.model.course.CourseCmtData;
+import com.hello.seoulnuri.model.course.CourseCmtRequest;
 import com.hello.seoulnuri.model.course.CourseCmtResponse;
 import com.hello.seoulnuri.model.course.CourseStarResponse;
 import com.hello.seoulnuri.network.ApplicationController;
@@ -35,6 +37,7 @@ import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
 import com.hello.seoulnuri.view.course.adapter.CourseAdapter;
 import com.hello.seoulnuri.view.course.adapter.CourseCommentAdapter;
+import com.kakao.auth.Session;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -64,6 +67,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
     private  Window win;
     private LinearLayout.LayoutParams params;
     private NetworkService networkService;
+    private TextView tv_tilte_cmt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +75,10 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
         win = getWindow();
         win.setContentView(R.layout.commentlayout);
 
+        Intent intent = getIntent();
+        tv_tilte_cmt = (TextView)findViewById(R.id.tv_tilte_cmt);
+
+        tv_tilte_cmt.setText(intent.getStringExtra("course_title"));
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         cmtlist = (ListView)findViewById(R.id.cmt_all);
         cmt_infos = new ArrayList<commentItem>();
@@ -174,19 +182,56 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
         });
     }
 
+    public void PostNetworking(String inputText){
+        Intent intent = getIntent();
+        int idx = intent.getIntExtra("course_idx",1);
+
+        Log.v("idx" , "idx = " + idx);
+        CourseCmtRequest courseCmtRequest = new CourseCmtRequest(idx, inputText);
+//        if (SharedPreference.Companion.getInstance().getPrefStringData("data") != null) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(SharedPreference.Companion.getInstance().getPrefStringData("data"),courseCmtRequest);
+//
+//        }
+        
+//        if (Session.getCurrentSession().isOpened()) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
+//        }
+        Call<BaseModel> requestDetail = networkService.postCourseCmt(courseCmtRequest);
+
+        requestDetail.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                if(response.isSuccessful()) {
+
+                    Log.v("course comment code", response.body().getCode().toString());
+                    Log.v("course comment status", response.body().getStatus().toString());
+                    Log.v("course comment message", response.body().getMessage().toString());
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
 
         switch (v.getId()){
             case R.id.btn_cmtin:
+                String inputText = cmtEdit.getText().toString();
+                PostNetworking(inputText);
 
-                String inputtext = cmtEdit.getText().toString();
-                if(inputtext.equals("")){
+                if(inputText.equals("")){
                     Toast.makeText(CourseCommentActivity.this, "빈칸이 있습니다.", Toast.LENGTH_SHORT).show();
                 }else{
 
                     //EditText의 빈칸이 없을 경우 등록!
-                    cmt_info = new commentItem("닉네임(login.name)",inputtext, Calendar.getInstance().getTime());
+                    cmt_info = new commentItem("닉네임(login.name)",inputText, Calendar.getInstance().getTime());
                     cmtAdapter.addItem(cmt_info);
 
                     cmtAdapter.notifyDataSetChanged();

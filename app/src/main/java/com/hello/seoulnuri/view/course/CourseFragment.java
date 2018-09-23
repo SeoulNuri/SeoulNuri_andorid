@@ -101,6 +101,7 @@ public class CourseFragment extends Fragment {
 
         networkService = ApplicationController.Companion.getInstance().getNetworkService();
         SharedPreference.Companion.getInstance();
+
         Networking();
 
         //레이아웃매니저

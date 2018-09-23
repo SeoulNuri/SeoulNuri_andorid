@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -162,8 +163,7 @@ public class Info_stay_detail extends AppCompatActivity{
     }
 
     public void Course_link_share_custom_dialog() {
-
-        link_share_dialog = new BottomSheetDialog(this);
+        link_share_dialog = new BottomSheetDialog(Info_stay_detail.this);
         link_share_dialog.setContentView(R.layout.course_share_dialog);
         link_share_dialog.setTitle("공유하기");
 

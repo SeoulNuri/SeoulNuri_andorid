@@ -2,7 +2,9 @@ package com.hello.seoulnuri.network
 
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
+import com.hello.seoulnuri.model.course.CourseCmtRequest
 import com.hello.seoulnuri.model.course.CourseCmtResponse
+import com.hello.seoulnuri.model.course.CourseDetailResponse
 import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.info.InfoTourResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
@@ -79,9 +81,19 @@ interface NetworkService {
             @Query("course_idx") course_idx : Int
     ) : Call<CourseCmtResponse>
 
-    @POST("api/course/comment")
-    fun postCourseCmt() //토큰을 보내야 하는데 어떻게 해야하는걸까..ㅜ
+    @GET("api/course/detail")
+    fun getCourseDetail(
+            @Query ("course_theme") course_theme : Int
+    ) : Call<CourseDetailResponse>
 
+    //코스별 댓글 추가하기
+    @POST("api/course/comment")
+    fun postCourseCmt(
+            @Body courseCmtRequest: CourseCmtRequest
+    ) : Call<BaseModel>
+
+    @POST("api/course/star")
+    fun postCourseStarData()
 
     // 10.플래너 삭제
     @DELETE("api/planner/cancel")

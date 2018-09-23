@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f7f7f7"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/fault_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="34dp"
+                    android:text="장애 유형별 접근성"
+                    android:textColor="@color/pinkish_orange"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/fault_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/fault_eye_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/graphic_top" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:lineSpacingExtra="8sp"
+                            android:text="시각"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/fault_ear_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/graphic_top" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:lineSpacingExtra="8sp"
+                            android:text="청각"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="40dp"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/fault_wheel_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/graphic_top" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:lineSpacingExtra="8sp"
+                            android:text="지체"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:id="@+id/fault_elder_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/graphic_top" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center_horizontal"
+                            android:lineSpacingExtra="8sp"
+                            android:text="노인"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/fault_common_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="28dp">
+
+                <TextView
+                    android:id="@+id/use_method_text"
+                    android:layout_width="44dp"
+                    android:layout_height="21dp"
+                    android:text="공통"
+                    android:textColor="@color/pinkish_orange"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/fault_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_toRightOf="@+id/use_method_text"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:text="주차"
+                            android:textColor="#212121"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="8sp"
+                            android:text="장애인전용 주차구역 있음"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:text="대중교통"
+                            android:textColor="#212121"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingExtra="8sp"
+                            android:text="지하철 접근 가능"
+                            android:textColor="#212121"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="11sp"
+                            android:textColor="#212121"
+                            android:text="교통로"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="#212121"
+                            android:lineSpacingExtra="8sp"
+                            android:text="출입통로"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="11sp"
+                            android:textColor="#212121"
+                            android:text="출입통로"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="#212121"
+                            android:lineSpacingExtra="8sp"
+                            android:text="주출입구 무단차"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="11sp"
+                            android:textColor="#212121"
+                            android:text="화장실"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="#212121"
+                            android:lineSpacingExtra="8sp"
+                            android:text="장애인 화장실 있음"
+                            />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:layout_width="66dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:textSize="11sp"
+                            android:textColor="#212121"
+                            android:text="안내데스크"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13sp"
+                            android:textColor="#212121"
+                            android:lineSpacingExtra="8sp"
+                            android:text="있음"
+                            />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/border_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/fault_common"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#e0e0e0" />
+
+                <RelativeLayout
+                    android:id="@+id/fault_eye_layout"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/border_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/fault_eye_text"
+                        android:layout_width="44dp"
+                        android:gravity="center_vertical"
+                        android:layout_height="21dp"
+                        android:text="시각"
+                        android:textColor="@color/pinkish_orange"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/fault_eye_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="점자블록"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="21dp"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:gravity="center_vertical"
+                                android:layout_gravity="center_vertical"
+                                android:lineSpacingExtra="8sp"
+                                android:text="-"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="점자홍보물"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="-"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="보조견 동반"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="동반가능"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="오디오 가이드"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="음성안내 가이드 있음"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="안내요원"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="있음"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="점자표지판"
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="-"
+                                />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+                <View
+                    android:id="@+id/border_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/fault_eye_layout"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#e0e0e0" />
+
+
+                <RelativeLayout
+                    android:id="@+id/fault_ear_layout"
+                    android:layout_below="@+id/border_two"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/fault_ear_text"
+                        android:layout_width="44dp"
+                        android:layout_height="21dp"
+                        android:gravity="center_vertical"
+                        android:text="청각"
+                        android:textColor="@color/pinkish_orange"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/fault_ear_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="수화안내"
+                                />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="-"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="자막비디오\n가이드"
+                                />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="-"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/border_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/fault_ear_layout"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginTop="16dp"
+                    android:background="#e0e0e0" />
+
+                <RelativeLayout
+                    android:id="@+id/fault_wheel_elder_layout"
+                    android:layout_below="@+id/border_three"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/fault_wheel_elder_text"
+                        android:layout_width="44dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:text="지체,\n노인"
+                        android:textColor="@color/pinkish_orange"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/fault_wheel_elder_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="휠체어"
+                                />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="수동휠체어 무료대여 가능함"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="엘리베이터"
+                                />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="없음"
+                                />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_marginTop="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+                            <TextView
+                                android:layout_width="66dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="11sp"
+                                android:textColor="#212121"
+                                android:text="관람석"
+                                />
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="13sp"
+                                android:textColor="#212121"
+                                android:lineSpacingExtra="8sp"
+                                android:text="없음"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

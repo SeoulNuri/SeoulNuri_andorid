@@ -1,6 +1,7 @@
 package com.hello.seoulnuri.view.course.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,11 @@ import com.hello.seoulnuri.R;
 
 import java.util.ArrayList;
 
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EAR;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_ELDER;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EYE;
+import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_WHEEL;
+
 /**
  * Created by shineeseo on 2018. 8. 29..
  */
@@ -22,12 +28,13 @@ public class Course_info_list_adapter extends BaseExpandableListAdapter {
         private Context mContext;
         private ArrayList<Position> courses_list;
         private LayoutInflater inflater;
-
+        private int select_type;
         private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
-        //class Constructor
-        public Course_info_list_adapter (Context mContext, ArrayList<Position> courses_list) {
+    //class Constructor
+        public Course_info_list_adapter (Context mContext, int select_type, ArrayList<Position> courses_list) {
             this.mContext = mContext;
+            this.select_type = select_type;
             this.courses_list = courses_list;
             inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
@@ -142,25 +149,84 @@ public class Course_info_list_adapter extends BaseExpandableListAdapter {
                 viewHolder = (ChildViewHolder) convertView.getTag();
             }
 
-            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_child_txt));
-
             //get child name
-            String child = (String) getChild(groupPosition, childPosition);
+            String child = (String) getChild(groupPosition, childPosition); //arrayList 중 course_info
             //get header name
-            String positionName = (String) getGroup(groupPosition).toString();
-            if (positionName == "경복궁") {
-                if (child == "경복궁") {
-                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
-                }
-            } else if (positionName == "경희궁") {
-                if (child == "경희궁") {
-                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
-                }
-            } else if (positionName == "북촌문화센터") {
-                if (child == "북촌문화센터") {
-                    viewHolder.course_item_child_pic.setImageResource(R.drawable.img_gyeongbok_info);
-                }
+            String positionName = (String) getGroup(groupPosition).toString(); //course_info_list_header_title
+            switch (select_type) {
+                case COURSE_EYE:
+
+                    if (positionName == courses_list.get(0).course_info_item) {
+                        if (child == courses_list.get(0).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.eye_first_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_eye_first_child_txt));
+
+                        }
+                    } else if (positionName == courses_list.get(1).course_info_item) {
+                        if (child == courses_list.get(1).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.eye_sec_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_eye_sec_child_txt));
+                        }
+                    }
+                    break;
+                case COURSE_WHEEL:
+
+                    if (positionName == courses_list.get(0).course_info_item) {
+                        if (child == courses_list.get(0).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.wheel_first_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_wheel_first_child_txt));
+
+                        }
+                    } else if (positionName == courses_list.get(1).course_info_item) {
+                        if (child == courses_list.get(1).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.wheel_sec_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_wheel_sec_child_txt));
+
+                        }
+                    }
+                    break;
+                case COURSE_EAR:
+
+                    if (positionName == courses_list.get(0).course_info_item) {
+                        if (child == courses_list.get(0).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.ear_first_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_ear_first_child_txt));
+
+                        }
+                    } else if (positionName == courses_list.get(1).course_info_item) {
+                        if (child == courses_list.get(1).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.ear_sec_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_ear_sec_child_txt));
+
+                        }
+                    }
+                    break;
+                case COURSE_ELDER:
+
+                    if (positionName == courses_list.get(0).course_info_item) {
+                        if (child == courses_list.get(0).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.elder_first_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_elder_first_child_txt));
+
+                        }
+                    } else if (positionName == courses_list.get(1).course_info_item) {
+                        if (child == courses_list.get(1).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.elder_sec_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_elder_sec_child_txt));
+
+                        }
+                    } else if (positionName == courses_list.get(2).course_info_item) {
+                        if (child == courses_list.get(2).course_info_item) {
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.elder_sec_photo);
+                            viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_elder_thd_child_txt));
+
+                        }
+                    }
+
+                    break;
             }
+
+
             return convertView;
         }
 

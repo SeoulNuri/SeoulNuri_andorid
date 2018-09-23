@@ -87,8 +87,6 @@
             android:theme="@style/Splash"></activity>
         <activity android:name=".view.course.CourseCommentActivity"
             android:theme="@style/Splash"></activity>
-
-
     </application>
 
 </manifest>

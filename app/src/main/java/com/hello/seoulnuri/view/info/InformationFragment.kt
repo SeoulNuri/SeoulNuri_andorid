@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.info.reservation.InfoReservationFragment
 import com.hello.seoulnuri.view.info.tour.InfoTourFragment
 
@@ -17,12 +20,10 @@ import com.hello.seoulnuri.view.info.tour.InfoTourFragment
  */
 class InformationFragment : Fragment(), View.OnClickListener, Init {
     override fun init() {
-
+        networkService = ApplicationController.instance!!.networkService
+        SharedPreference.instance!!.load(context!!)
     }
 
-    fun init(v: View) {
-
-    }
 
     override fun onClick(v: View?) {
         when (v!!) {
@@ -30,7 +31,7 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
         }
     }
 
-    fun replaceFragment(fragment: Fragment){
+    fun replaceFragment(fragment: Fragment) {
         val fm = activity!!.supportFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.information_frame, fragment)
@@ -38,17 +39,18 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
     }
 
     lateinit var informationTab: TabLayout
+    lateinit var networkService: NetworkService
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_information, container, false)
 
-        init(view)
 
         informationTab = view.findViewById(R.id.information_tab)
         informationTab.addTab(informationTab!!.newTab().setText("관광정보"))
         informationTab.addTab(informationTab!!.newTab().setText("숙박정보"))
         replaceFragment(InfoTourFragment())
+        //requestInfoTour()
 
-        informationTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        informationTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
             }
@@ -57,11 +59,11 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                when(tab!!.position){
-                    0->{
+                when (tab!!.position) {
+                    0 -> {
                         replaceFragment(InfoTourFragment())
                     }
-                    1->{
+                    1 -> {
                         replaceFragment(InfoReservationFragment())
                     }
                 }
@@ -75,4 +77,6 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
         )
         return view
     }
+
+
 }

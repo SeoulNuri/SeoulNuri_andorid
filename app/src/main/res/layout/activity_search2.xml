@@ -63,6 +63,17 @@
         android:textColor="@color/pinkish_orange"
         android:textSize="13sp" />
 
+    <TextView
+        android:id="@+id/searchBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:letterSpacing="-0.01"
+        android:text="검색"
+        android:textColor="@color/pinkish_orange"
+        android:textSize="13sp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/searchRecyclerView"
         android:layout_width="match_parent"

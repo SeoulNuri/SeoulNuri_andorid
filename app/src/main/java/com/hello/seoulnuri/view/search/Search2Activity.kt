@@ -45,6 +45,9 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                 searchCancelBtn.visibility = View.INVISIBLE
                 searchText.text = "즐겨찾기"
             }
+            searchBtn->{
+                requestSearchResponse(searchContentEditText.text.toString())
+            }
             v!!->{
                 val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
                 ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
@@ -57,6 +60,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
         SharedPreference.instance!!.load(this)
         searchBackBtn.setOnClickListener(this)
         searchCancelBtn.setOnClickListener(this)
+        searchBtn.setOnClickListener(this)
     }
 
     lateinit var searchAdapter: SearchAdapter
@@ -87,7 +91,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 searchCancelBtn.visibility = View.VISIBLE
                 searchText.text = "검색 결과"
-                requestSearchResponse(searchText.text.toString())
+                //requestSearchResponse(searchText.text.toString())
             }
 
         })
@@ -106,6 +110,8 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
 
             override fun onResponse(call: Call<BookmarkListResponse>?, response: Response<BookmarkListResponse>?) {
                 if(response!!.isSuccessful){
+                    Log.v("1013",response!!.code().toString())
+                    Log.v("1013",response!!.body()!!.data.size.toString())
                     bookmarkListItems = response!!.body()!!.data
                     searchAdapter = SearchAdapter(bookmarkListItems, this@Search2Activity)
                     searchAdapter.setOnItemClickListener(this@Search2Activity)
@@ -119,24 +125,29 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
 
     // 메인에서 search
     fun requestSearchResponse(word: String) {
-        val searchData = networkService
-                .getMainSearchData(SharedPreference.instance!!.getPrefStringData("data")!!
-                        , word)
-
+        Log.v("1051", "search 액티비티 함수")
+        val searchData = networkService.getMainSearchData(SharedPreference.instance!!.getPrefStringData("data")!!, word)
+        Log.v("1051", "search 액티비티 함수2")
         searchData.enqueue(object : Callback<BookmarkListResponse> {
             override fun onFailure(call: Call<BookmarkListResponse>?, t: Throwable?) {
-                Log.v("945", t!!.message)
+                Log.v("1051", "search 액티비티 통신 실패할 때")
             }
 
             override fun onResponse(call: Call<BookmarkListResponse>?, response: Response<BookmarkListResponse>?) {
                 if (response!!.isSuccessful) {
-                    Log.v("946", response!!.message())
+                    Log.v("1051", "search 액티비티 통신 실패할 때 ${response!!.message()}")
                     bookmarkListItems = response!!.body()!!.data
-                    //searchAdapter = SearchAdapter(searchItems,this@Search2Activity)
+                    searchAdapter = SearchAdapter(bookmarkListItems,this@Search2Activity)
                     searchAdapter.setOnItemClickListener(this@Search2Activity)
                     searchAdapter.notifyDataSetChanged()
                     searchRecyclerView.layoutManager = LinearLayoutManager(this@Search2Activity)
                     searchRecyclerView.adapter = searchAdapter
+                }else{
+                    Log.v("1052", "search success else ${response!!.code()}")
+                    Log.v("10522", response!!.body()!!.message)
+                    Log.v("1052", SharedPreference.instance!!.getPrefStringData("data")!!)
+                    Log.v("1052", word.toString())
+
                 }
             }
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_below="@+id/info_tour_detail_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="wrap_content"
+                android:layout_height="180dp">
+
+                <ImageView
+                    android:id="@+id/info_tour_detail_image"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="312dp"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/img_jw"/>
+
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/info_tour_detail_text_content"
+                style="@style/textStyle"
+                android:layout_width="312dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:lineSpacingMultiplier="1.2"
+                android:text="JW 메리어트 서울은 2018년 1월 1일부터 진행된 전면적인 리노베이션을 통해 가장 세련되고 품격있는 럭셔리 호텔로 여러분을 맞이하기 위한 큰 도약을 준비하고 있다.
+
+세계적인 인테리어 디자이너들이 대거 참여하여 한국의 미를 담아 창조한 웅장하고 세련된 공간, 저명한 식음 컨설턴트들과 국내외 최고 쉐프들이 선보이는 독창적이고 품격 높은 미식 경험, 옛부터 뿌리깊게 내재된 한국인의 공경심과 배려심에서 우러나오는 섬세하고 진정성 있는 서비스, 고객의 취향에 맞춘 다양한 엔터테인먼트와 심신의 건강을 케어해주는 웰니스 프로그램 등으로 고객이 열망하는 그 이상의 재미와 감동, 잊지 못할 추억을 만들어 주는 진정한 럭셔리의 정수를 선보일 예정이다."
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

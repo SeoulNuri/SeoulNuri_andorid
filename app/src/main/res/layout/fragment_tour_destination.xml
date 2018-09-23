@@ -5,10 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="destination"
-        android:textSize="30dp"/>
+    <RelativeLayout
+        android:id="@+id/tourSpotLayout"
+        android:layout_width="match_parent"
+        android:layout_height="268dp"
+        android:background="@drawable/graphic_mypage_spot">
+
+
+        <TextView
+            android:id="@+id/tourSpotText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="74dp"
+            android:layout_marginLeft="24dp"
+            android:letterSpacing="-0.02"
+            android:lineSpacingExtra="12sp"
+            android:textColor="#ffffff"
+            android:textSize="21sp" />
+
+
+    </RelativeLayout>
 
 </LinearLayout>

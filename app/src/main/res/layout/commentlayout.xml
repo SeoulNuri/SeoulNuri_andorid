@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center"
-            android:letterSpacing="-0.26"
+            android:letterSpacing="-0.026"
             android:text="경복궁"
             android:textColor="#2c2c2c"
             android:textSize="18sp" />

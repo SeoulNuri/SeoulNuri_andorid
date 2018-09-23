@@ -16,6 +16,7 @@
         android:id="@+id/course_item_child_txt"
         android:layout_width="312dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:textSize="14sp"
         android:layout_below="@id/course_item_child_pic" />
 

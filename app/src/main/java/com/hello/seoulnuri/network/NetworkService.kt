@@ -5,14 +5,16 @@ import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.CourseCmtRequest
 import com.hello.seoulnuri.model.course.CourseCmtResponse
 import com.hello.seoulnuri.model.course.CourseDetailResponse
+import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
-import com.hello.seoulnuri.model.search.SearchResponse
+import com.hello.seoulnuri.model.map.DirectionResults
+import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
-import com.hello.seoulnuri.model.course.CourseStarResponse
 
 
 /**
@@ -58,6 +60,14 @@ interface NetworkService {
             @Header("token") token: String
     ) : Call<BookmarkListResponse>
 
+    // 7. google map directions
+    @GET("/maps/api/directions/json")
+    fun getJson(
+            @Query("origin") origin : String,
+            @Query("destination") destination : String,
+            @Query("waypoints") waypoints : String
+    ) : Callback<DirectionResults>
+
     //코스 메인 유형별 별점 불러오기
     @GET("api/course")
     fun getCourseStar() : Call<CourseStarResponse>
@@ -76,10 +86,30 @@ interface NetworkService {
     //코스별 댓글 추가하기
     @POST("api/course/comment")
     fun postCourseCmt(
-
             @Body courseCmtRequest: CourseCmtRequest
     ) : Call<BaseModel>
 
     @POST("api/course/star")
     fun postCourseStarData()
+
+    //플래너 삭제
+    @DELETE("api/planner/cancel")
+    fun deletePlanner(
+            @Header("token") token: String,
+            @Body plannerDeleteRequest: PlannerDeleteRequest
+    ) : Call<PlannerDeleteResponse>
+
+    //플래너 검색
+    @GET("api/planner/search/keyword")
+    fun plannerSearch(
+            @Header("token") token: String,
+            @Body plannerSearchRequest: PlannerSearchRequest
+    ) : Call<PlannerSearchResponse>
+
+    //플래너 추가
+    @POST("api/planner/add")
+    fun addPlanner(
+            @Header("token") token: String,
+            @Body plannerAddRequest: PlannerAddRequest
+    ) : Call<PlannerAddResponse>
 }

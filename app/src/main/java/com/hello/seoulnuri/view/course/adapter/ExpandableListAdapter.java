@@ -1,8 +1,10 @@
 package com.hello.seoulnuri.view.course.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.icu.text.IDNA;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.info.Info_Detail_Intro;
+import com.hello.seoulnuri.view.info.InfoTourFragment;
 
 import org.w3c.dom.Text;
 
@@ -31,15 +35,14 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static final int CHILD = 1;
 
     Context context;
-    private int type;
+
     private List<Item> data;
 
     private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
-    int cnt = 0;
+    int flag = 0; //header 판별 (소요시간)
 
-    public ExpandableListAdapter(int type, List<Item> data) {
-        this.type = type;
+    public ExpandableListAdapter(List<Item> data) {
         this.data = data;
     }
 
@@ -48,34 +51,20 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         View view = null;
 
         context = parent.getContext();
-        float dp = context.getResources().getDisplayMetrics().density;
-        int subItemPaddingLeft = (int) (18 * dp);
-        int subItemPaddingTopAndBottom = (int) (5 * dp);
 
         switch (type) {
             case HEADER:
                 LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_head, parent, false);
                 ListHeaderViewHolder header = new ListHeaderViewHolder(view);
-                cnt = 0;
+
                 return header;
 
             case CHILD:
                 inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_child, parent, false);
                 ViewHolder child = new ViewHolder(view);
-                LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)child.line.getLayoutParams();
 
-                if (cnt == 0) {
-                    child.child_time_txt.setText("23분");
-                    child.child_time_txt.setVisibility(View.VISIBLE);
-                    marginControl.leftMargin = (int) (21 * dp);;
-                    cnt++;
-                }
-                else {
-                    marginControl.leftMargin = (int) (50 * dp);;
-                }
-                child.line.setLayoutParams(marginControl);
                 return child;
         }
         return null;
@@ -83,34 +72,53 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Item item = data.get(position);
+        float dp = context.getResources().getDisplayMetrics().density;
+        Integer time = (Integer)item.course_time;
 
         switch (item.type) {
             case HEADER:
                 final ListHeaderViewHolder itemController = (ListHeaderViewHolder) holder;
-                itemController.refferalItem = item;
-                itemController.header_title.setText(item.text);
 
-                if (itemController.header_title.getText().toString().equals("경복궁")) {
-                    itemController.number.setImageResource(header_indicator[0]);
-                    itemController.title_img.setImageResource(R.drawable.img_gyeongbok_course);
-                }
-                else if (itemController.header_title.getText().toString().equals("경희궁")) {
-                    itemController.number.setImageResource(header_indicator[1]);
-                    itemController.title_img.setImageResource(R.drawable.img_gyeong_hee_course);
-                }
-                else if (itemController.header_title.getText().toString().equals("북촌문화센터")) {
-                    itemController.number.setImageResource(header_indicator[2]);
-                    itemController.title_img.setImageResource(R.drawable.img_geoncheon_course);
-                }
+                itemController.header_title.setText(item.text);
+                itemController.title_img.setImageResource(item.image);
+
+                itemController.number.setImageResource(header_indicator[item.order]);
 
                 itemController.btn_expand_toggle.setImageResource(R.drawable.ic_nextarrow_g);
 
+                itemController.btn_expand_toggle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, Info_Detail_Intro.class);
+//                        intent.putExtra("tour_idx", ) //서버에서 받은 값 전달
+                        context.startActivity(intent);
+                    }
+                });
+                flag = 0;
 
                 break;
             case CHILD:
                 final ViewHolder childController = (ViewHolder) holder;
                 childController.childItem = data.get(position);
                 childController.child_txt.setText(childController.childItem.text);
+                LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)childController.line.getLayoutParams();
+
+
+                if (flag == 0) {
+                    childController.child_time_txt.setText(time + "분");
+                    childController.child_time_txt.setVisibility(View.VISIBLE);
+                    marginControl.leftMargin = (int) (21 * dp);
+                    flag = 1;
+                } else {
+                    childController.child_time_txt.setVisibility(View.GONE);
+                    marginControl.leftMargin = (int) (50 * dp);
+                }
+                if (time == 0) {
+                    childController.child_time_txt.setVisibility(View.GONE);
+                    marginControl.leftMargin = (int) (50 * dp);
+                    childController.line.setVisibility(View.INVISIBLE);
+                }
+                childController.line.setLayoutParams(marginControl);
                 break;
         }
     }
@@ -126,11 +134,11 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     private class ListHeaderViewHolder extends RecyclerView.ViewHolder {
+        //headerViewHolder
         public ImageView number;
         public ImageView title_img;
         public TextView header_title;
         public ImageView btn_expand_toggle;
-        public Item refferalItem;
 
         public ListHeaderViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +149,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
     private class ViewHolder extends RecyclerView.ViewHolder {
+        //childViewHolder
         public ImageView oval;
         public TextView child_txt;
         public Item childItem;
@@ -156,11 +165,24 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
     public static class Item {
-        public int type;
+        //ArrayList<Item> data
+        public int type; //header, child
         public String text;
-        public List<Item> invisibleChildren; //place
+        public int order; //header count
+        public int image;
+        public int course_time;
 
-        public Item() {
+        public Item(int type, String text, int course_time) {
+            this.type = type;
+            this.text = text;
+            this.course_time = course_time;
+        }
+
+        public Item(int type, String text, int image, int order) {
+            this.type = type;
+            this.text = text;
+            this.image = image;
+            this.order = order;
         }
 
         public Item(int type, String text ) {

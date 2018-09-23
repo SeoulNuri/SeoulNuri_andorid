@@ -82,13 +82,14 @@ public class Course_detail extends AppCompatActivity {
     private List<ExpandableListAdapter.Item> places;
     private ExpandableListView elv;
     private ArrayList<Position> courses_list;
+    private TextView course_item_txt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
-        TextView course_item_txt = (TextView) findViewById(R.id.course_item_txt);
+        course_item_txt = (TextView) findViewById(R.id.course_item_txt);
         TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
 
         intent = new Intent(this.getIntent());
@@ -204,6 +205,7 @@ public class Course_detail extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Course_detail.this,CourseCommentActivity.class);
                 // intent.
+                intent.putExtra("course_title", course_item_txt.getText().toString());
                 intent.putExtra("course_idx", 1);
                 startActivity(intent);
             }
@@ -464,11 +466,11 @@ public class Course_detail extends AppCompatActivity {
 //                    for (int i = 0; i < tour_info.size(); i++) {//서버 데이터가 들어가면 구현
                     switch (courseDetailData.getCourse_theme() + 3) {
                         case COURSE_EYE :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서대문형무소역사관"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 추모의 장 - 영상실, 기획전시실, 자료실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 역사의 장 - 민족저항실, 형무소 역사실, 옥중생활실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 체험의 장 - 임시구금실과 고문실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "백범김구기념관"));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서대문형무소역사관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 추모의 장 - 영상실, 기획전시실, 자료실",14));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 역사의 장 - 민족저항실, 형무소 역사실, 옥중생활실",14));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 체험의 장 - 임시구금실과 고문실",14));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "백범김구기념관",R.drawable.img_gyeong_hee_course,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "이봉창 의사 동상"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "백범광장"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "전시관 1층, 2층"));
@@ -476,48 +478,48 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_EYE);
                             break;
                         case COURSE_WHEEL :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울시립미술관"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하1층 : 제1강의실, 제2강의실, 제3강의실, 세마홀"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 전시실, 휴식공간"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 전시실, 자료실, 천경자실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 전시실, 크리스탈 상영실, 프로젝트 갤러리"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "야외 : 야외조각공원"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "한국은행 본관"));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울시립미술관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하1층 : 제1강의실, 제2강의실, 제3강의실, 세마홀",8));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 전시실, 휴식공간",8));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 전시실, 자료실, 천경자실",8));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 전시실, 크리스탈 상영실, 프로젝트 갤러리",8));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "야외 : 야외조각공원",8));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "한국은행 본관",R.drawable.img_gyeong_hee_course,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 우리의 중앙은행, 화폐의 일생, 돈과 나라경제, 화폐광장, 상평통보 갤러리"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "MF : 옛 총재실, 화폐박물관 건축실, 옛 금융통화위원회 회의실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 모형금고, 한은갤러리, 세계의 화폐실, 체험학습실, 기획전시실"));
                             courses_list = getData(COURSE_WHEEL);
                             break;
                         case COURSE_EAR :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울올림픽기념관"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하 1층 : 올림픽자료실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 평화의장(상설전시장), 기획전시실"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 화합의장 및 번영의장 (상설전시장), 영광의장(라이드 영상관)"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "몽촌토성"));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울올림픽기념관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하 1층 : 올림픽자료실",18));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 평화의장(상설전시장), 기획전시실",18));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 화합의장 및 번영의장 (상설전시장), 영광의장(라이드 영상관)",18));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "몽촌토성",R.drawable.img_gyeong_hee_course,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD,"어검당"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "제 1~3전시관"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "제 5~6전시관"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "아틀리에"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "전통다원"));
-                            courses_list = getData(COURSE_WHEEL);
+                            courses_list = getData(COURSE_EAR);
                             break;
                         case COURSE_ELDER :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창덕궁"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "돈화문"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "궐내각사"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "금천교"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "인정전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "선정전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "희정당"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "대조전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "낙선재"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창경궁"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "홍화문"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정문"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전"));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "춘원당 한방박물관"));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창덕궁",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "돈화문",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "궐내각사",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "금천교",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "인정전",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "선정전",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "희정당",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "대조전",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "낙선재",12));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창경궁",R.drawable.img_gyeong_hee_course,1));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "홍화문",6));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정문",6));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정전",6));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전",6));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전",6));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "춘원당 한방박물관",R.drawable.img_geoncheon_course,2));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "약제실 및 탕전실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "약재품실 검사실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "삼국시대부터 조선시대까지 \n" + "한의학 유물전시"));
@@ -527,7 +529,7 @@ public class Course_detail extends AppCompatActivity {
 
                     }
 
-                    recyclerview.setAdapter(new ExpandableListAdapter(select_type,places));
+                    recyclerview.setAdapter(new ExpandableListAdapter(places));
 
 
                     //create and bind to adatper

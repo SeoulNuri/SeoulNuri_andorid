@@ -67,6 +67,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
     private  Window win;
     private LinearLayout.LayoutParams params;
     private NetworkService networkService;
+    private TextView tv_tilte_cmt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +75,10 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
         win = getWindow();
         win.setContentView(R.layout.commentlayout);
 
+        Intent intent = getIntent();
+        tv_tilte_cmt = (TextView)findViewById(R.id.tv_tilte_cmt);
+
+        tv_tilte_cmt.setText(intent.getStringExtra("course_title"));
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         cmtlist = (ListView)findViewById(R.id.cmt_all);
         cmt_infos = new ArrayList<commentItem>();

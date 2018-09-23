@@ -1,5 +1,6 @@
 package com.hello.seoulnuri.model.course
 
+import java.util.*;
 /**
  * Created by shineeseo on 2018. 9. 22..
  */

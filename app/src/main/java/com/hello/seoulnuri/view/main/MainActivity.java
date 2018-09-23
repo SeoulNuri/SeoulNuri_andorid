@@ -65,9 +65,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-//        networkService = ApplicationController.Companion.getInstance().getNetworkService();
-//        SharedPreference.Companion.getInstance();
-//        requestMainTourInfo();
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+        //requestMainTourInfo();
 
       /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);

@@ -7,17 +7,29 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.planner.PlannerSearchRequest
+import com.hello.seoulnuri.model.planner.PlannerSearchResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import kotlinx.android.synthetic.main.activity_planner_start.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
+
+    lateinit var networkService: NetworkService
+
     override fun onClick(v: View?) {
         when (v!!) {
             planner_start_next_button -> {
@@ -89,6 +101,8 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
         init()
         autoInit()
 
+        networkService = ApplicationController.instance!!.networkService
+        SharedPreference.instance!!.load(this)
 
         search_auto_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -109,6 +123,36 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
             }
         })
 
+
+    }
+
+    fun searchPlanner(word: String){
+
+        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
+        var plannerSearchRequest = PlannerSearchRequest(word);
+        var plannerSearchResponse = networkService.plannerSearch(token,plannerSearchRequest)
+
+
+        plannerSearchResponse.enqueue(object : Callback<PlannerSearchResponse> {
+            override fun onFailure(call: Call<PlannerSearchResponse>?, t: Throwable?) {
+                Log.v("failure ",t!!.message)
+            }
+
+            override fun onResponse(call: Call<PlannerSearchResponse>?, response: Response<PlannerSearchResponse>?) {
+                if(response!!.isSuccessful){
+
+                    Log.v("yong",response!!.body()!!.message!!)
+                    var searchList = response!!.body()!!.data
+
+                    // mapping recyclerview
+
+                } else{
+
+
+                }
+            }
+
+        })
 
     }
 }

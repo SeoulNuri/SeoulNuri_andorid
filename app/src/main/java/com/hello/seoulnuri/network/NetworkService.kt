@@ -3,16 +3,16 @@ package com.hello.seoulnuri.network
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.CourseCmtResponse
+import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
-import com.hello.seoulnuri.model.search.SearchResponse
+import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
-import com.hello.seoulnuri.model.course.CourseStarResponse
 
 
 /**
@@ -79,4 +79,25 @@ interface NetworkService {
     @POST("api/course/comment")
     fun postCourseCmt() //토큰을 보내야 하는데 어떻게 해야하는걸까..ㅜ
 
+
+    //플래너 삭제
+    @DELETE("api/planner/cancel")
+    fun deletePlanner(
+            @Header("token") token: String,
+            @Body plannerDeleteRequest: PlannerDeleteRequest
+    ) : Call<PlannerDeleteResponse>
+
+    //플래너 검색
+    @GET("api/planner/search/keyword")
+    fun plannerSearch(
+            @Header("token") token: String,
+            @Body plannerSearchRequest: PlannerSearchRequest
+    ) : Call<PlannerSearchResponse>
+
+    //플래너 추가
+    @POST("api/planner/add")
+    fun addPlanner(
+            @Header("token") token: String,
+            @Body plannerAddRequest: PlannerAddRequest
+    ) : Call<PlannerAddResponse>
 }

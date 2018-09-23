@@ -8,8 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import com.hello.seoulnuri.model.PlannerListData
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.PlannerListData
+import com.hello.seoulnuri.model.planner.PlannerDeleteRequest
+import com.hello.seoulnuri.model.planner.PlannerDeleteResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 /**
@@ -20,6 +28,7 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
 
     var check: Int = 0
     private lateinit var onItemClick: View.OnClickListener
+    lateinit var networkService: NetworkService
 
     fun setOnItemClickListener(l: View.OnClickListener) {
         onItemClick = l
@@ -27,6 +36,8 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlannerViewHolder {
         var view = LayoutInflater.from(parent.context).inflate(R.layout.planner_list, parent, false)
+        networkService = ApplicationController.instance!!.networkService
+        SharedPreference.instance!!.load(context)
         return PlannerViewHolder(view)
 
     }
@@ -52,6 +63,33 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
         }
     }
 
+    fun deletePlanner(idx : Int){
+
+        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
+        var plannerDeleteRequest = PlannerDeleteRequest(idx);
+        var plannerDeleteResponse = networkService.deletePlanner(token,plannerDeleteRequest)
+
+
+        plannerDeleteResponse.enqueue(object : Callback<PlannerDeleteResponse> {
+            override fun onFailure(call: Call<PlannerDeleteResponse>?, t: Throwable?) {
+                Log.v("failure ",t!!.message)
+            }
+
+            override fun onResponse(call: Call<PlannerDeleteResponse>?, response: Response<PlannerDeleteResponse>?) {
+                if(response!!.isSuccessful){
+
+                    Log.v("yong",response!!.body()!!.message!!)
+
+                } else{
+
+
+                }
+            }
+
+        })
+
+    }
+
     class PlannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var date_text: TextView = itemView.findViewById(R.id.planner_list_date)
         var location_text: TextView = itemView.findViewById(R.id.planner_list_location)
@@ -62,4 +100,6 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
         check = checkNum
         notifyDataSetChanged()
     }
+
+
 }

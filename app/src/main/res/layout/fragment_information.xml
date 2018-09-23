@@ -29,7 +29,7 @@
         android:elevation="4dp"
         app:tabIndicatorColor="#ff6e2c"
         app:tabTextAppearance="@style/tabTextStyle"
-        app:tabTextColor="#2c2c2c" />
+        app:tabTextColor="#2c2c2c"/>
 
 
 

@@ -1,6 +1,7 @@
-package com.hello.seoulnuri.view.info
+package com.hello.seoulnuri.view.info.tour
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.info.Info_Detail_Intro
 import com.hello.seoulnuri.model.InfoItem
 import com.hello.seoulnuri.model.search.filter.FilterData
 import com.hello.seoulnuri.utils.ToastMaker
@@ -39,14 +41,14 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!) {
             information_toggle_total -> { // 전체
+                Log.v("124","필터에서 전체 버튼 누르기")
                 if (!information_toggle_total.isSelected) {
                     Log.v("537", "누르기")
                     information_toggle_total.isSelected = true
-                    information_toggle_total.isSelected = false
                     information_toggle_ear.isSelected = false
                     information_toggle_wheel.isSelected = false
                     information_toggle_elder.isSelected = false
-                    filter_layout.visibility = View.GONE
+                    //filter_layout.visibility = View.GONE
                     filterItems.removeAll(filterItems)
                     checkVisible(true)
                 } else {
@@ -119,10 +121,26 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
 
             }
             v!! -> {
-                val index_position = filter_list.getChildAdapterPosition(v!!)
-                filterItems[index_position].filter_status = !filterItems[index_position].filter_status
-                filterAdapter.notifyDataSetChanged()
-                ToastMaker.makeShortToast(context!!, index_position.toString())
+                Log.v("124","다른 버튼을 누름")
+                Log.v("124","뷰의 아이디 : "+v!!.id.toString())
+                Log.v("124","filter_list 아이디 : "+filter_list.id)
+                Log.v("124","info_tour_recyclerview 아이디 : "+info_tour_recyclerview.id)
+                Log.v("124",filter_list.id.toString())
+                if(v!!.id == -1){
+                    Log.v("124","filter누름")
+                    val index_position = filter_list.getChildAdapterPosition(v!!)
+                    filterItems[index_position].filter_status = !filterItems[index_position].filter_status
+                    filterAdapter.notifyDataSetChanged()
+                    ToastMaker.makeShortToast(context!!, index_position.toString())
+                } else if(v!!.id == 2131296347){
+                    Log.v("124","관광 누름")
+                    val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)
+                    val intent : Intent = Intent(context, InfoTourDetailActivity::class.java)
+                    intent.putExtra("index",index_tour_position)
+                    startActivity(intent)
+
+                }
+
             }
 
         }

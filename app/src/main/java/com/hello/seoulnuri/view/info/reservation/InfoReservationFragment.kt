@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.view.info
+package com.hello.seoulnuri.view.info.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.hello.seoulnuri.R
-import com.hello.seoulnuri.info.Info_stay_detail
-import com.hello.seoulnuri.model.InfoData
 import com.hello.seoulnuri.model.InfoItem
 import com.hello.seoulnuri.utils.ToastMaker
 import com.hello.seoulnuri.view.info.adapter.InfoReservationAdapter

@@ -1,10 +1,12 @@
 package com.hello.seoulnuri.model;
 
+import java.io.Serializable;
+
 /**
  * Created by shineeseo on 2018. 8. 21..
  */
 
-public class CourseItem {
+public class CourseItem implements Serializable{
     int image;
     int icon;
     String content;
@@ -63,5 +65,16 @@ public class CourseItem {
 
     public void setCour_star_count(double cour_star_count) {
         this.cour_star_count = cour_star_count;
+    }
+
+    @Override
+    public String toString() {
+        return "CourseItem{" +
+                "image=" + image +
+                ", icon=" + icon +
+                ", content='" + content + '\'' +
+                ", cour_star=" + cour_star +
+                ", cour_star_count=" + cour_star_count +
+                '}';
     }
 }

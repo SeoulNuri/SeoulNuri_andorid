@@ -45,6 +45,7 @@
         tools:text="독립운동의 역사"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
     <TextView
+        android:id="@+id/course_item_addr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -107,7 +108,8 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -140,6 +142,7 @@
                                 tools:text="시각장애인 여행 추천 코스"
                                 android:textColor="#000000"
                                 android:textSize="14sp"
+                                android:textStyle="bold"
                                 android:letterSpacing="-0.02" />
 
                             <ImageView

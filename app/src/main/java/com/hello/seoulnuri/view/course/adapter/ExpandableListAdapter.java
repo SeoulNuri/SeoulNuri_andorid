@@ -31,17 +31,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public static final int CHILD = 1;
 
     Context context;
-
+    private int type;
     private List<Item> data;
 
     private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
-    int select_type;
-
     int cnt = 0;
 
     public ExpandableListAdapter(int type, List<Item> data) {
-        select_type = type;
+        this.type = type;
         this.data = data;
     }
 
@@ -53,6 +51,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         float dp = context.getResources().getDisplayMetrics().density;
         int subItemPaddingLeft = (int) (18 * dp);
         int subItemPaddingTopAndBottom = (int) (5 * dp);
+
         switch (type) {
             case HEADER:
                 LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

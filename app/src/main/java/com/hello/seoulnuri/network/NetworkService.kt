@@ -6,15 +6,18 @@ import com.hello.seoulnuri.model.course.CourseCmtRequest
 import com.hello.seoulnuri.model.course.CourseCmtResponse
 import com.hello.seoulnuri.model.course.CourseDetailResponse
 import com.hello.seoulnuri.model.course.CourseStarResponse
+import com.hello.seoulnuri.model.info.InfoTourResponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.planner.*
+import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
+import java.util.*
 
 
 /**
@@ -41,10 +44,10 @@ interface NetworkService {
     ) : Call<MainTourResponse>
 
     // 4. 메인에서 Search - 0
-    @GET("api/main/search/keyword/{word}")
+    @GET("api/main/search/keyword")
     fun getMainSearchData(
             @Header("token") token : String,
-            @Path("word") word : String
+            @Query("word") word : String
     ) : Call<BookmarkListResponse>
 
     // 5. 마이 페이지에서 장애 유형 변경 - 0
@@ -68,11 +71,11 @@ interface NetworkService {
             @Query("waypoints") waypoints : String
     ) : Callback<DirectionResults>
 
-    //코스 메인 유형별 별점 불러오기
+    // 8. 코스 메인 유형별 별점 불러오기
     @GET("api/course")
     fun getCourseStar() : Call<CourseStarResponse>
 
-    //코스별 댓글 불러오기
+    // 9. 코스별 댓글 불러오기
     @GET("api/course/comment")
     fun getCourseCmt(
             @Query("course_idx") course_idx : Int
@@ -92,24 +95,33 @@ interface NetworkService {
     @POST("api/course/star")
     fun postCourseStarData()
 
-    //플래너 삭제
+    // 10.플래너 삭제
     @DELETE("api/planner/cancel")
     fun deletePlanner(
             @Header("token") token: String,
             @Body plannerDeleteRequest: PlannerDeleteRequest
     ) : Call<PlannerDeleteResponse>
 
-    //플래너 검색
+    // 11. 플래너 검색
     @GET("api/planner/search/keyword")
     fun plannerSearch(
             @Header("token") token: String,
             @Body plannerSearchRequest: PlannerSearchRequest
     ) : Call<PlannerSearchResponse>
 
-    //플래너 추가
+    // 12. 플래너 추가
     @POST("api/planner/add")
     fun addPlanner(
             @Header("token") token: String,
             @Body plannerAddRequest: PlannerAddRequest
     ) : Call<PlannerAddResponse>
+
+
+    // 13. 인포 들어갔을 때
+    @GET("api/info/tour")
+    fun getInfoTour(
+            @Header("token") token: String,
+            @Query("handi_type") handi_type : String,
+            @Query("filter") filter : String
+    ) : Call<InfoTourResponse>
 }

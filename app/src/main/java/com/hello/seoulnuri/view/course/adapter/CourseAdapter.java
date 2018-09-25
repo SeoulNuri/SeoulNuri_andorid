@@ -64,6 +64,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             public void onClick(View v) {
                 Intent intent = new Intent(context, Course_detail.class);
                 intent.putExtra("select_type", pos+3 );
+                intent.putExtra("courseList", courseList);
                 context.startActivity(intent);
             }
         });

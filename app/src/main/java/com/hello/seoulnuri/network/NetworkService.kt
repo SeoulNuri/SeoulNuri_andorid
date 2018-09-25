@@ -117,6 +117,12 @@ interface NetworkService {
     ) : Call<PlannerAddResponse>
 
 
+    //플래너 리스트 보여주기
+    @GET("api/planner/list")
+    fun getPlanner(
+            @Header("token") token: String
+    ) : Call<PlannerGetResponse>
+
     // 13. 인포 들어갔을 때
     @GET("api/info/tour")
     fun getInfoTour(
@@ -124,4 +130,5 @@ interface NetworkService {
             @Query("handi_type") handi_type : String,
             @Query("filter") filter : String
     ) : Call<InfoTourResponse>
+
 }

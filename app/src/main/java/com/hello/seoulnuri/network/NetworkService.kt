@@ -117,7 +117,7 @@ interface NetworkService {
     ) : Call<PlannerAddResponse>
 
 
-    // 13. 인포 들어갔을 때
+    // 13. 인포 들어갔을 때 - 0
     @GET("api/info/tour")
     fun getInfoTour(
             @Header("token") token: String,

@@ -100,4 +100,10 @@ interface NetworkService {
             @Header("token") token: String,
             @Body plannerAddRequest: PlannerAddRequest
     ) : Call<PlannerAddResponse>
+
+    //플래너 리스트 보여주기
+    @GET("api/planner/list")
+    fun getPlanner(
+            @Header("token") token: String
+    ) : Call<PlannerGetResponse>
 }

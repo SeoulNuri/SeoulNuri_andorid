@@ -6,15 +6,23 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.hello.seoulnuri.model.PlannerListData
-import com.hello.seoulnuri.view.planner.adapter.PlannerAdapter
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.planner.PlannerGetData
+import com.hello.seoulnuri.model.planner.PlannerGetResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
+import com.hello.seoulnuri.view.planner.adapter.PlannerAdapter
 import kotlinx.android.synthetic.main.fragment_planner.*
 import kotlinx.android.synthetic.main.fragment_planner.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 
@@ -27,6 +35,10 @@ import java.util.*
  * create an instance of this fragment.
  */
 class PlannerFragment : Fragment(), View.OnClickListener {
+
+    lateinit var networkService: NetworkService
+
+
     override fun onClick(v: View?) {
         when (v!!) {
             planner_edit_btn -> {
@@ -59,7 +71,7 @@ class PlannerFragment : Fragment(), View.OnClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
     var number: Int = 0
-    lateinit var items: ArrayList<PlannerListData>
+    lateinit var items: ArrayList<PlannerGetData>
     lateinit var plannerAdapter: PlannerAdapter
 
 
@@ -74,11 +86,19 @@ class PlannerFragment : Fragment(), View.OnClickListener {
             mParam1 = getArguments()!!.getString(ARG_PARAM1)
             mParam2 = getArguments()!!.getString(ARG_PARAM2)
         }
+
+
+
     }
 
     fun init(v: View) {
         v.planner_edit_btn.setOnClickListener(this)
         v.planner_plus_btn.setOnClickListener(this)
+
+        plannerAdapter = PlannerAdapter(items, pContext)
+        plannerAdapter.setOnItemClickListener(this)
+        v.planner_rv.layoutManager = LinearLayoutManager(this.pContext)
+        v.planner_rv.adapter = plannerAdapter
 
     }
 
@@ -86,14 +106,19 @@ class PlannerFragment : Fragment(), View.OnClickListener {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_planner, container, false)
+
+        networkService = ApplicationController.instance!!.networkService
+        SharedPreference.instance!!.load(context!!)
+
         items = ArrayList()
-        items.add(PlannerListData("8월15일", "경복궁"))
-        items.add(PlannerListData("8월20일", "광화문"))
-        items.add(PlannerListData("8월25일", "창경궁"))
-        plannerAdapter = PlannerAdapter(items, pContext)
-        plannerAdapter.setOnItemClickListener(this)
-        view.planner_rv.layoutManager = LinearLayoutManager(this.pContext)
-        view.planner_rv.adapter = plannerAdapter
+        getPlanner()
+
+
+
+        Log.v("yong","items size:"+items.size.toString())
+
+
+
 
         init(view)
 
@@ -120,6 +145,39 @@ class PlannerFragment : Fragment(), View.OnClickListener {
     override fun onDetach() {
         super.onDetach()
         mListener = null
+    }
+
+
+    fun getPlanner(){
+        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
+        var plannerGetResponse = networkService.getPlanner("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MDg3OTE3NjYiLCJpYXQiOjE1Mzc2OTA2Nzh9.DfPccsNzJcpenUXwIsnfyj0POK3wtFfBNXHt4DAYtYw")
+
+
+        plannerGetResponse.enqueue(object : Callback<PlannerGetResponse> {
+            override fun onFailure(call: Call<PlannerGetResponse>?, t: Throwable?) {
+                Log.v("failure ",t!!.message)
+            }
+
+            override fun onResponse(call: Call<PlannerGetResponse>?, response: Response<PlannerGetResponse>?) {
+                if(response!!.isSuccessful){
+                    Log.v("yong",response!!.body()!!.message)
+                    items.addAll(response!!.body()!!.data)
+
+
+                    Log.v("yong","size"+items.size.toString())
+                    Log.v("yong",items[0].tour_name)
+
+
+
+                    // mapping recyclerview
+
+                } else{
+                    Log.v("yong","else")
+
+                }
+            }
+
+        })
     }
 
     /**

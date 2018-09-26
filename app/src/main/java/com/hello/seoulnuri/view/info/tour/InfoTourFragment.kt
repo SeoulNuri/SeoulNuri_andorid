@@ -12,9 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.hello.seoulnuri.R
-import com.hello.seoulnuri.info.Info_Detail_Intro
-import com.hello.seoulnuri.model.InfoItem
-import com.hello.seoulnuri.model.info.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.InfoTourResponseData
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.search.filter.FilterData
 import com.hello.seoulnuri.network.ApplicationController
@@ -22,9 +21,8 @@ import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import com.hello.seoulnuri.view.info.adapter.FilterAdapter
-import com.hello.seoulnuri.view.info.adapter.InfoReservationAdapter
+import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_info_reservation.view.*
 import kotlinx.android.synthetic.main.fragment_info_tour.*
 import kotlinx.android.synthetic.main.fragment_info_tour.view.*
 import retrofit2.Call
@@ -148,7 +146,8 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     Log.v("124","관광 누름")
                     val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)
                     val intent : Intent = Intent(context, InfoTourDetailActivity::class.java)
-                    intent.putExtra("index",index_tour_position)
+                    SharedPreference.instance!!.setPrefData("tour_idx",info_tour_list[index_tour_position].tour_idx)
+                    intent.putExtra("index",info_tour_list[index_tour_position].tour_idx)
                     startActivity(intent)
 
                 }
@@ -238,8 +237,8 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         fContext = (activity as MainActivity?)!!
     }
 
-    lateinit var info_tour_list: ArrayList<InfoItem>
-    lateinit var info_tour_adpater: InfoReservationAdapter
+    lateinit var info_tour_list: ArrayList<InfoTourResponseData>
+    lateinit var info_tour_adpater: InfoTourAdapter
     lateinit var fContext: MainActivity
     lateinit var filterAdapter: FilterAdapter
     lateinit var filterItems: ArrayList<FilterData>
@@ -270,7 +269,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         info_tour_list.add(InfoItem(R.drawable.img_jw, 4.0, 10, "호텔jw"))
         info_tour_list.add(InfoItem(R.drawable.img_jw, 3.5, 8, "호텔 렐라"))*/
 
-        info_tour_adpater = InfoReservationAdapter(context!!, infoList = info_tour_list)
+        info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
         info_tour_adpater.setOnItemClickListener(this)
         view.info_tour_recyclerview.setHasFixedSize(true);
         view.info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
@@ -303,10 +302,11 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
             override fun onResponse(call: Call<InfoTourResponse>?, response: Response<InfoTourResponse>?) {
                 if(response!!.code() == 200){
                     //Log.v("11599 : ",response!!.body()!!.data.size.toString())
-                    println("11599 data size : ${response!!.body()!!.data.get(0).tour_idx}")
+                    info_tour_list = response!!.body()!!.data
+                    println("11599 data size : ${response!!.body()!!.data.size}")
                     println("11599 data message : ${response!!.message()}")
                     println("11599 data  : ${response!!.body()!!.status}")
-                    info_tour_adpater = InfoReservationAdapter(context!!, infoList = info_tour_list)
+                    info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
                     info_tour_adpater.setOnItemClickListener(this@InfoTourFragment)
                     info_tour_recyclerview.setHasFixedSize(true)
                     info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)

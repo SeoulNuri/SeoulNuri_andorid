@@ -19,7 +19,6 @@ import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.info.Info_Detail_Intro;
-import com.hello.seoulnuri.view.info.InfoTourFragment;
 
 import org.w3c.dom.Text;
 

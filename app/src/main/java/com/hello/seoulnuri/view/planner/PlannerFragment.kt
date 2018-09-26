@@ -164,8 +164,8 @@ class PlannerFragment : Fragment(), View.OnClickListener {
                     items.addAll(response!!.body()!!.data)
 
 
-                    Log.v("yong","size"+items.size.toString())
-                    Log.v("yong",items[0].tour_name)
+                    //Log.v("yong","size"+items.size.toString())
+                    //Log.v("yong",items[0].tour_name)
 
 
 

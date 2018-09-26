@@ -8,6 +8,7 @@ import com.hello.seoulnuri.model.course.CourseDetailResponse
 import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
+import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
 import com.hello.seoulnuri.model.info.tour.use.InfoTourUseReponse
@@ -168,6 +169,13 @@ interface NetworkService {
     fun getMypageBookmarkCourse(
             @Header("token") token : String
     ) : Call<MypageBookmarkCourseResponse>
+
+    // 19. 투어 북마크 등록
+    @POST("api/tour/bookmark")
+    fun postBookmark(
+            @Header("token") token: String,
+            @Body tour_idx : TourIndex
+    ) : Call<BaseModel>
 
 
 }

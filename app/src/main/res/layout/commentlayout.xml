@@ -68,5 +68,5 @@
     <ListView
         android:id="@+id/cmt_all"
         android:layout_width="match_parent"
-        android:layout_height="330dp" />
+        android:layout_height="430dp" />
 </LinearLayout>

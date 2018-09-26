@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -130,6 +131,7 @@ public class CommentActivity extends Activity implements OnClickListener {
 
         cmtAdapter = new CommentAdapter(getApplicationContext(), R.layout.cmts_layout,cmt_infos);
         cmtlist.setAdapter(cmtAdapter);
+        cmtAdapter.notifyDataSetChanged();
 
     }
 
@@ -148,8 +150,11 @@ public class CommentActivity extends Activity implements OnClickListener {
                     //EditText의 빈칸이 없을 경우 등록!
                     cmt_info = new commentItem("닉네임(login.name)",inputtext, Calendar.getInstance().getTime());
                     cmtAdapter.addItem(cmt_info);
-
+                    Log.v("woo 633", cmtlist.toString());
+                    Log.v("woo 633", String.valueOf(info.length));
+                    cmtlist.setAdapter(cmtAdapter);
                     cmtAdapter.notifyDataSetChanged();
+                    tv_cmtNum.setText(cmt_infos.size()+"");
                     cmtEdit.setText(null);
                     //edittext 초기화
                 }

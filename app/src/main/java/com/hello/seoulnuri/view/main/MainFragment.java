@@ -20,14 +20,12 @@ import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.main.MainTourResponse;
-import com.hello.seoulnuri.model.main.TourData;
 import com.hello.seoulnuri.model.main.TourData2;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity;
 import com.hello.seoulnuri.view.search.Search2Activity;
-import com.hello.seoulnuri.view.search.SearchActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +70,16 @@ public class MainFragment extends Fragment {
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 200){
+                Log.v("yong",data.getStringExtra("result"));
+            }
+
     }
 
     @Override
@@ -126,9 +134,11 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Search2Activity.class);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
+
+
 
         final Button btnNext = (Button)view.findViewById(R.id.buttonNextArrow);
 

@@ -9,19 +9,24 @@ import android.util.Base64
 import android.util.Log
 import android.util.Log.d
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.login.LoginActivity
 import com.hello.seoulnuri.view.main.MainActivity
 
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+class SplashActivity : AppCompatActivity(), Init {
+    override fun init() {
+        SharedPreference.instance!!.load(this)
+    }
 
-
-class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        init()
+/*
+>>>>>>> 76766df9fdc4384d08b65988a6a0e426fd90fa67
         try {
             val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
             for (signature in info.signatures) {
@@ -33,16 +38,24 @@ class SplashActivity : AppCompatActivity() {
             e.printStackTrace()
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
-        }
+        }*/
 
 
         val handler = Handler()
-        val intent = Intent(this, LoginActivity::class.java)
+        val intent = Intent(this, MainActivity::class.java)
 
         handler.postDelayed({
-            
+
+
             startActivity(intent)
             finish()
+            if (SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()) {
+                startActivity(intent)
+                finish()
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+
         }, 3000)
     }
 

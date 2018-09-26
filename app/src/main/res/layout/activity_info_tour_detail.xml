@@ -13,7 +13,7 @@
         android:background="#ffffff">
 
         <RatingBar
-            android:id="@+id/info_tour_detail_stay"
+            android:id="@+id/info_tour_detail_intro_rating"
             style="@style/custom_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="11dp"
@@ -32,8 +32,8 @@
             android:id="@+id/info_tour_detail_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/info_tour_detail_stay"
-            android:layout_toEndOf="@+id/info_tour_detail_stay"
+            android:layout_alignBottom="@+id/info_tour_detail_intro_rating"
+            android:layout_toEndOf="@+id/info_tour_detail_intro_rating"
             android:letterSpacing="-0.01"
             android:text="(21)"
             android:textColor="#9e9e9e"

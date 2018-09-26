@@ -50,6 +50,7 @@ import retrofit2.Response;
 
 
 public class CourseCommentActivity extends Activity implements OnClickListener {
+    final static String TOKEN_DATA = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU";
 
     private ListView cmtlist;
     private EditText cmtEdit;
@@ -148,7 +149,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
         int idx = intent.getIntExtra("course_idx",1);
 
         Log.v("idx" , "idx = " + idx);
-        Call<CourseCmtResponse> requestDetail = networkService.getCourseCmt(idx);
+        Call<CourseCmtResponse> requestDetail = networkService.getCourseCmt(TOKEN_DATA,idx);
         requestDetail.enqueue(new Callback<CourseCmtResponse>() {
             @Override
             public void onResponse(Call<CourseCmtResponse> call, Response<CourseCmtResponse> response) {
@@ -196,7 +197,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
 //        if (Session.getCurrentSession().isOpened()) {
 //            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
 //        }
-        Call<BaseModel> requestDetail = networkService.postCourseCmt(courseCmtRequest);
+        Call<BaseModel> requestDetail = networkService.postCourseCmt(TOKEN_DATA, courseCmtRequest);
 
         requestDetail.enqueue(new Callback<BaseModel>() {
             @Override

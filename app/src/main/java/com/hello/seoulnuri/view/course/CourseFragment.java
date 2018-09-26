@@ -33,6 +33,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
+import static com.hello.seoulnuri.view.course.CourseCommentActivity.TOKEN_DATA;
 
 
 /**
@@ -115,7 +116,7 @@ public class CourseFragment extends Fragment {
         return view;
     }
     public void Networking(){
-        Call<CourseStarResponse> requestDetail = networkService.getCourseStar();
+        Call<CourseStarResponse> requestDetail = networkService.getCourseStar(TOKEN_DATA);
         requestDetail.enqueue(new Callback<CourseStarResponse>() {
             @Override
             public void onResponse(Call<CourseStarResponse> call, Response<CourseStarResponse> response) {
@@ -129,8 +130,6 @@ public class CourseFragment extends Fragment {
                     for (Map.Entry<String, Map<String, Double>> entry : courseStarData.entrySet()) {
 
                         String key = entry.getKey();
-                        Log.v("courseFragment", key);
-                        Log.v("mapValue", "value = " + entry.getValue());
 
                         for (String mapkey : entry.getValue().keySet()){
                             Log.v("mapvalue" ,"key:"+mapkey+",value:"+entry.getValue().get(mapkey));
@@ -139,15 +138,12 @@ public class CourseFragment extends Fragment {
                         }
                     }
 
-                    for (int j = 0; j < c_data_array.length; j++) {
-                        Log.v("c_data_array", "value = " + c_data_array[j]);
-                    }
 
                     CourseItem[] item = new CourseItem[4];
-                    item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천", c_data_array[0], c_data_array[1]);
-                    item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ", c_data_array[4], c_data_array[5]);
-                    item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천", c_data_array[2], c_data_array[3]);
-                    item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천",c_data_array[6], c_data_array[7]);
+                    item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천", c_data_array[0], (int)c_data_array[1]);
+                    item[1]=new CourseItem(R.drawable.card_graphic_course_2, R.drawable.course_card_wheel, "지체장애인 여행 추천 ", c_data_array[4], (int)c_data_array[5]);
+                    item[2]=new CourseItem(R.drawable.card_graphic_course_3, R.drawable.course_card_ear, "청각장애인 여행 추천", c_data_array[2], (int)c_data_array[3]);
+                    item[3]=new CourseItem(R.drawable.card_graphic_course_4, R.drawable.course_card_elder, "노약자 여행 추천",c_data_array[6], (int)c_data_array[7]);
 
                     for(int j=0;j<4;j++) courseList.add(item[j]);
 

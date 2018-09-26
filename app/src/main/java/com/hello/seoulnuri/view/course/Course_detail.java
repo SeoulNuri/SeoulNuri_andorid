@@ -25,17 +25,22 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hello.seoulnuri.base.BaseModel;
 import com.hello.seoulnuri.commentItem;
 import com.hello.seoulnuri.info.CommentActivity;
 import com.hello.seoulnuri.info.Info_Detail_Intro;
 import com.hello.seoulnuri.info.popUpActivity;
 import com.hello.seoulnuri.model.CourseItem;
 import com.hello.seoulnuri.model.Position;
+import com.hello.seoulnuri.model.course.CourseBookmarkData;
+import com.hello.seoulnuri.model.course.CourseBookmarkResponse;
 import com.hello.seoulnuri.model.course.CourseCmtData;
+import com.hello.seoulnuri.model.course.CourseCmtRequest;
 import com.hello.seoulnuri.model.course.CourseCmtResponse;
 import com.hello.seoulnuri.model.course.CourseDetailData;
 import com.hello.seoulnuri.model.course.CourseDetailResponse;
 import com.hello.seoulnuri.model.course.CourseStarData;
+import com.hello.seoulnuri.model.course.CourseStarModify;
 import com.hello.seoulnuri.model.course.TourInfo;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
@@ -52,6 +57,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hello.seoulnuri.view.course.CourseCommentActivity.TOKEN_DATA;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EAR;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_ELDER;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EYE;
@@ -85,11 +91,14 @@ public class Course_detail extends AppCompatActivity {
     private ExpandableListView elv;
     private ArrayList<Position> courses_list;
     private TextView course_item_txt;
+    private TextView course_path_rate_txt;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
 
         course_item_txt = (TextView) findViewById(R.id.course_item_txt);
         TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
@@ -110,20 +119,19 @@ public class Course_detail extends AppCompatActivity {
         //추천코스 소개 대표 설명
         TextView course_info_item_txt = (TextView) findViewById(R.id.course_txt);
         TextView course_item_addr = (TextView) findViewById(R.id.course_item_addr);
-        TextView course_path_rate_txt = (TextView) findViewById(R.id.course_path_rate_txt);
+        course_path_rate_txt = (TextView) findViewById(R.id.course_path_rate_txt);
         course_path_rate_star = (RatingBar) findViewById(R.id.course_path_rate_star);
 
         course_path_rate_star.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Intent intent = new Intent(Course_detail.this, popUpActivity.class);
-                intent.putExtra("ratingbar_infos",course_path_rate_star.getRating());
+//                intent.putExtra("ratingbar_infos",course_path_rate_star.getRating());
                 startActivityForResult(intent,1);
 
                 return false;
             }
         });
-
 
         switch (select_type) {
             case COURSE_EYE:
@@ -161,7 +169,7 @@ public class Course_detail extends AppCompatActivity {
 
         }
 
-
+        getCourseBookmarkList();
         tabHost1 = (TabHost) findViewById(R.id.tabHost);
         tabHost1.setup();
 
@@ -219,6 +227,7 @@ public class Course_detail extends AppCompatActivity {
         btn_course_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Course_bookmark_custom_dialog();
             }
         });
@@ -255,29 +264,9 @@ public class Course_detail extends AppCompatActivity {
 
         elv = (ExpandableListView) findViewById(R.id.elv);
 
-        networkService = ApplicationController.Companion.getInstance().getNetworkService();
-        SharedPreference.Companion.getInstance();
+
 
         Networking();
-//
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "경복궁"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "홍례문"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "근정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "수정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "경희루"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "경희궁"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "승정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "자정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "북촌문화센터"));
-//
-//        recyclerview.setAdapter(new ExpandableListAdapter(COURSE_EYE, places));
-//
-//        //course_info_list ExpandableListView 설정
-//        final ArrayList<Position> courses_list = getData();
-//
-//        //create and bind to adatper
-//        Course_info_list_adapter adapter = new Course_info_list_adapter(this, courses_list);
-//        elv.setAdapter(adapter);
 
 
     }
@@ -289,18 +278,18 @@ public class Course_detail extends AppCompatActivity {
         bookmark_Dialog.setTitle("bookmark dialog");
 
         btn_bookmark_ok = (Button) bookmark_Dialog.findViewById(R.id.btn_bookmark_ok);
-
 //        btn_bookmark_ok.setEnabled(true);
-
+        RegistBookmark();
+        getCourseBookmarkList();
         btn_bookmark_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 bookmark_Dialog.cancel();
+                bookmark_Dialog.cancel();
             }
         });
 
         bookmark_Dialog.show();
-        btn_course_bookmark.setImageResource(R.drawable.button_oval_bookmark_active);
+
     }
 
     public void Course_link_share_custom_dialog() {
@@ -441,14 +430,72 @@ public class Course_detail extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 //데이터 받기
                 Float result = data.getFloatExtra("result",0);
+                Log.v("course star result", result + "");
+                postCourseStarData((double)result);
+                reloadCourseStar();
 //                course_path_rate_star.setRating(result);
                 // 서버에 데이터 보내기
             }
         }
     }
+
+    public void postCourseStarData(Double result){
+
+        CourseStarModify courseStarModify = new CourseStarModify(result,select_type -2 );
+        Call<BaseModel> requestDetail = networkService.postCourseStar(TOKEN_DATA, courseStarModify);
+
+        requestDetail.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                if(response.isSuccessful()) {
+                    Log.v("course star modi code", response.body().getCode().toString());
+                    Log.v("course star modi status", response.body().getStatus().toString());
+                    Log.v("course star modi", response.body().getMessage().toString());
+
+                }
+                else {
+                    System.out.printf("fail response",response.toString());
+
+                    Log.v("fail", "fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+    public void reloadCourseStar(){
+
+        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(TOKEN_DATA,select_type -3);
+
+        requestDetail.enqueue(new Callback<CourseDetailResponse>() {
+            @Override
+            public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
+                if(response.isSuccessful()) {
+                    Log.v("course star reload code", response.body().getCode().toString());
+                    Log.v("course star status", response.body().getStatus().toString());
+                    Log.v("course star reload", response.body().getMessage().toString());
+
+                    courseDetailData = response.body().getData();
+
+                    course_path_rate_star.setRating((float)courseDetailData.getCourse_star());
+                    course_path_rate_txt.setText("(" + courseDetailData.getCourse_star_count() + ")");
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CourseDetailResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
     public void Networking(){
 
-        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(select_type -3);
+        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(TOKEN_DATA,select_type -3);
         requestDetail.enqueue(new Callback<CourseDetailResponse>() {
             @Override
             public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
@@ -562,6 +609,88 @@ public class Course_detail extends AppCompatActivity {
             }
         });
     }
+    public void RegistBookmark(){
+
+//        if (SharedPreference.Companion.getInstance().getPrefStringData("data") != null) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(SharedPreference.Companion.getInstance().getPrefStringData("data"),courseCmtRequest);
+//
+//        }
+
+//        if (Session.getCurrentSession().isOpened()) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
+//        }
+
+        Call<BaseModel> requestDetail = networkService.registCourseBookmark(TOKEN_DATA, select_type - 2);
+
+        Log.v("course_idx", select_type -2 + "");
+        requestDetail.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                if(response.isSuccessful()) {
+
+                    Log.v("course bookmark code", response.body().getCode().toString());
+                    Log.v("course bookmark status", response.body().getStatus().toString());
+                    Log.v("course bookmark message", response.body().getMessage().toString());
+
+                }
+                else {
+                    Log.v("fail", "fail");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+    public void getCourseBookmarkList(){
+
+//        if (SharedPreference.Companion.getInstance().getPrefStringData("data") != null) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(SharedPreference.Companion.getInstance().getPrefStringData("data"),courseCmtRequest);
+//
+//        }
+
+//        if (Session.getCurrentSession().isOpened()) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
+//        }
+        Call<CourseBookmarkResponse> requestDetail = networkService.getCourseBookmarks(TOKEN_DATA);
+
+        requestDetail.enqueue(new Callback<CourseBookmarkResponse>() {
+            @Override
+            public void onResponse(Call<CourseBookmarkResponse> call, Response<CourseBookmarkResponse> response) {
+                if(response.isSuccessful()) {
+
+                    Log.v("course bookmark2 code", response.body().getCode().toString());
+                    Log.v("course bookmark2 status", response.body().getStatus().toString());
+                    Log.v("course bookmark2 ", response.body().getMessage().toString());
+
+                    ArrayList<CourseBookmarkData> courseBookmarks = response.body().getData();
+
+                    ArrayList<Integer> bookmark_idx = new ArrayList<>();
+                    for (int i = 0; i < courseBookmarks.size(); i++) {
+                        bookmark_idx.add(courseBookmarks.get(i).getCourse_idx());
+                    }
+
+                    int course_idx = select_type - 2;
+                    for (int i = 0; i < bookmark_idx.size(); i++) {
+                        Log.v("bookmark index", bookmark_idx.get(i) + "");
+                        if (course_idx == bookmark_idx.get(i)) {
+                            btn_course_bookmark.setImageResource(R.drawable.button_oval_bookmark_active);
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CourseBookmarkResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+
 
 }
 

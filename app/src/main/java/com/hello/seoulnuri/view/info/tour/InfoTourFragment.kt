@@ -12,16 +12,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.hello.seoulnuri.R
-import com.hello.seoulnuri.info.Info_Detail_Intro
-import com.hello.seoulnuri.model.InfoItem
+import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.InfoTourResponseData
+import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.search.filter.FilterData
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import com.hello.seoulnuri.view.info.adapter.FilterAdapter
-import com.hello.seoulnuri.view.info.adapter.InfoReservationAdapter
+import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_info_reservation.view.*
 import kotlinx.android.synthetic.main.fragment_info_tour.*
 import kotlinx.android.synthetic.main.fragment_info_tour.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 /**
@@ -51,6 +57,10 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     //filter_layout.visibility = View.GONE
                     filterItems.removeAll(filterItems)
                     checkVisible(true)
+                    handi_type.add(9)
+                    filter.add(99)
+                    println("1153 : "+handi_type)
+
                 } else {
                     Log.v("538", "또 누르기")
                     information_toggle_total.isSelected = false
@@ -136,7 +146,8 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     Log.v("124","관광 누름")
                     val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)
                     val intent : Intent = Intent(context, InfoTourDetailActivity::class.java)
-                    intent.putExtra("index",index_tour_position)
+                    SharedPreference.instance!!.setPrefData("tour_idx",info_tour_list[index_tour_position].tour_idx)
+                    intent.putExtra("index",info_tour_list[index_tour_position].tour_idx)
                     startActivity(intent)
 
                 }
@@ -214,6 +225,11 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         v.information_toggle_wheel.setOnClickListener(this)
         v.information_toggle_elder.setOnClickListener(this)
         info_tour_list = ArrayList()
+        networkService = ApplicationController.instance!!.networkService
+        SharedPreference.instance!!.load(context!!)
+        handi_type = ArrayList()
+        filter = ArrayList()
+
     }
 
     override fun onAttach(context: Context?) {
@@ -221,8 +237,8 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         fContext = (activity as MainActivity?)!!
     }
 
-    lateinit var info_tour_list: ArrayList<InfoItem>
-    lateinit var info_tour_adpater: InfoReservationAdapter
+    lateinit var info_tour_list: ArrayList<InfoTourResponseData>
+    lateinit var info_tour_adpater: InfoTourAdapter
     lateinit var fContext: MainActivity
     lateinit var filterAdapter: FilterAdapter
     lateinit var filterItems: ArrayList<FilterData>
@@ -232,22 +248,28 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
     var eyeCheckStatus: Boolean = false
     var earCheckStatus: Boolean = false
     var elderCheckStatus: Boolean = false
+    lateinit var filter : ArrayList<Int>
+    lateinit var networkService : NetworkService
+    lateinit var handi_type : ArrayList<Int>
+    lateinit var infoTourRequest : LoginCategoryRequest
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour, container, false)
         init(view)
 
         filterItems = ArrayList()
 
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.0, 2, "호텔imi"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 2.0, 20, "호텔jj"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 4.0, 10, "호텔jw"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.5, 8, "호텔 렐라"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.0, 2, "호텔imi"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 2.0, 20, "호텔jj"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 4.0, 10, "호텔jw"))
-        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.5, 8, "호텔 렐라"))
+        requestInfoTour()
 
-        info_tour_adpater = InfoReservationAdapter(context!!, infoList = info_tour_list)
+        /*info_tour_list.add(InfoItem(R.drawable.img_jw, 3.0, 2, "호텔imi"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 2.0, 20, "호텔jj"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 4.0, 10, "호텔jw"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.5, 8, "호텔 렐라"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.0, 2, "호텔imi"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 2.0, 20, "호텔jj"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 4.0, 10, "호텔jw"))
+        info_tour_list.add(InfoItem(R.drawable.img_jw, 3.5, 8, "호텔 렐라"))*/
+
+        info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
         info_tour_adpater.setOnItemClickListener(this)
         view.info_tour_recyclerview.setHasFixedSize(true);
         view.info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
@@ -258,5 +280,45 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         view.filter_list.layoutManager = LinearLayoutManager(context, LinearLayout.HORIZONTAL, false)
         view.filter_list.adapter = filterAdapter
         return view
+    }
+
+    fun requestInfoTour() {
+        //infoTourRequest = LoginCategoryRequest(handi_type)
+        //Log.v("11577 : ", infoTourRequest.toString())
+        handi_type.add(9)
+        filter.add(99)
+        Log.v("130",handi_type.toString())
+        Log.v("130",filter.toString())
+        println("130, ${handi_type}")
+        println("130, ${filter}")
+        var infoTourResponse = networkService
+                .getInfoTour(SharedPreference.instance!!.getPrefStringData("data")!!,handi_type.toString(),filter.toString())
+
+        infoTourResponse.enqueue(object : Callback<InfoTourResponse>{
+            override fun onFailure(call: Call<InfoTourResponse>?, t: Throwable?) {
+                Log.v("11588 : ", t!!.message)
+            }
+
+            override fun onResponse(call: Call<InfoTourResponse>?, response: Response<InfoTourResponse>?) {
+                if(response!!.code() == 200){
+                    //Log.v("11599 : ",response!!.body()!!.data.size.toString())
+                    info_tour_list = response!!.body()!!.data
+                    println("11599 data size : ${response!!.body()!!.data.size}")
+                    println("11599 data message : ${response!!.message()}")
+                    println("11599 data  : ${response!!.body()!!.status}")
+                    info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
+                    info_tour_adpater.setOnItemClickListener(this@InfoTourFragment)
+                    info_tour_recyclerview.setHasFixedSize(true)
+                    info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+                    info_tour_recyclerview.adapter = info_tour_adpater
+
+
+                }else{
+                    Log.v("11600 : ",response!!.message())
+                }
+            }
+
+        })
+
     }
 }

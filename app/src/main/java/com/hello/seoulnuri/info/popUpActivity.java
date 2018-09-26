@@ -43,7 +43,7 @@ public class popUpActivity extends Activity {
         getWindow().getAttributes().width = width;
         getWindow().getAttributes().height = height;
 
-        rb_infos.setRating(data);
+        rb_infos.setRating((float)5);
 
     }
 

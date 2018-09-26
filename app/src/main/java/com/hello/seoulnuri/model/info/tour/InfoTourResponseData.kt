@@ -1,4 +1,4 @@
-package com.hello.seoulnuri.model.info
+package com.hello.seoulnuri.model.info.tour
 
 /**
  * Created by VictoryWoo

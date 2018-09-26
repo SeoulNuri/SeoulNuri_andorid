@@ -1,6 +1,5 @@
-package com.hello.seoulnuri.model.info
+package com.hello.seoulnuri.model.info.tour
 
-import com.google.gson.annotations.SerializedName
 import com.hello.seoulnuri.base.BaseModel
 import java.util.*
 

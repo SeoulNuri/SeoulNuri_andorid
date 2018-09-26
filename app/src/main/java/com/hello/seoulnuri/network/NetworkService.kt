@@ -6,18 +6,20 @@ import com.hello.seoulnuri.model.course.CourseCmtRequest
 import com.hello.seoulnuri.model.course.CourseCmtResponse
 import com.hello.seoulnuri.model.course.CourseDetailResponse
 import com.hello.seoulnuri.model.course.CourseStarResponse
-import com.hello.seoulnuri.model.info.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
+import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
+import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
+import com.hello.seoulnuri.model.info.tour.use.InfoTourUseReponse
 import com.hello.seoulnuri.model.login.LoginCategoryRequest
 import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.planner.*
-import com.hello.seoulnuri.model.search.SearchResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.http.*
-import java.util.*
 
 
 /**
@@ -117,6 +119,12 @@ interface NetworkService {
     ) : Call<PlannerAddResponse>
 
 
+    //플래너 리스트 보여주기
+    @GET("api/planner/list")
+    fun getPlanner(
+            @Header("token") token: String
+    ) : Call<PlannerGetResponse>
+
     // 13. 인포 들어갔을 때
     @GET("api/info/tour")
     fun getInfoTour(
@@ -124,4 +132,35 @@ interface NetworkService {
             @Query("handi_type") handi_type : String,
             @Query("filter") filter : String
     ) : Call<InfoTourResponse>
+
+
+    // 14. 인포에서 숙박정보
+    @GET("api/info/lodge")
+    fun getInfoReservation(
+            @Header("token") token: String
+    ) : Call<InfoTourReservation>
+
+    // 15. 인포 관광 정보 소개 탭
+    @GET("api/info/tour/detail-introduction")
+    fun getInfoTourIntroduce(
+            @Header("token") token: String,
+            @Query("tour_idx") tour_idx : Int
+    ) : Call<InfoTourIntroduce>
+
+
+    // 16. 인포 관광 정보 이용방법 탭
+    @GET("api/info/tour/detail-method")
+    fun getInfoTourUseMethod(
+            @Header("token") token: String,
+            @Query("tour_idx") tour_idx: Int
+    ) : Call<InfoTourUseReponse>
+
+    // 17. 인포 관광 정보 무장애 정보 탭
+    @GET("api/info/tour/detail-barrier-free")
+    fun getInfoTourFault(
+            @Header("token") token : String,
+            @Query("tour_idx") tour_idx: Int
+    ) : Call<InfoTourFaultResponse>
+
+
 }

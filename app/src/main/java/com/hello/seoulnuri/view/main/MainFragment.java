@@ -20,14 +20,12 @@ import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.main.MainTourResponse;
-import com.hello.seoulnuri.model.main.TourData;
 import com.hello.seoulnuri.model.main.TourData2;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity;
 import com.hello.seoulnuri.view.search.Search2Activity;
-import com.hello.seoulnuri.view.search.SearchActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -72,6 +70,16 @@ public class MainFragment extends Fragment {
 //        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 200){
+                Log.v("yong",data.getStringExtra("result"));
+            }
+
     }
 
     @Override
@@ -126,9 +134,11 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Search2Activity.class);
-                startActivity(intent);
+                startActivityForResult(intent,200);
             }
         });
+
+
 
         final Button btnNext = (Button)view.findViewById(R.id.buttonNextArrow);
 
@@ -137,98 +147,100 @@ public class MainFragment extends Fragment {
         NetworkService service = controller.getNetworkService();
         SharedPreference.Companion.getInstance();
 
-//        Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
-//        Log.v("token : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
-//        call.enqueue(new Callback<MainTourResponse>() {
-//            @Override
-//            public void onResponse(Call<MainTourResponse> call, final Response<MainTourResponse> response) {
-////                response.body().getData().getRand_tour().getTour_image();
-//                if (response.body() != null) {
-////                    Log.v("message in onResponse", response.body().getData().toString());
-//                    imageView.setImageURI(Uri.parse(response.body().getData().getRand_tour().getTour_image()));
-//                    ratingBar.setRating((float)response.body().getData().getRand_tour().getTour_star());
-//                    addressTextView.setText(response.body().getData().getRand_tour().getTour_addr());
-//                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
-//                    placeTextView.setText(response.body().getData().getRand_tour().getTour_name());
-//
-//                    final TourData2 tourData2[] = new TourData2[5];
-//                    for (int i=0; i<5; i++) {
-//                        tourData2[i] = response.body().getData().getReco_tour().get(i);
-//                    }
-//                    imageButton1.setImageURI(Uri.parse(tourData2[0].getTour_image()));
-//                    imageButton1.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", tourData2[0].getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    imageButton2.setImageURI(Uri.parse(tourData2[1].getTour_image()));
-//                    imageButton2.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", tourData2[1].getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    imageButton3.setImageURI(Uri.parse(tourData2[2].getTour_image()));
-//                    imageButton3.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", tourData2[2].getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    imageButton4.setImageURI(Uri.parse(tourData2[3].getTour_image()));
-//                    imageButton4.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", tourData2[3].getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//                    imageButton5.setImageURI(Uri.parse(tourData2[4].getTour_image()));
-//                    imageButton5.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", tourData2[4].getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//
-//                    textViewTitle1.setText(tourData2[0].getTour_name());
-//                    textViewTitle2.setText(tourData2[1].getTour_name());
-//                    textViewTitle3.setText(tourData2[2].getTour_name());
-//                    textViewTitle4.setText(tourData2[3].getTour_name());
-//                    textViewTitle5.setText(tourData2[4].getTour_name());
-//
-//                    textViewAddress1.setText(tourData2[0].getTour_addr());
-//                    textViewAddress2.setText(tourData2[1].getTour_addr());
-//                    textViewAddress3.setText(tourData2[2].getTour_addr());
-//                    textViewAddress4.setText(tourData2[3].getTour_addr());
-//                    textViewAddress5.setText(tourData2[4].getTour_addr());
-//
-//                    btnNext.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-//                            intent.putExtra("tour_idx", response.body().getData().getRand_tour().getTour_idx());
-//                            startActivity(intent);
-//                        }
-//                    });
-//                } else Log.v("message in onResponse", " is null object");
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MainTourResponse> call, Throwable t) {
-//                Log.d("Fail","haha");
-//            }
-//        });
+
+        Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
+        Log.v("token : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
+        call.enqueue(new Callback<MainTourResponse>() {
+            @Override
+            public void onResponse(Call<MainTourResponse> call, final Response<MainTourResponse> response) {
+//                response.body().getData().getRand_tour().getTour_image();
+                if (response.body() != null) {
+                    Log.v("message in onResponse", response.body().getData().toString());
+                    imageView.setImageURI(Uri.parse(response.body().getData().getRand_tour().getTour_image()));
+                    ratingBar.setRating((float)response.body().getData().getRand_tour().getTour_star());
+                    addressTextView.setText(response.body().getData().getRand_tour().getTour_addr());
+                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
+                    placeTextView.setText(response.body().getData().getRand_tour().getTour_name());
+
+                    final TourData2 tourData2[] = new TourData2[5];
+                    for (int i=0; i<5; i++) {
+                        tourData2[i] = response.body().getData().getReco_tour().get(i);
+                    }
+                    imageButton1.setImageURI(Uri.parse(tourData2[0].getTour_image()));
+                    imageButton1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", tourData2[0].getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+                    imageButton2.setImageURI(Uri.parse(tourData2[1].getTour_image()));
+                    imageButton2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", tourData2[1].getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+                    imageButton3.setImageURI(Uri.parse(tourData2[2].getTour_image()));
+                    imageButton3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", tourData2[2].getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+                    imageButton4.setImageURI(Uri.parse(tourData2[3].getTour_image()));
+                    imageButton4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", tourData2[3].getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+                    imageButton5.setImageURI(Uri.parse(tourData2[4].getTour_image()));
+                    imageButton5.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", tourData2[4].getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+
+                    textViewTitle1.setText(tourData2[0].getTour_name());
+                    textViewTitle2.setText(tourData2[1].getTour_name());
+                    textViewTitle3.setText(tourData2[2].getTour_name());
+                    textViewTitle4.setText(tourData2[3].getTour_name());
+                    textViewTitle5.setText(tourData2[4].getTour_name());
+
+                    textViewAddress1.setText(tourData2[0].getTour_addr());
+                    textViewAddress2.setText(tourData2[1].getTour_addr());
+                    textViewAddress3.setText(tourData2[2].getTour_addr());
+                    textViewAddress4.setText(tourData2[3].getTour_addr());
+                    textViewAddress5.setText(tourData2[4].getTour_addr());
+
+                    btnNext.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+                            intent.putExtra("tour_idx", response.body().getData().getRand_tour().getTour_idx());
+                            startActivity(intent);
+                        }
+                    });
+                } else Log.v("message in onResponse", "is null object");
+            }
+
+            @Override
+            public void onFailure(Call<MainTourResponse> call, Throwable t) {
+                Log.d("Fail","haha");
+            }
+        });
+
 
         return view;
     }

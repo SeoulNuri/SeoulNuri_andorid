@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.utils.SharedPreference
@@ -42,6 +43,7 @@ class SplashActivity : AppCompatActivity(), Init {
                 startActivity(intent)
                 finish()
             }else{
+                Log.v("yong",SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(Intent(this, MainActivity::class.java))
             }
 

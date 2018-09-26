@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,8 @@ import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.Init
 import com.hello.seoulnuri.utils.SharedPreference
+import com.hello.seoulnuri.view.login.LoginActivity
+import kotlinx.android.synthetic.main.fragment_mypage.*
 
 
 /**
@@ -40,6 +43,7 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
     private val btnTour: Button? = null
     private val btnCourse: Button? = null
     private var mypageSettingButton: ImageButton? = null
+    private var mypageLogoutButton: Button? = null
     private val tourScrollView: ScrollView? = null
     private val courseScrollView: ScrollView? = null
     private var mypageTab: TabLayout? = null
@@ -73,13 +77,17 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
 
 
         networkService = ApplicationController.instance!!.networkService
-        SharedPreference.instance
+        SharedPreference.instance!!.load(context!!)
 
         val view = inflater.inflate(R.layout.fragment_mypage, container, false)
 
         //btnTour = (Button) view.findViewById(R.id.myTourButton);
         //btnCourse = (Button) view.findViewById(R.id.myCourseButton);
         mypageSettingButton = view.findViewById<View>(R.id.mypageSettingButton) as ImageButton
+        mypageLogoutButton = view.findViewById<View>(R.id.mypageLogoutButton) as Button
+
+        init()
+
         mypageTab = view.findViewById(R.id.mypageTab)
         mypageTab!!.addTab(mypageTab!!.newTab().setText("관광지"))
         mypageTab!!.addTab(mypageTab!!.newTab().setText("여행정보"))
@@ -147,11 +155,17 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.mypageSettingButton -> startActivity(Intent(context, ChangeTypeActivity::class.java))
+            R.id.mypageLogoutButton -> {
+                Log.v("213412341", "out")
+                SharedPreference.instance!!.removeData("data")
+                startActivity(Intent(context, LoginActivity::class.java))
+            }
         }
     }
 
     override fun init() {
         mypageSettingButton!!.setOnClickListener(this)
+        mypageLogoutButton!!.setOnClickListener(this)
     }
 
     /**

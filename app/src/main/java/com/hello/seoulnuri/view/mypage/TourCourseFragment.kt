@@ -15,12 +15,15 @@ import android.view.ViewGroup
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.info.tour.InfoTourResponseData
+import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseData
 import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
+import com.hello.seoulnuri.model.mypage.MypageBookmarkTourData
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity
+import com.hello.seoulnuri.view.mypage.adapter.MypageCourseAdapter
 import kotlinx.android.synthetic.main.fragment_info_tour.*
 import kotlinx.android.synthetic.main.fragment_tour_info.*
 import kotlinx.android.synthetic.main.fragment_tour_info.view.*
@@ -38,16 +41,16 @@ open class TourCourseFragment : Fragment(), Init, View.OnClickListener {
             v!!->{
                 val index = mypage_tour_recyclerview.getChildAdapterPosition(v!!)
                 val intent : Intent = Intent(context, InfoTourDetailActivity::class.java)
-                SharedPreference.instance!!.setPrefData("tour_idx",info_tour_list[index].tour_idx)
-                intent.putExtra("index",info_tour_list[index].tour_idx)
+                SharedPreference.instance!!.setPrefData("tour_idx",info_course_list[index].course_idx)
+                intent.putExtra("index",info_course_list[index].course_idx)
                 startActivity(intent)
             }
         }
     }
 
     lateinit var networkService: NetworkService
-    lateinit var info_tour_list: ArrayList<InfoTourResponseData>
-    lateinit var info_tour_adpater: InfoTourAdapter
+    lateinit var info_course_list: ArrayList<MypageBookmarkCourseData>
+    lateinit var info_course_adpater: MypageCourseAdapter
 
     override fun init() {
         networkService = ApplicationController.instance!!.networkService
@@ -76,15 +79,15 @@ open class TourCourseFragment : Fragment(), Init, View.OnClickListener {
             override fun onResponse(call: Call<MypageBookmarkCourseResponse>, response: Response<MypageBookmarkCourseResponse>) {
                 if(response!!.code() == 200){
                     //Log.v("11599 : ",response!!.body()!!.data.size.toString())
-                    info_tour_list = response!!.body()!!.data
+                    info_course_list = response!!.body()!!.data
                     println("12112 data size : ${response!!.body()!!.data.size}")
                     println("12112 data message : ${response!!.message()}")
                     println("12112 data  : ${response!!.body()!!.status}")
-                    info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
-                    info_tour_adpater.setOnItemClickListener(this@TourCourseFragment)
+                    info_course_adpater = MypageCourseAdapter(context!!, infoList = info_course_list)
+                    info_course_adpater.setOnItemClickListener(this@TourCourseFragment)
                     mypage_tour_recyclerview.setHasFixedSize(true)
                     mypage_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
-                    mypage_tour_recyclerview.adapter = info_tour_adpater
+                    mypage_tour_recyclerview.adapter = info_course_adpater
 
 
                 }else{

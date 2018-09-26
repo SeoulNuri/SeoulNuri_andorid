@@ -221,7 +221,7 @@ public class MainFragment extends Fragment {
                             startActivity(intent);
                         }
                     });
-                } else Log.v("message in onResponse", " is null object");
+                } else Log.v("message in onResponse", "is null object");
             }
 
             @Override

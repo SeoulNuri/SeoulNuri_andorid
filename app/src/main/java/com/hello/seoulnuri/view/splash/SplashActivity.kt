@@ -14,6 +14,7 @@ import com.hello.seoulnuri.view.main.MainActivity
 class SplashActivity : AppCompatActivity(), Init {
     override fun init() {
         SharedPreference.instance!!.load(this)
+        //SharedPreference.instance!!.setPrefData("data","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

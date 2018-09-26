@@ -44,7 +44,7 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
 
     fun addPlanner(date: String, indexlist: ArrayList<Int>){
 
-        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
+        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
         var plannerAddRequest = PlannerAddRequest(date,indexlist);
         var plannerAddResponse = networkService.addPlanner(token,plannerAddRequest)
 

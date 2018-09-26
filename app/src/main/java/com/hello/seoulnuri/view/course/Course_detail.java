@@ -1,6 +1,8 @@
 package com.hello.seoulnuri.view.course;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -298,6 +300,7 @@ public class Course_detail extends AppCompatActivity {
         });
 
         bookmark_Dialog.show();
+        btn_course_bookmark.setImageResource(R.drawable.button_oval_bookmark_active);
     }
 
     public void Course_link_share_custom_dialog() {
@@ -330,6 +333,10 @@ public class Course_detail extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+//                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+//                ClipData clipData = ClipData.newPlainText("label", "복사할 텍스트");
+//                clipboardManager.setPrimaryClip(clipData);
+
                 Toast toast = Toast.makeText(Course_detail.this, "클립보드에 복사되었습니다", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -100);
                 toast.setView(layout);

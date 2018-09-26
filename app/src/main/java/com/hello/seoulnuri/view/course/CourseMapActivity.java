@@ -61,5 +61,6 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(course_item_position).title("Marker in Sydney")
         .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.button_spot_select))));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(course_item_position));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
     }
 }

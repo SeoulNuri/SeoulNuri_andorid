@@ -1,7 +1,8 @@
 package com.hello.seoulnuri.view.search
 
-import android.support.v7.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,12 +15,12 @@ import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.bookmark.BookmarkListData
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
-import com.hello.seoulnuri.model.search.SearchResponse
 import com.hello.seoulnuri.model.search.SearchTourData
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
+import com.hello.seoulnuri.view.planner.PlannerStartActivity
 import kotlinx.android.synthetic.main.activity_search2.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,7 +47,21 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                 searchText.text = "즐겨찾기"
             }
             searchBtn->{
-                requestSearchResponse(searchContentEditText.text.toString())
+                val resultText = searchContentEditText.text.toString()
+
+                if(intent.getStringExtra("from")!=null){
+                    val intent = Intent(this, PlannerStartActivity::class.java)
+                    intent.putExtra("result",resultText)
+                    setResult(100,intent)
+                    finish()
+                }else{
+                    Log.v("yong","elseselsleslels")
+                }
+
+
+
+                //startActivity(intent)
+                //requestSearchResponse(searchContentEditText.text.toString())
             }
             v!!->{
                 val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
@@ -54,6 +69,8 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
             }
         }
     }
+
+
 
     override fun init() {
         networkService = ApplicationController.instance!!.networkService
@@ -75,6 +92,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
         init() // 초기화
         searchItems = ArrayList()
         bookmarkListItems = ArrayList()
+
 
         searchContentEditText.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(e: Editable?) {

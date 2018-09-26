@@ -4,6 +4,6 @@ import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.info.tour.InfoTourResponseData
 import java.util.*
 
-data class MypageBookmarkCourseResponse (
-        var data : ArrayList<MypageBookmarkCourseData>
+data class MypageBookmarkTourResponse (
+        var data : ArrayList<MypageBookmarkTourData>
 ) : BaseModel()

@@ -18,6 +18,7 @@ import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
+import com.hello.seoulnuri.view.search.Search2Activity
 import kotlinx.android.synthetic.main.activity_planner_start.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,6 +41,11 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
                     ToastMaker.makeLongToast(this, "입력해주세요.")
                 }
             }
+            planner_searchBtn->{
+                var intent = Intent(this, Search2Activity::class.java)
+                intent.putExtra("from","planner")
+                startActivityForResult(intent, REQ_CODE)
+            }
 
             date_text -> {
                 intent = Intent(this, PlannerDateActivity::class.java)
@@ -47,6 +53,17 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+
+            if(resultCode== 100){
+                search_auto_text.setText(data!!.getStringExtra("result"))
+            }
+
+
     }
 
 
@@ -65,6 +82,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
 
         date_text.setOnClickListener(this)
         planner_start_next_button.setOnClickListener(this)
+        planner_searchBtn.setOnClickListener(this)
     }
 
     fun autoInit() {
@@ -94,6 +112,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
     internal var mNow: Long = 0
     internal var mDate = Date(mNow)
     internal var mFormat = SimpleDateFormat("MM월 dd일")
+    val REQ_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

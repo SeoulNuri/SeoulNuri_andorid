@@ -83,6 +83,7 @@
         android:textSize="36sp" />
 
     <ImageView
+        android:id="@+id/planner_searchBtn"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_centerVertical="true"

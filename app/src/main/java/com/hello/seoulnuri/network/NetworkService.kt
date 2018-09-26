@@ -8,6 +8,7 @@ import com.hello.seoulnuri.model.course.CourseDetailResponse
 import com.hello.seoulnuri.model.course.CourseStarResponse
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
+import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
 import com.hello.seoulnuri.model.info.tour.use.InfoTourUseReponse
@@ -17,6 +18,7 @@ import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
+import com.hello.seoulnuri.model.mypage.MypageBookmarkTourResponse
 import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -164,10 +166,24 @@ interface NetworkService {
     ) : Call<InfoTourFaultResponse>
 
     // 18. 마이페이지에서 코스 즐겨찾기 보여주기
+    @GET("api/mypage/bookmark/tour")
+    fun getMypageBookmarkTour(
+            @Header("token") token : String
+    ) : Call<MypageBookmarkTourResponse>
+
+    // 18. 마이페이지에서 관광 즐겨찾기 보여주기
     @GET("api/mypage/bookmark/course")
     fun getMypageBookmarkCourse(
             @Header("token") token : String
     ) : Call<MypageBookmarkCourseResponse>
+
+
+    // 19. 투어 북마크 등록
+    @POST("api/tour/bookmark")
+    fun postBookmark(
+            @Header("token") token: String,
+            @Body tour_idx : TourIndex
+    ) : Call<BaseModel>
 
 
 }

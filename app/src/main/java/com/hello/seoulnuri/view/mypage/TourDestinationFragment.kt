@@ -16,11 +16,14 @@ import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.info.tour.InfoTourResponseData
 import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
+import com.hello.seoulnuri.model.mypage.MypageBookmarkTourData
+import com.hello.seoulnuri.model.mypage.MypageBookmarkTourResponse
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity
+import com.hello.seoulnuri.view.mypage.adapter.MypageTourAdapter
 import kotlinx.android.synthetic.main.fragment_tour_destination.*
 import kotlinx.android.synthetic.main.fragment_tour_destination.view.*
 import kotlinx.android.synthetic.main.fragment_tour_info.*
@@ -38,16 +41,16 @@ class TourDestinationFragment: Fragment(), Init, View.OnClickListener {
             v!!->{
                 val index = mypage_destination_recyclerview.getChildAdapterPosition(v!!)
                 val intent : Intent = Intent(context, InfoTourDetailActivity::class.java)
-                SharedPreference.instance!!.setPrefData("tour_idx",info_tour_list[index].tour_idx)
-                intent.putExtra("index",info_tour_list[index].tour_idx)
+                SharedPreference.instance!!.setPrefData("tour_idx",mypage_tour_list[index].tour_idx)
+                intent.putExtra("index",mypage_tour_list[index].tour_idx)
                 startActivity(intent)
             }
         }
     }
 
     lateinit var networkService: NetworkService
-    lateinit var info_tour_list: ArrayList<InfoTourResponseData>
-    lateinit var info_tour_adpater: InfoTourAdapter
+    lateinit var mypage_tour_list: ArrayList<MypageBookmarkTourData>
+    lateinit var mypage_tour_adpater: MypageTourAdapter
 
     override fun init() {
         networkService = ApplicationController.instance!!.networkService
@@ -71,20 +74,20 @@ class TourDestinationFragment: Fragment(), Init, View.OnClickListener {
     }
 
     fun requestBookmarkDestination() {
-        val response = networkService.getMypageBookmarkCourse(SharedPreference.instance!!.getPrefStringData("data")!!)
-        response.enqueue(object : Callback<MypageBookmarkCourseResponse> {
-            override fun onResponse(call: Call<MypageBookmarkCourseResponse>, response: Response<MypageBookmarkCourseResponse>) {
+        val response = networkService.getMypageBookmarkTour(SharedPreference.instance!!.getPrefStringData("data")!!)
+        response.enqueue(object : Callback<MypageBookmarkTourResponse> {
+            override fun onResponse(call: Call<MypageBookmarkTourResponse>, response: Response<MypageBookmarkTourResponse>) {
                 if(response!!.code() == 200){
                     //Log.v("11599 : ",response!!.body()!!.data.size.toString())
-                    info_tour_list = response!!.body()!!.data
+                    mypage_tour_list = response!!.body()!!.data
                     println("12113 data size : ${response!!.body()!!.data.size}")
                     println("12113 data message : ${response!!.message()}")
                     println("12113 data  : ${response!!.body()!!.status}")
-                    info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
-                    info_tour_adpater.setOnItemClickListener(this@TourDestinationFragment)
+                    mypage_tour_adpater = MypageTourAdapter(context!!, infoList = mypage_tour_list)
+                    mypage_tour_adpater.setOnItemClickListener(this@TourDestinationFragment)
                     mypage_destination_recyclerview.setHasFixedSize(true)
                     mypage_destination_recyclerview.layoutManager = GridLayoutManager(activity, 2)
-                    mypage_destination_recyclerview.adapter = info_tour_adpater
+                    mypage_destination_recyclerview.adapter = mypage_tour_adpater
 
 
                 }else{
@@ -92,7 +95,7 @@ class TourDestinationFragment: Fragment(), Init, View.OnClickListener {
                 }
             }
 
-            override fun onFailure(call: Call<MypageBookmarkCourseResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MypageBookmarkTourResponse>, t: Throwable) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 

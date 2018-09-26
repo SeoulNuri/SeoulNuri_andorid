@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.hello.seoulnuri.R
-import com.hello.seoulnuri.model.PlannerListData
 import com.hello.seoulnuri.model.planner.PlannerDeleteRequest
 import com.hello.seoulnuri.model.planner.PlannerDeleteResponse
+import com.hello.seoulnuri.model.planner.PlannerGetData
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
@@ -23,7 +23,7 @@ import java.util.*
 /**
  * Created by VictoryWoo
  */
-class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Context)
+class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Context)
     : RecyclerView.Adapter<PlannerAdapter.PlannerViewHolder>() {
 
     var check: Int = 0
@@ -38,6 +38,8 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
         var view = LayoutInflater.from(parent.context).inflate(R.layout.planner_list, parent, false)
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(context)
+
+        Log.v("yong","onCreatviewholder")
         return PlannerViewHolder(view)
 
     }
@@ -45,8 +47,11 @@ class PlannerAdapter(var item_list: ArrayList<PlannerListData>, var context: Con
     override fun getItemCount(): Int = item_list.size
 
     override fun onBindViewHolder(holder: PlannerViewHolder, position: Int) {
-        holder.date_text.text = item_list[position].planner_date
-        holder.location_text.text = item_list[position].planner_location
+        Log.v("yong","onbind")
+        var date = item_list[position].date_month+"월 "+item_list[position].date_day+"일"
+        Log.v("yong","date:"+date)
+        holder.date_text.text = date
+        holder.location_text.text = item_list[position].tour_name
         if (check == 1) {
             holder.deleteBtn.visibility = View.VISIBLE
 

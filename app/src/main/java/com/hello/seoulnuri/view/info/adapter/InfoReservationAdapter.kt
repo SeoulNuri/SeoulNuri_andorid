@@ -1,7 +1,6 @@
 package com.hello.seoulnuri.view.info.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -11,16 +10,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.hello.seoulnuri.R
-import com.hello.seoulnuri.info.Info_stay_detail
 import com.hello.seoulnuri.model.InfoData
-import com.hello.seoulnuri.model.InfoItem
-import java.util.ArrayList
+import com.hello.seoulnuri.model.info.reservation.InfoTourReservationData
+import java.util.*
 
 /**
  * Created by VictoryWoo
  */
-class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoItem>)
+class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoTourReservationData>)
     : RecyclerView.Adapter<InfoReservationAdapter.ItemViewHolder>() {
 
     lateinit var datas: ArrayList<InfoData>
@@ -28,7 +27,7 @@ class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoI
     internal var drawable: Drawable? = null
     private lateinit var onItemClick: View.OnClickListener
 
-    fun setOnItemClickListener(l : View.OnClickListener){
+    fun setOnItemClickListener(l: View.OnClickListener) {
         onItemClick = l
     }
 
@@ -40,16 +39,12 @@ class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoI
         return ItemViewHolder(v)
     }
 
-    override fun onBindViewHolder(viewHolder: ItemViewHolder, i: Int) {
-        val item = infoList[i]
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
-
-        val drawable = context.resources.getDrawable(item.image)
-        viewHolder.image1.setBackground(drawable)
-
-        viewHolder.title.setText(item.title)
-        viewHolder.ratingBar.setRating(item.star.toFloat()) //star
-        viewHolder.coment.setText("(" + item.cmt_cnt + ")") // comment num
+        Glide.with(context).load(infoList[position].lodge_image).into(holder.reservation_image)
+        holder.reservation_title.text = infoList[position].lodge_title
+        holder.reservation_ratingBar.rating = infoList[position].lodge_star.toFloat()
+        holder.reservation_count.setText("(" + infoList[position].lodge_star_count + ")") // comment num
 
     }
 
@@ -58,18 +53,18 @@ class InfoReservationAdapter(var context: Context, var infoList: ArrayList<InfoI
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var image1: ImageView
-        internal var title: TextView
-        internal var ratingBar: RatingBar
-        internal var coment: TextView
-        internal var cardview: CardView
+        internal var reservation_image: ImageView
+        internal var reservation_title: TextView
+        internal var reservation_ratingBar: RatingBar
+        internal var reservation_count: TextView
+        internal var reservation_cardview: CardView
 
         init {
-            image1 = itemView.findViewById<View>(R.id.cd_img) as ImageView
-            title = itemView.findViewById<View>(R.id.tv_infotitle) as TextView
-            ratingBar = itemView.findViewById<View>(R.id.rb_info) as RatingBar
-            coment = itemView.findViewById<View>(R.id.tv_cmt) as TextView
-            cardview = itemView.findViewById<View>(R.id.cinfo) as CardView
+            reservation_image = itemView.findViewById<View>(R.id.cd_img) as ImageView
+            reservation_title = itemView.findViewById<View>(R.id.tv_infotitle) as TextView
+            reservation_ratingBar = itemView.findViewById<View>(R.id.rb_info) as RatingBar
+            reservation_count = itemView.findViewById<View>(R.id.tv_cmt) as TextView
+            reservation_cardview = itemView.findViewById<View>(R.id.cinfo) as CardView
         }
     }
 }

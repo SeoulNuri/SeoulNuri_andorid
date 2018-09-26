@@ -53,8 +53,8 @@ class PlannerFragment : Fragment(), View.OnClickListener {
                     planner_edit_btn.text = "편집"
                     flag = false
                 }
-                plannerAdapter.change(number)
-                plannerAdapter.notifyDataSetChanged()
+                plannerAdapter!!.change(number)
+                plannerAdapter!!.notifyDataSetChanged()
             }
             planner_plus_btn -> {
                 startActivity(Intent(context, PlannerStartActivity::class.java))
@@ -71,8 +71,8 @@ class PlannerFragment : Fragment(), View.OnClickListener {
     private var mParam1: String? = null
     private var mParam2: String? = null
     var number: Int = 0
-    lateinit var items: ArrayList<PlannerGetData>
-    lateinit var plannerAdapter: PlannerAdapter
+    var items: ArrayList<PlannerGetData> = ArrayList()
+    var plannerAdapter: PlannerAdapter? = null
 
 
     private var mListener: OnFragmentInteractionListener? = null
@@ -96,7 +96,7 @@ class PlannerFragment : Fragment(), View.OnClickListener {
         v.planner_plus_btn.setOnClickListener(this)
 
         plannerAdapter = PlannerAdapter(items, pContext)
-        plannerAdapter.setOnItemClickListener(this)
+        plannerAdapter!!.setOnItemClickListener(this)
         v.planner_rv.layoutManager = LinearLayoutManager(this.pContext)
         v.planner_rv.adapter = plannerAdapter
 
@@ -110,7 +110,6 @@ class PlannerFragment : Fragment(), View.OnClickListener {
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(context!!)
 
-        items = ArrayList()
         getPlanner()
 
 
@@ -149,8 +148,8 @@ class PlannerFragment : Fragment(), View.OnClickListener {
 
 
     fun getPlanner(){
-        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
-        var plannerGetResponse = networkService.getPlanner("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MDg3OTE3NjYiLCJpYXQiOjE1Mzc2OTA2Nzh9.DfPccsNzJcpenUXwIsnfyj0POK3wtFfBNXHt4DAYtYw")
+        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+        var plannerGetResponse = networkService.getPlanner(token)
 
 
         plannerGetResponse.enqueue(object : Callback<PlannerGetResponse> {
@@ -163,6 +162,10 @@ class PlannerFragment : Fragment(), View.OnClickListener {
                     Log.v("yong",response!!.body()!!.message)
                     items.addAll(response!!.body()!!.data)
 
+                    plannerAdapter = PlannerAdapter(items, pContext)
+                    plannerAdapter!!.setOnItemClickListener(this@PlannerFragment)
+                    planner_rv.layoutManager = LinearLayoutManager(context!!)
+                    planner_rv.adapter = plannerAdapter
 
                     //Log.v("yong","size"+items.size.toString())
                     //Log.v("yong",items[0].tour_name)

@@ -6,7 +6,7 @@ import java.util.*
  * Created by VictoryWoo
  */
 data class MainRecoTourData(
-        var reco_tour : ArrayList<TourData>,
+        var reco_tour : ArrayList<TourData2>,
         var rand_tour : TourData
 )
 
@@ -16,6 +16,17 @@ data class TourData(
         var tour_name : String,
         var tour_addr : String,
         var tour_info : String,
+        var tour_image : String,
+        var tour_star : Double,
+        var tour_star_count : Int
+)
+
+data class TourData2(
+        var tour_idx : Int,
+        var tour_name : String,
+        var tour_addr : String,
+        var tour_info : String,
+        var tour_image : String,
         var tour_star : Double,
         var tour_star_count : Int
 )

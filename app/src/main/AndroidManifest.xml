@@ -46,7 +46,7 @@
             android:theme="@style/Login" />
         <activity
             android:name=".view.main.MainActivity"
-            android:theme="@style/Splash"></activity>
+            android:theme="@style/Splash" />
         <activity
             android:name=".view.planner.PlannerStartActivity"
             android:theme="@style/Splash"

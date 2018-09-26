@@ -10,7 +10,7 @@
         android:background="@drawable/img_main_gyeongbok"
         android:id="@+id/mainImageView"
         android:layout_width="match_parent"
-        android:layout_height="365dp"></ImageView>
+        android:layout_height="365dp" />
 
     <ImageView
         android:layout_marginTop="34dp"

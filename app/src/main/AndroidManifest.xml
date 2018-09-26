@@ -22,7 +22,7 @@
         <!-- API 9 이상부터 버그가 있어서 이거 추가해줘야함 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBx-xmwLRXuUZaWKAcgzW4Fc34CvXAIcKw " />
+            android:value="AIzaSyAVbXI08ruoTkZGOOjAo-XnEWLAo17MXr4" />
 
         <!-- 카카오톡 메타데이터 -->
         <meta-data
@@ -46,7 +46,7 @@
             android:theme="@style/Login" />
         <activity
             android:name=".view.main.MainActivity"
-            android:theme="@style/Splash"></activity>
+            android:theme="@style/Splash" />
         <activity
             android:name=".view.planner.PlannerStartActivity"
             android:theme="@style/Splash"

@@ -1,11 +1,14 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import android.view.View
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
@@ -14,12 +17,23 @@ import com.hello.seoulnuri.model.info.tour.introduce.TourBottomData
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
+import com.hello.seoulnuri.utils.custom.BookmarkDialog
 import kotlinx.android.synthetic.main.activity_info_tour_detail.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduceFragment.setting {
+open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduceFragment.setting, View.OnClickListener {
+    override fun onClick(v: View?) {
+        when(v!!){
+            info_tour_detail_bookmark->{
+                val bookmark_dialog = BookmarkDialog(this@InfoTourDetailActivity)
+                bookmark_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                bookmark_dialog.show()
+            }
+        }
+    }
+
     override fun setData(introImage: String, introContent: String) {
         Log.v("woo 7","7")
         makeIntroFragment(introImage, introContent)
@@ -55,6 +69,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
 
     override fun init() {
+        info_tour_detail_bookmark.setOnClickListener(this)
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(this)
     }
@@ -78,6 +93,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
         init()
         getData()
+
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("소개"))
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("이용방법"))
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("무장애정보"))

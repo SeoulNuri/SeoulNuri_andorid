@@ -2,9 +2,15 @@ package com.hello.seoulnuri.view.course;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +27,12 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private ArrayList<Double> latLang; // 경복궁 위도 경도
+    private TextView course_item_map_title;
+    private TextView course_item_map_addr;
+    private RatingBar course_item_map_rating_star;
+    private TextView course_item_map_rating_txt;
+    private ImageView show_tour_info_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +41,30 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        String course_item_title = intent.getStringExtra("course_item_title");
+        String course_item_addr = intent.getStringExtra("course_item_addr");
+        String course_star_count = intent.getStringExtra("course_star_count");
+        float course_star = intent.getFloatExtra("course_star",0);
+
+        course_item_map_title = (TextView)findViewById(R.id.course_item_map_title);
+        course_item_map_addr = (TextView)findViewById(R.id.course_item_map_addr);
+        course_item_map_rating_txt = (TextView)findViewById(R.id.course_item_map_rating_txt);
+        course_item_map_rating_star = (RatingBar) findViewById(R.id.course_item_map_rating_star);
+        show_tour_info_btn = (ImageView) findViewById(R.id.show_tour_info_btn);
+
+        course_item_map_title.setText(course_item_title);
+        course_item_map_addr.setText(course_item_addr);
+        course_item_map_rating_txt.setText(course_star_count);
+        course_item_map_rating_star.setRating(course_star);
+
+        show_tour_info_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         //마커 옵션
 //        MarkerOptions makerOptions = new MarkerOptions();

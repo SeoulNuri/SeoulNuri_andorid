@@ -8,17 +8,30 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.model.main.MainTourResponse;
+import com.hello.seoulnuri.model.main.TourData;
+import com.hello.seoulnuri.model.main.TourData2;
+import com.hello.seoulnuri.network.ApplicationController;
+import com.hello.seoulnuri.network.NetworkService;
+import com.hello.seoulnuri.utils.SharedPreference;
+import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity;
 import com.hello.seoulnuri.view.search.Search2Activity;
 import com.hello.seoulnuri.view.search.SearchActivity;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -49,8 +62,6 @@ public class MainFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment MainFragment.
      */
     // TODO: Rename and change types and number of parameters
@@ -79,31 +90,36 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        RatingBar ratingBar = (RatingBar)view.findViewById(R.id.ratingBar);
+        final ImageView imageView = (ImageView)view.findViewById(R.id.mainImageView);
+        final RatingBar ratingBar = (RatingBar)view.findViewById(R.id.ratingBar);
         ratingBar.setRating((float) 3.5);
+
+        final TextView addressTextView = (TextView)view.findViewById(R.id.addressTextView);
+        final TextView summaryTextView = (TextView)view.findViewById(R.id.summaryTextView);
+        final TextView placeTextView = (TextView)view.findViewById(R.id.placeTextView);
 
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(0).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         stars.getDrawable(1).setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
 
-        ImageButton imageButton1 = (ImageButton)view.findViewById(R.id.courseContentImageButton1);
-        ImageButton imageButton2 = (ImageButton)view.findViewById(R.id.courseContentImageButton2);
-        ImageButton imageButton3 = (ImageButton)view.findViewById(R.id.courseContentImageButton3);
-        ImageButton imageButton4 = (ImageButton)view.findViewById(R.id.courseContentImageButton4);
-        ImageButton imageButton5 = (ImageButton)view.findViewById(R.id.courseContentImageButton5);
+        final ImageButton imageButton1 = (ImageButton)view.findViewById(R.id.courseContentImageButton1);
+        final ImageButton imageButton2 = (ImageButton)view.findViewById(R.id.courseContentImageButton2);
+        final ImageButton imageButton3 = (ImageButton)view.findViewById(R.id.courseContentImageButton3);
+        final ImageButton imageButton4 = (ImageButton)view.findViewById(R.id.courseContentImageButton4);
+        final ImageButton imageButton5 = (ImageButton)view.findViewById(R.id.courseContentImageButton5);
 
-        TextView textViewTitle1 = (TextView)view.findViewById(R.id.courseContentTitleTextView1);
-        TextView textViewTitle2 = (TextView)view.findViewById(R.id.courseContentTitleTextView2);
-        TextView textViewTitle3 = (TextView)view.findViewById(R.id.courseContentTitleTextView3);
-        TextView textViewTitle4 = (TextView)view.findViewById(R.id.courseContentTitleTextView4);
-        TextView textViewTitle5 = (TextView)view.findViewById(R.id.courseContentTitleTextView5);
+        final TextView textViewTitle1 = (TextView)view.findViewById(R.id.courseContentTitleTextView1);
+        final TextView textViewTitle2 = (TextView)view.findViewById(R.id.courseContentTitleTextView2);
+        final TextView textViewTitle3 = (TextView)view.findViewById(R.id.courseContentTitleTextView3);
+        final TextView textViewTitle4 = (TextView)view.findViewById(R.id.courseContentTitleTextView4);
+        final TextView textViewTitle5 = (TextView)view.findViewById(R.id.courseContentTitleTextView5);
 
-        TextView textViewAddress1 = (TextView)view.findViewById(R.id.courseContentAddressTextView1);
-        TextView textViewAddress2 = (TextView)view.findViewById(R.id.courseContentAddressTextView2);
-        TextView textViewAddress3 = (TextView)view.findViewById(R.id.courseContentAddressTextView3);
-        TextView textViewAddress4 = (TextView)view.findViewById(R.id.courseContentAddressTextView4);
-        TextView textViewAddress5 = (TextView)view.findViewById(R.id.courseContentAddressTextView5);
+        final TextView textViewAddress1 = (TextView)view.findViewById(R.id.courseContentAddressTextView1);
+        final TextView textViewAddress2 = (TextView)view.findViewById(R.id.courseContentAddressTextView2);
+        final TextView textViewAddress3 = (TextView)view.findViewById(R.id.courseContentAddressTextView3);
+        final TextView textViewAddress4 = (TextView)view.findViewById(R.id.courseContentAddressTextView4);
+        final TextView textViewAddress5 = (TextView)view.findViewById(R.id.courseContentAddressTextView5);
 
         Button btnSearch = (Button)view.findViewById(R.id.mainSearchButton);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +129,106 @@ public class MainFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        final Button btnNext = (Button)view.findViewById(R.id.buttonNextArrow);
+
+        ApplicationController controller = new ApplicationController();
+        controller.buildNetwork();
+        NetworkService service = controller.getNetworkService();
+        SharedPreference.Companion.getInstance();
+
+//        Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
+//        Log.v("token : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
+//        call.enqueue(new Callback<MainTourResponse>() {
+//            @Override
+//            public void onResponse(Call<MainTourResponse> call, final Response<MainTourResponse> response) {
+////                response.body().getData().getRand_tour().getTour_image();
+//                if (response.body() != null) {
+////                    Log.v("message in onResponse", response.body().getData().toString());
+//                    imageView.setImageURI(Uri.parse(response.body().getData().getRand_tour().getTour_image()));
+//                    ratingBar.setRating((float)response.body().getData().getRand_tour().getTour_star());
+//                    addressTextView.setText(response.body().getData().getRand_tour().getTour_addr());
+//                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
+//                    placeTextView.setText(response.body().getData().getRand_tour().getTour_name());
+//
+//                    final TourData2 tourData2[] = new TourData2[5];
+//                    for (int i=0; i<5; i++) {
+//                        tourData2[i] = response.body().getData().getReco_tour().get(i);
+//                    }
+//                    imageButton1.setImageURI(Uri.parse(tourData2[0].getTour_image()));
+//                    imageButton1.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[0].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    imageButton2.setImageURI(Uri.parse(tourData2[1].getTour_image()));
+//                    imageButton2.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[1].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    imageButton3.setImageURI(Uri.parse(tourData2[2].getTour_image()));
+//                    imageButton3.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[2].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    imageButton4.setImageURI(Uri.parse(tourData2[3].getTour_image()));
+//                    imageButton4.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[3].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                    imageButton5.setImageURI(Uri.parse(tourData2[4].getTour_image()));
+//                    imageButton5.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[4].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//
+//                    textViewTitle1.setText(tourData2[0].getTour_name());
+//                    textViewTitle2.setText(tourData2[1].getTour_name());
+//                    textViewTitle3.setText(tourData2[2].getTour_name());
+//                    textViewTitle4.setText(tourData2[3].getTour_name());
+//                    textViewTitle5.setText(tourData2[4].getTour_name());
+//
+//                    textViewAddress1.setText(tourData2[0].getTour_addr());
+//                    textViewAddress2.setText(tourData2[1].getTour_addr());
+//                    textViewAddress3.setText(tourData2[2].getTour_addr());
+//                    textViewAddress4.setText(tourData2[3].getTour_addr());
+//                    textViewAddress5.setText(tourData2[4].getTour_addr());
+//
+//                    btnNext.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", response.body().getData().getRand_tour().getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
+//                } else Log.v("message in onResponse", " is null object");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MainTourResponse> call, Throwable t) {
+//                Log.d("Fail","haha");
+//            }
+//        });
 
         return view;
     }

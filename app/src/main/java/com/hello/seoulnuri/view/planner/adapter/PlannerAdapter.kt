@@ -61,16 +61,16 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
 
         holder.deleteBtn.setOnClickListener {
             Log.v("delete position", position.toString())
-            item_list.removeAt(position)
+            deletePlanner(position)
+
             //datas.removeAt(position)
 
-            notifyDataSetChanged()
         }
     }
 
     fun deletePlanner(idx : Int){
 
-        var token = SharedPreference.instance!!.getPrefStringData("token","")!!
+        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
         var plannerDeleteRequest = PlannerDeleteRequest(idx);
         var plannerDeleteResponse = networkService.deletePlanner(token,plannerDeleteRequest)
 
@@ -84,9 +84,10 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
                 if(response!!.isSuccessful){
 
                     Log.v("yong",response!!.body()!!.message!!)
+                    item_list.removeAt(idx)
+                    notifyDataSetChanged()
 
                 } else{
-
 
                 }
             }

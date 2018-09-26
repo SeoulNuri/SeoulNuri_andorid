@@ -42,6 +42,7 @@ import com.hello.seoulnuri.model.course.CourseDetailResponse;
 import com.hello.seoulnuri.model.course.CourseStarData;
 import com.hello.seoulnuri.model.course.CourseStarModify;
 import com.hello.seoulnuri.model.course.TourInfo;
+import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
@@ -92,6 +93,7 @@ public class Course_detail extends AppCompatActivity {
     private ArrayList<Position> courses_list;
     private TextView course_item_txt;
     private TextView course_path_rate_txt;
+    private TextView course_item_addr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +101,8 @@ public class Course_detail extends AppCompatActivity {
         setContentView(R.layout.activity_course);
         networkService = ApplicationController.Companion.getInstance().getNetworkService();
         SharedPreference.Companion.getInstance();
+
+
 
         course_item_txt = (TextView) findViewById(R.id.course_item_txt);
         TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
@@ -118,7 +122,7 @@ public class Course_detail extends AppCompatActivity {
 
         //추천코스 소개 대표 설명
         TextView course_info_item_txt = (TextView) findViewById(R.id.course_txt);
-        TextView course_item_addr = (TextView) findViewById(R.id.course_item_addr);
+        course_item_addr = (TextView) findViewById(R.id.course_item_addr);
         course_path_rate_txt = (TextView) findViewById(R.id.course_path_rate_txt);
         course_path_rate_star = (RatingBar) findViewById(R.id.course_path_rate_star);
 
@@ -215,8 +219,9 @@ public class Course_detail extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Course_detail.this,CourseCommentActivity.class);
                 // intent.
+
                 intent.putExtra("course_title", course_item_txt.getText().toString());
-                intent.putExtra("course_idx", 1);
+                intent.putExtra("course_idx", select_type -2 );
                 startActivity(intent);
             }
         });
@@ -253,6 +258,10 @@ public class Course_detail extends AppCompatActivity {
                 listDouble.add(37.600477);
                 listDouble.add(126.977507);
                 intent.putExtra("latLang_list", listDouble);
+                intent.putExtra("course_item_title",course_item_txt.getText().toString());
+                intent.putExtra("course_item_addr", course_item_addr.getText().toString());
+                intent.putExtra("course_star",course_path_rate_star.getRating() );
+                intent.putExtra("course_star_count",course_path_rate_txt.getText().toString());
                 startActivity(intent);
             }
         });
@@ -264,10 +273,7 @@ public class Course_detail extends AppCompatActivity {
 
         elv = (ExpandableListView) findViewById(R.id.elv);
 
-
-
         Networking();
-
 
     }
 
@@ -501,15 +507,21 @@ public class Course_detail extends AppCompatActivity {
             public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
                 if(response.isSuccessful()) {
                     ArrayList<TourInfo> tour_info;
+                    ArrayList<Integer> tour_idx = new ArrayList<>();
                     courseDetailData = response.body().getData();
 
                     Log.v("course_idx_get", courseDetailData.getCourse_idx() + "");
-                    tour_info = courseDetailData.getCourse_schedule();
 
-                    Log.v("tour_info_get", tour_info.get(0).getTour_idx() + "");
-                    Log.v("tour_info_get", tour_info.get(0).getTour_name());
-                    Log.v("tour_info_get", tour_info.get(0).getTour_image());
-                    Log.v("tour_detail_get", tour_info.get(0).getTour_info_detail());
+                    tour_info = courseDetailData.getCourse_schedule();
+//
+//                    for (int i = 0; i < tour_info.size(); i++) {
+//                        tour_idx.add(tour_info.get(i).getTour_idx());
+//                    }
+
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_idx() + "");
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_name());
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_image());
+//                    Log.v("tour_detail_get", tour_info.get(0).getTour_info_detail());
 
 //                    if(tour_info.image != ""){
 //                        Glide.with(getApplicationContext())
@@ -583,7 +595,7 @@ public class Course_detail extends AppCompatActivity {
 
                     }
 
-                    recyclerview.setAdapter(new ExpandableListAdapter(places));
+                    recyclerview.setAdapter(new ExpandableListAdapter(places,tour_idx));
 
 
                     //create and bind to adatper
@@ -627,7 +639,6 @@ public class Course_detail extends AppCompatActivity {
             @Override
             public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
                 if(response.isSuccessful()) {
-
                     Log.v("course bookmark code", response.body().getCode().toString());
                     Log.v("course bookmark status", response.body().getStatus().toString());
                     Log.v("course bookmark message", response.body().getMessage().toString());
@@ -661,7 +672,6 @@ public class Course_detail extends AppCompatActivity {
             @Override
             public void onResponse(Call<CourseBookmarkResponse> call, Response<CourseBookmarkResponse> response) {
                 if(response.isSuccessful()) {
-
                     Log.v("course bookmark2 code", response.body().getCode().toString());
                     Log.v("course bookmark2 status", response.body().getStatus().toString());
                     Log.v("course bookmark2 ", response.body().getMessage().toString());

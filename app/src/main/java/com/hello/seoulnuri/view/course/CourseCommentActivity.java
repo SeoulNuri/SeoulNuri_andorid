@@ -148,7 +148,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
         Intent intent = getIntent();
         int idx = intent.getIntExtra("course_idx",1);
 
-        Log.v("idx" , "idx = " + idx);
+        Log.v("course comment idx" , "idx = " + idx);
         Call<CourseCmtResponse> requestDetail = networkService.getCourseCmt(TOKEN_DATA,idx);
         requestDetail.enqueue(new Callback<CourseCmtResponse>() {
             @Override
@@ -157,7 +157,6 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
                     ArrayList<CourseCmtData> courseCmtData;
                     courseCmtData = response.body().getData();
 
-                    Log.v("courseCmtData", courseCmtData.get(1).toString());
 
                     info = new commentItem[courseCmtData.size()]; //< -- 서버 데이터 넣을때 참고
                     for (int i = 0; i < courseCmtData.size(); i++) {

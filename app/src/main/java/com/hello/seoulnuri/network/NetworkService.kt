@@ -13,6 +13,7 @@ import com.hello.seoulnuri.model.login.LoginUserData
 import com.hello.seoulnuri.model.login.LoginUserResponse
 import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
+import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
 import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -173,9 +174,15 @@ interface NetworkService {
     //마이페이지에서 코스 즐겨찾기 리스트 가져오기
     @GET("/api/mypage/bookmark/course")
     fun getCourseBookmarks(
-
             @Header("token") token : String
     ) : Call<CourseBookmarkResponse>
+
+    // 18. 마이페이지에서 코스 즐겨찾기 보여주기
+    @GET("api/mypage/bookmark/course")
+    fun getMypageBookmarkCourse(
+            @Header("token") token : String
+    ) : Call<MypageBookmarkCourseResponse>
+
 
 
     @POST("api/course/star")

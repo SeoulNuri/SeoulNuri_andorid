@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         Drawable drawable=context.getResources().getDrawable(item.getImage());
         holder.image1.setBackground(drawable);
         holder.course_item_rate_star.setRating((float) item.getCour_star());
-        holder.course_item_rate_txt.setText("(" + String.valueOf(item.getCour_star_count()) + ")");
+        holder.course_item_rate_txt.setText("(" + item.getCour_star_count() + ")");
 
         drawable=context.getResources().getDrawable(item.getIcon());
         holder.image2.setBackground(drawable);

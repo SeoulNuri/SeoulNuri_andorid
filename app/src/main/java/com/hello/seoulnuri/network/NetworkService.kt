@@ -2,10 +2,7 @@ package com.hello.seoulnuri.network
 
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
-import com.hello.seoulnuri.model.course.CourseCmtRequest
-import com.hello.seoulnuri.model.course.CourseCmtResponse
-import com.hello.seoulnuri.model.course.CourseDetailResponse
-import com.hello.seoulnuri.model.course.CourseStarResponse
+import com.hello.seoulnuri.model.course.*
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
 import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
@@ -78,22 +75,26 @@ interface NetworkService {
 
     // 8. 코스 메인 유형별 별점 불러오기
     @GET("api/course")
-    fun getCourseStar() : Call<CourseStarResponse>
+    fun getCourseStar(@Header("token") token : String) : Call<CourseStarResponse>
 
     // 9. 코스별 댓글 불러오기
     @GET("api/course/comment")
     fun getCourseCmt(
+            @Header("token") token : String,
             @Query("course_idx") course_idx : Int
     ) : Call<CourseCmtResponse>
 
+    //코스 상세정보 가져오기
     @GET("api/course/detail")
     fun getCourseDetail(
+            @Header("token") token : String,
             @Query ("course_theme") course_theme : Int
     ) : Call<CourseDetailResponse>
 
     //코스별 댓글 추가하기
     @POST("api/course/comment")
     fun postCourseCmt(
+            @Header("token") token : String,
             @Body courseCmtRequest: CourseCmtRequest
     ) : Call<BaseModel>
 
@@ -165,6 +166,19 @@ interface NetworkService {
             @Query("tour_idx") tour_idx: Int
     ) : Call<InfoTourFaultResponse>
 
+    //코스 즐겨찾기 등록
+    @POST("api/course/bookmark")
+    fun registCourseBookmark(
+            @Header("token") token : String,
+            @Body course_idx: Int
+    ): Call<BaseModel>
+
+    //마이페이지에서 코스 즐겨찾기 리스트 가져오기
+    @GET("/api/mypage/bookmark/course")
+    fun getCourseBookmarks(
+            @Header("token") token : String
+    ) : Call<CourseBookmarkResponse>
+
     // 18. 마이페이지에서 코스 즐겨찾기 보여주기
     @GET("api/mypage/bookmark/tour")
     fun getMypageBookmarkTour(
@@ -176,6 +190,13 @@ interface NetworkService {
     fun getMypageBookmarkCourse(
             @Header("token") token : String
     ) : Call<MypageBookmarkCourseResponse>
+
+    //19. 코스 별점 수정
+    @POST("api/course/star")
+    fun postCourseStar(
+            @Header("token") token : String,
+            @Body courseStarModi : CourseStarModify
+    ) :Call<BaseModel>
 
 
     // 19. 투어 북마크 등록

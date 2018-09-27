@@ -11,9 +11,9 @@ public class CourseItem implements Serializable{
     int icon;
     String content;
     double cour_star;
-    double cour_star_count;
+    int cour_star_count;
 
-    public CourseItem(int image, int icon, String content, double cour_star, double cour_star_count) {
+    public CourseItem(int image, int icon, String content, double cour_star, int cour_star_count) {
         this.image = image;
         this.icon = icon;
         this.content = content;
@@ -59,11 +59,11 @@ public class CourseItem implements Serializable{
         this.cour_star = cour_star;
     }
 
-    public double getCour_star_count() {
+    public int getCour_star_count() {
         return cour_star_count;
     }
 
-    public void setCour_star_count(double cour_star_count) {
+    public void setCour_star_count(int cour_star_count) {
         this.cour_star_count = cour_star_count;
     }
 

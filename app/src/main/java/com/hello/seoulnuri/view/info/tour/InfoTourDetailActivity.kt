@@ -15,6 +15,7 @@ import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.info.CommentActivity
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.TourCommonData
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
 import com.hello.seoulnuri.model.info.tour.introduce.TourBottomData
 import com.hello.seoulnuri.network.ApplicationController
@@ -102,9 +103,10 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
     var index = 0
     lateinit var networkService: NetworkService
-    lateinit var tourBottom: TourBottomData
+    lateinit var tourBottomData: TourBottomData
     lateinit var detailImage :String
     lateinit var detailText  :String
+    lateinit var tourCommonData: TourCommonData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_tour_detail)
@@ -158,13 +160,22 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
             override fun onResponse(call: Call<InfoTourIntroduce>?, response: Response<InfoTourIntroduce>?) {
                 if (response!!.isSuccessful) {
-                    info_tour_detail_title.text = response!!.body()!!.data.tour_common.tour_name
+                    // 뷰에 값 뿌리기
+                    tourCommonData = response!!.body()!!.data.tour_common
+                    settingTourCommonData()
+
+                    // 함수로 빼기!
+                    /*info_tour_detail_title.text = response!!.body()!!.data.tour_common.tour_name
                     info_tour_detail_address.text = response!!.body()!!.data.tour_common.tour_addr
                     info_tour_detail_intro_rating.rating = response!!.body()!!.data.tour_common.tour_star.toFloat()
-                    info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"
+                    info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"*/
 
+                    tourBottomData = response!!.body()!!.data.tour_bottom
+                    if(tourBottomData.tour_image == null)
+                        detailImage = R.drawable.img_jw.toString()
+                    else
+                        detailImage = tourBottomData.tour_image
 
-                    detailImage = response!!.body()!!.data.tour_bottom.tour_image
                     detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
                     setData(detailImage,detailText)
 
@@ -173,6 +184,14 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             }
 
         })
+
+    }
+
+    fun settingTourCommonData(){
+        info_tour_detail_title.text = tourCommonData.tour_name
+        info_tour_detail_address.text = tourCommonData.tour_addr
+        info_tour_detail_intro_rating.rating = tourCommonData.tour_star.toFloat()
+        info_tour_detail_count.text = "(${tourCommonData.tour_star_count})"
 
     }
 

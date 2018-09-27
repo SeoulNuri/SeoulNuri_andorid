@@ -3,6 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+
+
+
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hello.seoulnuri"
@@ -12,6 +15,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false

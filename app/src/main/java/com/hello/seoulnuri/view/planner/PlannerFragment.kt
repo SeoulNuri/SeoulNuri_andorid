@@ -154,7 +154,7 @@ class PlannerFragment : Fragment(), View.OnClickListener {
 
         plannerGetResponse.enqueue(object : Callback<PlannerGetResponse> {
             override fun onFailure(call: Call<PlannerGetResponse>?, t: Throwable?) {
-                Log.v("failure ",t!!.message)
+//                Log.v("failure ",t!!.message)
             }
 
             override fun onResponse(call: Call<PlannerGetResponse>?, response: Response<PlannerGetResponse>?) {

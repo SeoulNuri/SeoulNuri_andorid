@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.info.Info_Detail_Intro;
+import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity;
 
 import org.w3c.dom.Text;
 
@@ -36,13 +37,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     Context context;
 
     private List<Item> data;
+    private ArrayList<Integer> index;
 
     private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
     int flag = 0; //header 판별 (소요시간)
 
-    public ExpandableListAdapter(List<Item> data) {
+    public ExpandableListAdapter(List<Item> data, ArrayList<Integer> index) {
         this.data = data;
+        this.index = index;
     }
 
     @Override
@@ -88,8 +91,8 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 itemController.btn_expand_toggle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, Info_Detail_Intro.class);
-//                        intent.putExtra("tour_idx", ) //서버에서 받은 값 전달
+                        Intent intent = new Intent(context, InfoTourDetailActivity.class);
+                        intent.putExtra("index",index.get(0)); //서버에서 받은 값 전달
                         context.startActivity(intent);
                     }
                 });

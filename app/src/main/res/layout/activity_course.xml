@@ -147,9 +147,11 @@
 
                             <ImageView
                                 android:layout_marginTop="32dp"
+                                android:layout_gravity="center"
                                 android:id="@+id/course_img"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_width="312dp"
+
+                                android:layout_height="180dp"
                                 app:srcCompat="@drawable/img_hong_intro" />
 
                             <TextView

@@ -1,6 +1,8 @@
 package com.hello.seoulnuri.view.course;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -23,18 +25,26 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hello.seoulnuri.base.BaseModel;
 import com.hello.seoulnuri.commentItem;
 import com.hello.seoulnuri.info.CommentActivity;
 import com.hello.seoulnuri.info.Info_Detail_Intro;
 import com.hello.seoulnuri.info.popUpActivity;
 import com.hello.seoulnuri.model.CourseItem;
 import com.hello.seoulnuri.model.Position;
+import com.hello.seoulnuri.model.course.CourseBookmarkData;
+import com.hello.seoulnuri.model.course.CourseBookmarkResponse;
 import com.hello.seoulnuri.model.course.CourseCmtData;
+import com.hello.seoulnuri.model.course.CourseCmtRequest;
 import com.hello.seoulnuri.model.course.CourseCmtResponse;
 import com.hello.seoulnuri.model.course.CourseDetailData;
 import com.hello.seoulnuri.model.course.CourseDetailResponse;
+import com.hello.seoulnuri.model.course.CourseMapData;
+import com.hello.seoulnuri.model.course.CourseMapSubData;
 import com.hello.seoulnuri.model.course.CourseStarData;
+import com.hello.seoulnuri.model.course.CourseStarModify;
 import com.hello.seoulnuri.model.course.TourInfo;
+import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse;
 import com.hello.seoulnuri.network.ApplicationController;
 import com.hello.seoulnuri.network.NetworkService;
 import com.hello.seoulnuri.utils.SharedPreference;
@@ -50,6 +60,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.hello.seoulnuri.view.course.CourseCommentActivity.TOKEN_DATA;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EAR;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_ELDER;
 import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_EYE;
@@ -59,6 +70,7 @@ import static com.hello.seoulnuri.view.course.adapter.CourseAdapter.COURSE_WHEEL
  * Created by shineeseo on 2018. 8. 21..
  */
 
+//상세코스 페이지
 public class Course_detail extends AppCompatActivity {
 
     private RecyclerView recyclerview;
@@ -83,48 +95,55 @@ public class Course_detail extends AppCompatActivity {
     private ExpandableListView elv;
     private ArrayList<Position> courses_list;
     private TextView course_item_txt;
+    private TextView course_path_rate_txt;
+    private TextView course_item_addr;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
+        networkService = ApplicationController.Companion.getInstance().getNetworkService();
+        SharedPreference.Companion.getInstance();
+
+        //코스 이름
         course_item_txt = (TextView) findViewById(R.id.course_item_txt);
+        //코스 타입 (시각장애인여행코스..)
         TextView course_type_txt = (TextView) findViewById(R.id.course_type_txt);
 
         intent = new Intent(this.getIntent());
+        //전역변수 -선택한 코스 타입(3- eye, 4- wheel , 5-ear, 6-elder)
         select_type = intent.getIntExtra("select_type", 3);
+        //코스의 별점과 별점 카운트 수 (서버에서 받아온 값) -시각, 지체, 청각, 노인 순
         courseStarList = (ArrayList<CourseItem>)intent.getSerializableExtra("courseList");
 
-
-
-        Log.v("courseStarList", "value == " +courseStarList.get(0).getCour_star());
-        Log.d("select_type", "selecttype = " + select_type);
+        Log.v("courseStarList", courseStarList.toString());
+        Log.v("course_type",  select_type+"");
 
         //추천코스 소개 대표 이미지
         ImageView course_info_item_img = (ImageView) findViewById(R.id.course_img);
         //선택 유형에 따라 달라져야함
-
-        //추천코스 소개 대표 설명
         TextView course_info_item_txt = (TextView) findViewById(R.id.course_txt);
-        TextView course_item_addr = (TextView) findViewById(R.id.course_item_addr);
-        TextView course_path_rate_txt = (TextView) findViewById(R.id.course_path_rate_txt);
+        //추천코스 소개 대표 설명
+        course_item_addr = (TextView) findViewById(R.id.course_item_addr);
+        course_path_rate_txt = (TextView) findViewById(R.id.course_path_rate_txt);
         course_path_rate_star = (RatingBar) findViewById(R.id.course_path_rate_star);
 
+        //별점을 클릭하면 별점을 부여하는 activity가 실행된다. -> 왜 두 번씩 실행될까..?
         course_path_rate_star.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Intent intent = new Intent(Course_detail.this, popUpActivity.class);
-                intent.putExtra("ratingbar_infos",course_path_rate_star.getRating());
+//                intent.putExtra("ratingbar_infos",course_path_rate_star.getRating());
                 startActivityForResult(intent,1);
 
                 return false;
             }
         });
 
-
         switch (select_type) {
             case COURSE_EYE:
+                course_info_item_img.setImageResource(R.drawable.eye_first_photo);
                 course_path_rate_star.setRating((float)courseStarList.get(0).getCour_star());
                 course_path_rate_txt.setText("("+courseStarList.get(0).getCour_star_count()+")");
                 course_item_addr.setText("서울특별시 서대문구 통일로 251");
@@ -132,15 +151,8 @@ public class Course_detail extends AppCompatActivity {
                 course_item_txt.setText("독립운동의 역사");
                 course_type_txt.setText("시각장애인 여행 추천 코스");
                 break;
-            case COURSE_EAR:
-                course_path_rate_star.setRating((float)courseStarList.get(2).getCour_star());
-                course_path_rate_txt.setText("("+courseStarList.get(2).getCour_star_count()+")");
-                course_item_addr.setText("서울특별시 송파구 올림픽로 424");
-                course_info_item_txt.setText(getResources().getString(R.string.course_info_txt_ear));
-                course_item_txt.setText("8호선 지하철 여행");
-                course_type_txt.setText("청각장애인 여행 추천 코스");
-                break;
             case COURSE_WHEEL:
+                course_info_item_img.setImageResource(R.drawable.wheel_first_photo);
                 course_path_rate_star.setRating((float)courseStarList.get(1).getCour_star());
                 course_path_rate_txt.setText("("+courseStarList.get(1).getCour_star_count()+")");
                 course_item_addr.setText("서울특별시 중구 덕수궁길 61");
@@ -148,7 +160,17 @@ public class Course_detail extends AppCompatActivity {
                 course_item_txt.setText("지식과 함께, 박물관");
                 course_type_txt.setText("지체장애인 여행 추천 코스");
                 break;
+            case COURSE_EAR:
+                course_info_item_img.setImageResource(R.drawable.ear_first_photo);
+                course_path_rate_star.setRating((float)courseStarList.get(2).getCour_star());
+                course_path_rate_txt.setText("("+courseStarList.get(2).getCour_star_count()+")");
+                course_item_addr.setText("서울특별시 송파구 올림픽로 424");
+                course_info_item_txt.setText(getResources().getString(R.string.course_info_txt_ear));
+                course_item_txt.setText("8호선 지하철 여행");
+                course_type_txt.setText("청각장애인 여행 추천 코스");
+                break;
             case COURSE_ELDER:
+                course_info_item_img.setImageResource(R.drawable.elder_first_photo);
                 course_path_rate_star.setRating((float)courseStarList.get(3).getCour_star());
                 course_path_rate_txt.setText("("+courseStarList.get(3).getCour_star_count()+")");
                 course_item_addr.setText("서울특별시 종로구 율곡로 99");
@@ -158,7 +180,18 @@ public class Course_detail extends AppCompatActivity {
                 break;
 
         }
+        //코스탭
+        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
+        recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        places = new ArrayList<>();
 
+        //소개 탭
+        elv = (ExpandableListView) findViewById(R.id.elv);
+
+        //뷰를 채울 정보를 가져온다. -> course_idx를 가져온다
+        Networking();
+        //북마크리스트에 해당 코스가 있는지 확인 -> 있을 경우 북마크 버튼에 표시한다.
+        getCourseBookmarkList();
 
         tabHost1 = (TabHost) findViewById(R.id.tabHost);
         tabHost1.setup();
@@ -195,7 +228,7 @@ public class Course_detail extends AppCompatActivity {
             }
 
         });
-        //
+
 
         //코스 댓글
         btn_course_comment = (ImageView) findViewById(R.id.btn_course_comment);
@@ -204,9 +237,9 @@ public class Course_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Course_detail.this,CourseCommentActivity.class);
-                // intent.
                 intent.putExtra("course_title", course_item_txt.getText().toString());
-                intent.putExtra("course_idx", 1);
+                intent.putExtra("course_idx", courseDetailData.getCourse_idx());
+                //eye -> 1, wheel -> 2, ear ->3, elder->4
                 startActivity(intent);
             }
         });
@@ -217,6 +250,7 @@ public class Course_detail extends AppCompatActivity {
         btn_course_bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Course_bookmark_custom_dialog();
             }
         });
@@ -238,44 +272,40 @@ public class Course_detail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Course_detail.this, CourseMapActivity.class);
-                ArrayList<Double> listDouble = new ArrayList<Double>();
-                listDouble.add(37.600477);
-                listDouble.add(126.977507);
-                intent.putExtra("latLang_list", listDouble);
+                ArrayList<CourseMapSubData> courseMapSubDataList = new ArrayList<>();
+                switch (courseDetailData.getCourse_idx()) {
+                    case 1:
+                        //eye
+                        courseMapSubDataList.add(new CourseMapSubData(50,37.574484,126.956050,R.drawable.eye_first_map_photo, "서울특별시 서대문구 천연동 통일로 251","서대문형무소역사관"));
+                        courseMapSubDataList.add(new CourseMapSubData(46,37.544512,126.959231,R.drawable.eye_sec_map_photo, "서울특별시 용산구 효창동 임정로 26","백범김구기념관"));
+                        break;
+                    case 2:
+                        //wheel
+                        courseMapSubDataList.add(new CourseMapSubData(53,37.570353,126.968704,R.drawable.wheel_first_map_photo, "서울특별시 종로구 사직동 새문안로 45 ","서울시립미술관"));
+                        courseMapSubDataList.add(new CourseMapSubData(81,37.562344,126.980579,R.drawable.wheel_sec_map_photo, "서울특별시 중구 남대문로5가 39","한국은행 본관"));
+                        break;
+                    case 3:
+                        //ear
+                        courseMapSubDataList.add(new CourseMapSubData(55,37.520400,127.115540,R.drawable.ear_first_map_photo, "서울특별시 송파구 방이동 올림픽로 424","서울올림픽기념관"));
+                        courseMapSubDataList.add(new CourseMapSubData(43,37.522478,127.120831,R.drawable.ear_sec_map_photo, "서울특별시 송파구 오륜동 올림픽로 424","몽촌토성"));
+                        break;
+                    case 4:
+                        //elder
+                        courseMapSubDataList.add(new CourseMapSubData(6,37.579464,126.991021,R.drawable.elder_first_map_photo, "서울특별시 종로구 와룡동 율곡로 99","창덕궁"));
+                        courseMapSubDataList.add(new CourseMapSubData(5,37.579000,126.994870,R.drawable.elder_sec_map_photo, "서울특별시 종로구 와룡동 창경궁로 185","창경궁"));
+                        courseMapSubDataList.add(new CourseMapSubData(76,37.571992,126.990053,R.drawable.elder_thd_map_photo, "서울특별시 낙원동 서울특별시 종로구 돈화문로9길 27 (낙원동)","춘원당 한방박물관"));
+                        break;
+                }
+
+                CourseMapData courseMapData = new CourseMapData(courseDetailData.getCourse_idx(),courseMapSubDataList );
+                intent.putExtra("course_map_data", courseMapData);
+                intent.putExtra("course_item_title",course_item_txt.getText().toString());
+                intent.putExtra("course_item_addr", course_item_addr.getText().toString());
+                intent.putExtra("course_star",course_path_rate_star.getRating() );
+                intent.putExtra("course_star_count",course_path_rate_txt.getText().toString());
                 startActivity(intent);
             }
         });
-
-        //코스탭
-        recyclerview = (RecyclerView) findViewById(R.id.recyclerview);
-        recyclerview.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        places = new ArrayList<>();
-
-        elv = (ExpandableListView) findViewById(R.id.elv);
-
-        networkService = ApplicationController.Companion.getInstance().getNetworkService();
-        SharedPreference.Companion.getInstance();
-
-        Networking();
-//
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "경복궁"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "홍례문"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "근정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "수정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "경희루"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "경희궁"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "승정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "자정전"));
-//        places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "북촌문화센터"));
-//
-//        recyclerview.setAdapter(new ExpandableListAdapter(COURSE_EYE, places));
-//
-//        //course_info_list ExpandableListView 설정
-//        final ArrayList<Position> courses_list = getData();
-//
-//        //create and bind to adatper
-//        Course_info_list_adapter adapter = new Course_info_list_adapter(this, courses_list);
-//        elv.setAdapter(adapter);
 
 
     }
@@ -287,17 +317,18 @@ public class Course_detail extends AppCompatActivity {
         bookmark_Dialog.setTitle("bookmark dialog");
 
         btn_bookmark_ok = (Button) bookmark_Dialog.findViewById(R.id.btn_bookmark_ok);
-
 //        btn_bookmark_ok.setEnabled(true);
-
+        RegistBookmark();
+        getCourseBookmarkList();
         btn_bookmark_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 bookmark_Dialog.cancel();
+                bookmark_Dialog.cancel();
             }
         });
 
         bookmark_Dialog.show();
+
     }
 
     public void Course_link_share_custom_dialog() {
@@ -330,6 +361,10 @@ public class Course_detail extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+//                ClipboardManager clipboardManager = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+//                ClipData clipData = ClipData.newPlainText("label", "복사할 텍스트");
+//                clipboardManager.setPrimaryClip(clipData);
+
                 Toast toast = Toast.makeText(Course_detail.this, "클립보드에 복사되었습니다", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -100);
                 toast.setView(layout);
@@ -434,28 +469,93 @@ public class Course_detail extends AppCompatActivity {
             if(resultCode == RESULT_OK){
                 //데이터 받기
                 Float result = data.getFloatExtra("result",0);
+                Log.v("course star result", result + "");
+                postCourseStarData((double)result);
+                reloadCourseStar();
 //                course_path_rate_star.setRating(result);
                 // 서버에 데이터 보내기
             }
         }
     }
-    public void Networking(){
 
-        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(select_type -3);
+    public void postCourseStarData(Double result){
+
+        CourseStarModify courseStarModify = new CourseStarModify(result,select_type -2 );
+        Call<BaseModel> requestDetail = networkService.postCourseStar(TOKEN_DATA, courseStarModify);
+
+        requestDetail.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                if(response.isSuccessful()) {
+                    Log.v("course star modi code", response.body().getCode().toString());
+                    Log.v("course star modi status", response.body().getStatus().toString());
+                    Log.v("course star modi", response.body().getMessage().toString());
+
+                }
+                else {
+                    System.out.printf("fail response",response.toString());
+
+                    Log.v("fail", "fail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+    public void reloadCourseStar(){
+
+        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(TOKEN_DATA,select_type -3);
+
         requestDetail.enqueue(new Callback<CourseDetailResponse>() {
             @Override
             public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
                 if(response.isSuccessful()) {
-                    ArrayList<TourInfo> tour_info;
+                    Log.v("course star reload code", response.body().getCode().toString());
+                    Log.v("course star status", response.body().getStatus().toString());
+                    Log.v("course star reload", response.body().getMessage().toString());
+
                     courseDetailData = response.body().getData();
 
-                    Log.v("course_idx_get", courseDetailData.getCourse_idx() + "");
-                    tour_info = courseDetailData.getCourse_schedule();
+                    course_path_rate_star.setRating((float)courseDetailData.getCourse_star());
+                    course_path_rate_txt.setText("(" + courseDetailData.getCourse_star_count() + ")");
 
-                    Log.v("tour_info_get", tour_info.get(0).getTour_idx() + "");
-                    Log.v("tour_info_get", tour_info.get(0).getTour_name());
-                    Log.v("tour_info_get", tour_info.get(0).getTour_image());
-                    Log.v("tour_detail_get", tour_info.get(0).getTour_info_detail());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CourseDetailResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+    public void Networking(){
+
+        Call<CourseDetailResponse> requestDetail = networkService.getCourseDetail(TOKEN_DATA,select_type -3);
+        requestDetail.enqueue(new Callback<CourseDetailResponse>() {
+            @Override
+            public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
+                if(response.isSuccessful()) {
+//                    ArrayList<TourInfo> tour_info;
+                    ArrayList<Integer> tour_idx = new ArrayList<>();
+                    courseDetailData = response.body().getData();
+
+                    //eye -> 1, wheel -> 2, ear ->3, elder->4
+                    Log.v("course_idx_get", courseDetailData.getCourse_idx() + "");
+
+//                    tour_info = courseDetailData.getCourse_schedule();
+//
+//                    for (int i = 0; i < tour_info.size(); i++) {
+//                        tour_idx.add(tour_info.get(i).getTour_idx());
+//                    }
+
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_idx() + "");
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_name());
+//                    Log.v("tour_info_get", tour_info.get(0).getTour_image());
+//                    Log.v("tour_detail_get", tour_info.get(0).getTour_info_detail());
 
 //                    if(tour_info.image != ""){
 //                        Glide.with(getApplicationContext())
@@ -464,13 +564,13 @@ public class Course_detail extends AppCompatActivity {
 //                    }
 
 //                    for (int i = 0; i < tour_info.size(); i++) {//서버 데이터가 들어가면 구현
-                    switch (courseDetailData.getCourse_theme() + 3) {
+                    switch (select_type) {
                         case COURSE_EYE :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서대문형무소역사관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서대문형무소역사관",R.drawable.img_course_50,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 추모의 장 - 영상실, 기획전시실, 자료실",14));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 역사의 장 - 민족저항실, 형무소 역사실, 옥중생활실",14));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 체험의 장 - 임시구금실과 고문실",14));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "백범김구기념관",R.drawable.img_gyeong_hee_course,1));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "백범김구기념관",R.drawable.img_course_46,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "이봉창 의사 동상"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "백범광장"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "전시관 1층, 2층"));
@@ -478,24 +578,24 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_EYE);
                             break;
                         case COURSE_WHEEL :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울시립미술관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울시립미술관",R.drawable.img_course_53,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하1층 : 제1강의실, 제2강의실, 제3강의실, 세마홀",8));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 전시실, 휴식공간",8));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 전시실, 자료실, 천경자실",8));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "3층 : 전시실, 크리스탈 상영실, 프로젝트 갤러리",8));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "야외 : 야외조각공원",8));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "한국은행 본관",R.drawable.img_gyeong_hee_course,1));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "한국은행 본관",R.drawable.img_course_81,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 우리의 중앙은행, 화폐의 일생, 돈과 나라경제, 화폐광장, 상평통보 갤러리"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "MF : 옛 총재실, 화폐박물관 건축실, 옛 금융통화위원회 회의실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 모형금고, 한은갤러리, 세계의 화폐실, 체험학습실, 기획전시실"));
                             courses_list = getData(COURSE_WHEEL);
                             break;
                         case COURSE_EAR :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울올림픽기념관",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울올림픽기념관",R.drawable.img_course_19,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하 1층 : 올림픽자료실",18));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 평화의장(상설전시장), 기획전시실",18));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 화합의장 및 번영의장 (상설전시장), 영광의장(라이드 영상관)",18));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "몽촌토성",R.drawable.img_gyeong_hee_course,1));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "몽촌토성",R.drawable.img_course_43,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD,"어검당"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "제 1~3전시관"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "제 5~6전시관"));
@@ -504,7 +604,7 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_EAR);
                             break;
                         case COURSE_ELDER :
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창덕궁",R.drawable.img_gyeongbok_course,0));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창덕궁",R.drawable.img_course_6,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "돈화문",12));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "궐내각사",12));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "금천교",12));
@@ -513,13 +613,13 @@ public class Course_detail extends AppCompatActivity {
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "희정당",12));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "대조전",12));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "낙선재",12));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창경궁",R.drawable.img_gyeong_hee_course,1));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창경궁",R.drawable.img_course_5,1));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "홍화문",6));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정문",6));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "명정전",6));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전",6));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "통명전",6));
-                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "춘원당 한방박물관",R.drawable.img_geoncheon_course,2));
+                            places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "춘원당 한방박물관",R.drawable.img_course_76,2));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "약제실 및 탕전실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "약재품실 검사실"));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "삼국시대부터 조선시대까지 \n" + "한의학 유물전시"));
@@ -529,7 +629,7 @@ public class Course_detail extends AppCompatActivity {
 
                     }
 
-                    recyclerview.setAdapter(new ExpandableListAdapter(places));
+                    recyclerview.setAdapter(new ExpandableListAdapter(places,tour_idx));
 
 
                     //create and bind to adatper
@@ -555,6 +655,96 @@ public class Course_detail extends AppCompatActivity {
             }
         });
     }
+    public void RegistBookmark(){
+
+//        if (SharedPreference.Companion.getInstance().getPrefStringData("data") != null) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(SharedPreference.Companion.getInstance().getPrefStringData("data"),courseCmtRequest);
+//
+//        }
+
+//        if (Session.getCurrentSession().isOpened()) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
+//        }
+
+        //eye -> 1, wheel -> 2, ear ->3, elder->4
+        Call<BaseModel> requestDetail = networkService.registCourseBookmark(TOKEN_DATA, courseDetailData.getCourse_idx());
+
+        requestDetail.enqueue(new Callback<BaseModel>() {
+            @Override
+            public void onResponse(Call<BaseModel> call, Response<BaseModel> response) {
+                if(response.isSuccessful()) {
+                    Log.v("course bookmark code", response.body().getCode().toString());
+                    Log.v("course bookmark status", response.body().getStatus().toString());
+                    Log.v("course bookmark message", response.body().getMessage().toString());
+
+                }
+                else {
+                    Log.v("fail", "fail");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseModel> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+    public void getCourseBookmarkList(){
+
+//        if (SharedPreference.Companion.getInstance().getPrefStringData("data") != null) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(SharedPreference.Companion.getInstance().getPrefStringData("data"),courseCmtRequest);
+//
+//        }
+
+//        if (Session.getCurrentSession().isOpened()) {
+//            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
+//        }
+        Call<CourseBookmarkResponse> requestDetail = networkService.getCourseBookmarks(TOKEN_DATA);
+
+        requestDetail.enqueue(new Callback<CourseBookmarkResponse>() {
+            @Override
+            public void onResponse(Call<CourseBookmarkResponse> call, Response<CourseBookmarkResponse> response) {
+                if(response.isSuccessful()) {
+                    Log.v("course bookmark2 code", response.body().getCode().toString());
+                    Log.v("course bookmark2 status", response.body().getStatus().toString());
+                    Log.v("course bookmark2 ", response.body().getMessage().toString());
+
+                    ArrayList<CourseBookmarkData> courseBookmarks = response.body().getData();
+
+//                    ArrayList<Integer> bookmark_idx = new ArrayList<>();
+//                    for (int i = 0; i < courseBookmarks.size(); i++) {
+//                        bookmark_idx.add(courseBookmarks.get(i).getCourse_idx());
+//                    }
+//
+//                    int course_idx = courseDetailData.getCourse_idx();
+//                    for (int i = 0; i < bookmark_idx.size(); i++) {
+//                        if (course_idx == bookmark_idx.get(i)) {
+//                            btn_course_bookmark.setImageResource(R.drawable.button_oval_bookmark_active);
+//                        }
+//                    }
+                    int flag = 0;
+                    //select_type = 3~6 / course_idx = 1~4
+                    int course_idx = select_type - 2;
+                    for (int i = 0; i < courseBookmarks.size(); i++) {
+                        if (course_idx == courseBookmarks.get(i).getCourse_idx()) {
+                            flag = 1;
+                        }
+                    }
+                    if (flag == 1 ) {
+                        btn_course_bookmark.setImageResource(R.drawable.button_oval_bookmark_active);
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CourseBookmarkResponse> call, Throwable t) {
+                Log.i("err", t.getMessage());
+            }
+        });
+    }
+
 
 }
 

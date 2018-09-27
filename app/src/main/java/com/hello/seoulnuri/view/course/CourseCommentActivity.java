@@ -50,6 +50,7 @@ import retrofit2.Response;
 
 
 public class CourseCommentActivity extends Activity implements OnClickListener {
+    final static String TOKEN_DATA = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU";
 
     private ListView cmtlist;
     private EditText cmtEdit;
@@ -145,10 +146,11 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
     }
     public void Networking(){
         Intent intent = getIntent();
+        //eye -> 1, wheel -> 2, ear ->3, elder->4
         int idx = intent.getIntExtra("course_idx",1);
 
-        Log.v("idx" , "idx = " + idx);
-        Call<CourseCmtResponse> requestDetail = networkService.getCourseCmt(idx);
+        Log.v("course comment idx" , "idx = " + idx);
+        Call<CourseCmtResponse> requestDetail = networkService.getCourseCmt(TOKEN_DATA,idx);
         requestDetail.enqueue(new Callback<CourseCmtResponse>() {
             @Override
             public void onResponse(Call<CourseCmtResponse> call, Response<CourseCmtResponse> response) {
@@ -156,7 +158,6 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
                     ArrayList<CourseCmtData> courseCmtData;
                     courseCmtData = response.body().getData();
 
-                    Log.v("courseCmtData", courseCmtData.get(1).toString());
 
                     info = new commentItem[courseCmtData.size()]; //< -- 서버 데이터 넣을때 참고
                     for (int i = 0; i < courseCmtData.size(); i++) {
@@ -184,6 +185,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
 
     public void PostNetworking(String inputText){
         Intent intent = getIntent();
+        //eye -> 1, wheel -> 2, ear ->3, elder->4
         int idx = intent.getIntExtra("course_idx",1);
 
         Log.v("idx" , "idx = " + idx);
@@ -196,7 +198,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
 //        if (Session.getCurrentSession().isOpened()) {
 //            Call<BaseModel> requestDetail = networkService.postCourseCmt(Session.getCurrentSession().getTokenInfo().getAccessToken(),courseCmtRequest);
 //        }
-        Call<BaseModel> requestDetail = networkService.postCourseCmt(courseCmtRequest);
+        Call<BaseModel> requestDetail = networkService.postCourseCmt(TOKEN_DATA, courseCmtRequest);
 
         requestDetail.enqueue(new Callback<BaseModel>() {
             @Override
@@ -208,7 +210,6 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
                     Log.v("course comment message", response.body().getMessage().toString());
 
                 }
-
             }
 
             @Override

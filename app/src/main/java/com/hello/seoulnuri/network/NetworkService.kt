@@ -199,12 +199,19 @@ interface NetworkService {
     ) :Call<BaseModel>
 
 
+    //19. 코스 별점 수정
+    @POST("api/course/star")
+    fun postCourseStar(
+            @Header("token") token : String,
+            @Body courseStarModi : CourseStarModify
+    ) :Call<BaseModel>
+
+
     // 19. 투어 북마크 등록
     @POST("api/tour/bookmark")
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
     ) : Call<BaseModel>
-
 
 }

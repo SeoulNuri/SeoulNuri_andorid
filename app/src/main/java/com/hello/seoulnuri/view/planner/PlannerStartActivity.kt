@@ -35,6 +35,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
         when (v!!) {
             planner_start_next_button -> {
                 if (planner_start_next_button.isSelected) {
+                    SharedPreference.instance!!.setPrefData("plan_date",date_text.text.toString())
                     startActivity(Intent(this, PlannerAddOneActivity::class.java))
                     finish()
                 } else {

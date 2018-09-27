@@ -39,7 +39,6 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(context)
 
-        Log.v("yong","onCreatviewholder")
         return PlannerViewHolder(view)
 
     }
@@ -47,9 +46,8 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
     override fun getItemCount(): Int = item_list.size
 
     override fun onBindViewHolder(holder: PlannerViewHolder, position: Int) {
-        Log.v("yong","onbind")
         var date = item_list[position].date_month+"월 "+item_list[position].date_day+"일"
-        Log.v("yong","date:"+date)
+
         holder.date_text.text = date
         holder.location_text.text = item_list[position].tour_name
         if (check == 1) {
@@ -74,14 +72,15 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
         var plannerDeleteRequest = PlannerDeleteRequest(idx);
         var plannerDeleteResponse = networkService.deletePlanner(token,plannerDeleteRequest)
 
-
         plannerDeleteResponse.enqueue(object : Callback<PlannerDeleteResponse> {
             override fun onFailure(call: Call<PlannerDeleteResponse>?, t: Throwable?) {
-                Log.v("failure ",t!!.message)
+                Log.v("yong",t!!.message)
             }
 
             override fun onResponse(call: Call<PlannerDeleteResponse>?, response: Response<PlannerDeleteResponse>?) {
                 if(response!!.isSuccessful){
+
+                    Log.v("yong","hhhhhhhhhhh")
 
                     Log.v("yong",response!!.body()!!.message!!)
                     item_list.removeAt(idx)

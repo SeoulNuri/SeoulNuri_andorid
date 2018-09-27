@@ -24,10 +24,12 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!) {
             planner_add_four_finish_btn -> {
+                var plan_date = SharedPreference.instance!!.getPrefStringData("plan_date","")!!
                 var list = ArrayList<Int>()
                 list.add(1)
                 list.add(2)
-                addPlanner("2018-06-08",list)
+                addPlanner(plan_date,list)
+                addPlanner("2018-07-11",list)
 
                 finish()
             }
@@ -49,7 +51,6 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
 
     fun addPlanner(date: String, indexlist: ArrayList<Int>){
 
-        Log.v("yong","hhh1")
 
         var token = SharedPreference.instance!!.getPrefStringData("data","")!!
         var plannerAddRequest = PlannerAddRequest(date,indexlist);
@@ -64,7 +65,7 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
             override fun onResponse(call: Call<PlannerAddResponse>?, response: Response<PlannerAddResponse>?) {
                 if(response!!.isSuccessful){
 
-                    Log.v("yong",response!!.body()!!.message!!)
+                    Log.v("yong","플래너 추가 성공")
 
                 } else{
 

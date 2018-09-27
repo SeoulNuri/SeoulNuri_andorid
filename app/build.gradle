@@ -16,20 +16,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
 
-        release {
-
-            storeFile file('/Users/woo/AndroidStudioProjects/SeoulNuri.jks') // 기준은 App 폴더 기준이다.
-            storePassword "lsw123"
-
-            keyAlias "seoulNuri"
-
-            keyPassword "lsw123"
-
-        }
-
-    }
 
     buildTypes {
         release {

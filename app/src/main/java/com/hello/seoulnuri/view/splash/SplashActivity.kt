@@ -18,7 +18,8 @@ import java.security.NoSuchAlgorithmException
 class SplashActivity : AppCompatActivity(), Init {
     override fun init() {
         SharedPreference.instance!!.load(this)
-        //SharedPreference.instance!!.setPrefData("data","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
+        SharedPreference.instance!!.setPrefData("data","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
+        //Log.v("613 woo", SharedPreference.instance!!.getPrefStringData("data"))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +27,7 @@ class SplashActivity : AppCompatActivity(), Init {
         setContentView(R.layout.activity_splash)
         init()
 
+/*
         try {
             val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
             for (signature in info.signatures) {
@@ -38,6 +40,7 @@ class SplashActivity : AppCompatActivity(), Init {
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
         }
+*/
 
 
         val handler = Handler()
@@ -45,6 +48,7 @@ class SplashActivity : AppCompatActivity(), Init {
 
         handler.postDelayed({
             if(SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
+                Log.v("yong 613",SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(intent)
                 finish()
             }else{

@@ -112,13 +112,6 @@ class PlannerFragment : Fragment(), View.OnClickListener {
 
         getPlanner()
 
-
-
-        Log.v("yong","items size:"+items.size.toString())
-
-
-
-
         init(view)
 
         return view
@@ -159,8 +152,8 @@ class PlannerFragment : Fragment(), View.OnClickListener {
 
             override fun onResponse(call: Call<PlannerGetResponse>?, response: Response<PlannerGetResponse>?) {
                 if(response!!.isSuccessful){
-                    Log.v("yong",response!!.body()!!.message)
-                    items.addAll(response!!.body()!!.data)
+                    Log.v("yong","planner list 가져오기 성공")
+                    items=response!!.body()!!.data
 
                     plannerAdapter = PlannerAdapter(items, pContext)
                     plannerAdapter!!.setOnItemClickListener(this@PlannerFragment)

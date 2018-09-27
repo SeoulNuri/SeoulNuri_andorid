@@ -146,6 +146,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
     }
     public void Networking(){
         Intent intent = getIntent();
+        //eye -> 1, wheel -> 2, ear ->3, elder->4
         int idx = intent.getIntExtra("course_idx",1);
 
         Log.v("course comment idx" , "idx = " + idx);
@@ -184,6 +185,7 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
 
     public void PostNetworking(String inputText){
         Intent intent = getIntent();
+        //eye -> 1, wheel -> 2, ear ->3, elder->4
         int idx = intent.getIntExtra("course_idx",1);
 
         Log.v("idx" , "idx = " + idx);
@@ -208,7 +210,6 @@ public class CourseCommentActivity extends Activity implements OnClickListener {
                     Log.v("course comment message", response.body().getMessage().toString());
 
                 }
-
             }
 
             @Override

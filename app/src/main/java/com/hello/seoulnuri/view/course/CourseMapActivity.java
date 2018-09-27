@@ -18,12 +18,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.hello.seoulnuri.R;
+import com.hello.seoulnuri.model.course.CourseMapData;
+import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity;
 
 import java.util.ArrayList;
 
-public class CourseMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class CourseMapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private ArrayList<Double> latLang; // 경복궁 위도 경도
@@ -32,7 +35,8 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
     private RatingBar course_item_map_rating_star;
     private TextView course_item_map_rating_txt;
     private ImageView show_tour_info_btn;
-
+    private ImageView course_item_map_img;
+    private CourseMapData courseMapData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,34 +46,36 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
-        String course_item_title = intent.getStringExtra("course_item_title");
-        String course_item_addr = intent.getStringExtra("course_item_addr");
-        String course_star_count = intent.getStringExtra("course_star_count");
-        float course_star = intent.getFloatExtra("course_star",0);
-
         course_item_map_title = (TextView)findViewById(R.id.course_item_map_title);
         course_item_map_addr = (TextView)findViewById(R.id.course_item_map_addr);
         course_item_map_rating_txt = (TextView)findViewById(R.id.course_item_map_rating_txt);
         course_item_map_rating_star = (RatingBar) findViewById(R.id.course_item_map_rating_star);
         show_tour_info_btn = (ImageView) findViewById(R.id.show_tour_info_btn);
+        course_item_map_img = (ImageView) findViewById(R.id.course_item_map_img);
 
-        course_item_map_title.setText(course_item_title);
-        course_item_map_addr.setText(course_item_addr);
+        Intent intent = getIntent();
+//        String course_item_title = intent.getStringExtra("course_item_title");
+//        String course_item_addr = intent.getStringExtra("course_item_addr");
+        String course_star_count = intent.getStringExtra("course_star_count");
+        float course_star = intent.getFloatExtra("course_star",0);
+
+        courseMapData = (CourseMapData) intent.getSerializableExtra("course_map_data");
+        Log.v("1111courseMapData", courseMapData.toString());
+
+        course_item_map_img.setImageResource(courseMapData.getDetailData().get(0).getImg());
+        course_item_map_title.setText(courseMapData.getDetailData().get(0).getTitle());
+        course_item_map_addr.setText(courseMapData.getDetailData().get(0).getAddr());
         course_item_map_rating_txt.setText(course_star_count);
         course_item_map_rating_star.setRating(course_star);
 
         show_tour_info_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(CourseMapActivity.this, InfoTourDetailActivity.class);
+                intent.putExtra("tour_idx", courseMapData.getDetailData().get(0).getTour_idx()); // 일단 6 -창덕궁
+                startActivity(intent);
             }
         });
-
-        //마커 옵션
-//        MarkerOptions makerOptions = new MarkerOptions();
-
-//        makerOptions.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.button_spot_select))));
     }
 
 
@@ -85,18 +91,39 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
-        Intent intent = new Intent(this.getIntent());
 //        latLang = intent.getDoubleArrayExtra("latLang_list");
-        latLang = (ArrayList<Double>) intent.getSerializableExtra("latLang_list");
 
-        Log.d("LatLang", "Lat = " + latLang.get(0) + " Lang = "  + latLang.get(1) );
-
+        ArrayList<LatLng> locations = new ArrayList<>();
         // Add a marker in Sydney and move the camera
-        LatLng course_item_position = new LatLng(latLang.get(0), latLang.get(1));
-        mMap.addMarker(new MarkerOptions().position(course_item_position).title("Marker in Sydney")
-        .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.button_spot_select))));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(course_item_position));
+        for (int i = 0; i < courseMapData.getDetailData().size(); i++) {
+            locations.add(new LatLng(courseMapData.getDetailData().get(i).getLat(), courseMapData.getDetailData().get(i).getLang()));
+        }
+
+        int j = 0;
+        for(LatLng location : locations){
+            mMap.addMarker(new MarkerOptions()
+                    .position(location)
+                    .title(courseMapData.getDetailData().get(j).getTitle())
+                    .icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.button_spot_select))));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+            j++;
+        }
+
+        mMap.setOnMarkerClickListener(this);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+    }
+
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        int pos = 0;
+        for (int i =0; i < courseMapData.getDetailData().size(); i++ ) {
+            if (marker.getTitle().equals(courseMapData.getDetailData().get(i).getTitle())) {
+                pos = i;
+            }
+        }
+        course_item_map_img.setImageResource(courseMapData.getDetailData().get(pos).getImg());
+        course_item_map_title.setText(courseMapData.getDetailData().get(pos).getTitle());
+        course_item_map_addr.setText(courseMapData.getDetailData().get(pos).getAddr());
+        return false;
     }
 }

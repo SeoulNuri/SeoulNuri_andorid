@@ -137,7 +137,7 @@ public class CourseFragment extends Fragment {
                             i++;
                         }
                     }
-
+                    Log.v("c_data_array", c_data_array.toString());
 
                     CourseItem[] item = new CourseItem[4];
                     item[0]=new CourseItem(R.drawable.card_graphic_course_1, R.drawable.course_eye, "시각장애인 여행 추천", c_data_array[0], (int)c_data_array[1]);

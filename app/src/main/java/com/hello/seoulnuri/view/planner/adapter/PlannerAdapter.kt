@@ -69,7 +69,8 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
     fun deletePlanner(idx : Int){
 
         var token = SharedPreference.instance!!.getPrefStringData("data","")!!
-        var plannerDeleteRequest = PlannerDeleteRequest(idx);
+        var deleteIndex = item_list[idx].plan_idx
+        var plannerDeleteRequest = PlannerDeleteRequest(deleteIndex);
         var plannerDeleteResponse = networkService.deletePlanner(token,plannerDeleteRequest)
 
         plannerDeleteResponse.enqueue(object : Callback<PlannerDeleteResponse> {

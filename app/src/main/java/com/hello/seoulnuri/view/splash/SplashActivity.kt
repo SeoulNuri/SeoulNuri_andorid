@@ -11,11 +11,12 @@ import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.main.MainActivity
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.view.login.LoginActivity
 
 class SplashActivity : AppCompatActivity(), Init {
     override fun init() {
         SharedPreference.instance!!.load(this)
-        SharedPreference.instance!!.setPrefData("data", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
+        //SharedPreference.instance!!.setPrefData("data", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
         //Log.v("613 woo", SharedPreference.instance!!.getPrefStringData("data"))
     }
 
@@ -43,7 +44,7 @@ class SplashActivity : AppCompatActivity(), Init {
 
 
         val handler = Handler()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
 
         handler.postDelayed({
 

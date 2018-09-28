@@ -35,7 +35,11 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
         when (v!!) {
             planner_start_next_button -> {
                 if (planner_start_next_button.isSelected) {
-                    startActivity(Intent(this, PlannerAddOneActivity::class.java))
+                    Log.v("yong",date_text.text.toString())
+                    SharedPreference.instance!!.setPrefData("plan_date",date_text.text.toString())
+                    var intent = Intent(this,PlannerAddOneActivity::class.java)
+                    intent.putExtra("place",search_auto_text.text.toString())
+                    startActivity(intent)
                     finish()
                 } else {
                     ToastMaker.makeLongToast(this, "입력해주세요.")
@@ -111,7 +115,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
 
     internal var mNow: Long = 0
     internal var mDate = Date(mNow)
-    internal var mFormat = SimpleDateFormat("MM월 dd일")
+    internal var mFormat = SimpleDateFormat("yyyy-MM-dd")
     val REQ_CODE = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {

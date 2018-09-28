@@ -12,20 +12,22 @@ import java.util.*
 
 class PlannerDateActivity : AppCompatActivity(), View.OnClickListener, CalendarView.OnDateChangeListener {
     override fun onSelectedDayChange(p0: CalendarView?, p1: Int, p2: Int, p3: Int) {
-        val month: String
-        val day: String
+//        val month: String
+//        val day: String
+//
+//        if (p2 < 9)
+//            month = "0" + (p2 + 1)
+//        else
+//            month = "" + (p2 + 1)
+//
+//        if (p3 < 10)
+//            day = "0$p3"
+//        else
+//            day = "" + p3
+//
+//        date = month + "월 " + day + "일"
 
-        if (p2 < 9)
-            month = "0" + (p2 + 1)
-        else
-            month = "" + (p2 + 1)
-
-        if (p3 < 10)
-            day = "0$p3"
-        else
-            day = "" + p3
-
-        date = month + "월 " + day + "일"
+        date = p1.toString()+"-"+(p2+1).toString()+"-"+p3.toString()
     }
 
     override fun onClick(v: View?) {
@@ -46,7 +48,7 @@ class PlannerDateActivity : AppCompatActivity(), View.OnClickListener, CalendarV
 
     internal var mNow: Long = 0
     internal var mDate = Date(mNow)
-    internal var mFormat = SimpleDateFormat("MM월 dd일")
+    internal var mFormat = SimpleDateFormat("yyyy-MM-dd")
     var date = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="#f7f7f7"
     android:orientation="vertical">
 
@@ -49,7 +50,7 @@
 
                     <TextView
                         android:id="@+id/info_tour_use_time"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:lineSpacingExtra="8sp"
@@ -71,7 +72,6 @@
                     <TextView
                         android:layout_width="56dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
                         android:text="쉬는 날"
                         android:textColor="#212121"
                         android:textSize="11sp" />
@@ -108,7 +108,7 @@
 
                     <TextView
                         android:id="@+id/info_tour_use_fee"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="12dp"
                         android:lineSpacingExtra="8sp"
@@ -211,6 +211,7 @@
                         android:layout_toRightOf="@+id/use_parking_text"
                         android:orientation="horizontal">
 
+
                         <TextView
                             android:layout_width="56dp"
                             android:layout_height="wrap_content"
@@ -220,11 +221,11 @@
 
                         <TextView
                             android:id="@+id/info_tour_use_parking_fee"
-                            android:layout_width="wrap_content"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
                             android:lineSpacingExtra="8sp"
-                            android:text=""
+                            tools:text="월, 수, 목요일"
                             android:textColor="#212121"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -277,7 +278,7 @@
 
                         <TextView
                             android:id="@+id/info_use_tour_book"
-                            android:layout_width="match_parent"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginLeft="12dp"
@@ -307,7 +308,7 @@
 
                         <TextView
                             android:id="@+id/info_use_tour_service"
-                            android:layout_width="wrap_content"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="12dp"
                             android:lineSpacingExtra="8sp"
@@ -355,7 +356,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+
                             android:textSize="11sp"
                             android:textColor="#212121"
                             android:text="화장실 위치"
@@ -364,7 +365,7 @@
                         <TextView
                             android:id="@+id/info_tour_toilet_location"
                             android:layout_marginLeft="12dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="#212121"

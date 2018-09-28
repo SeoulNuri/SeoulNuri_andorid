@@ -56,9 +56,10 @@ class InfoTourUseFragment : Fragment(), Init {
                     info_tour_use_parkingSpace.text = response!!.body()!!.data.tour_bottom.tour_parking_space
 
                     var str = response!!.body()!!.data.tour_bottom.tour_parking_fee
-                    var st = StringTokenizer(str, "/")
 
-                    info_tour_use_parking_fee.text = st.nextToken() + "\n" + st.nextToken() + "\n" + st.nextToken() + "\n"
+
+                    info_tour_use_parking_fee.text = str
+                    //st.nextToken() + "\n" + st.nextToken() + "\n" + st.nextToken() + "\n"
                     //println("woo text check : "+st.nextToken()+"\n"+st.nextToken()+"\n"+st.nextToken()+"\n")
                     info_use_tour_book.text = response!!.body()!!.data.tour_bottom.tour_info_book
                     info_use_tour_service.text = response!!.body()!!.data.tour_bottom.tour_service

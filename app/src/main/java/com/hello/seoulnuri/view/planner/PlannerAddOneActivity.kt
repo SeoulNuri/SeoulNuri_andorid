@@ -2,24 +2,31 @@ package com.hello.seoulnuri.view.planner
 
 import android.Manifest
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.hello.seoulnuri.R
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
-import kotlinx.android.synthetic.main.activity_planner_add_one.*
-import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.location.Location
-import android.support.v4.content.ContextCompat
-import android.util.Log
-import com.google.android.gms.maps.model.*
 import com.hello.seoulnuri.model.MarkerData
 import com.hello.seoulnuri.utils.ToastMaker
+import kotlinx.android.synthetic.main.activity_planner_add_one.*
+import java.io.IOException
 import java.util.*
 
 
@@ -56,10 +63,13 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
         locations = ArrayList()
-        locations.add(SEOUL)
+        locations.add(SEOUL!!)
         locations.add(Gyeonghui_Palace)
         locations.add(Chungjeongno_Station)
         locations.add(City_Hall_Station)
+
+        place = intent.getStringExtra("place")
+
 
 
     }
@@ -98,10 +108,12 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
             val markerOptions = MarkerOptions()
+
+
             markerOptions
-                    .position(SEOUL)
-                    .title("서울")
-                    .snippet("한국의 수도")
+                    .position(SEOUL!!)
+                    .title(place)
+                    .snippet("검색한 곳")
                     .icon(main_icon)
 
             marker_seoul = mMap!!.addMarker(markerOptions)
@@ -172,7 +184,10 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     lateinit var mapFragment: SupportMapFragment
     lateinit var list: List<String>
 
-    val SEOUL: LatLng = LatLng(37.56, 126.97)
+    var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
+    lateinit var place: String
+
+    var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
     val Chungjeongno_Station: LatLng = LatLng(37.560055,126.96367199999997)
     val City_Hall_Station: LatLng = LatLng(37.5658049,126.97514610000007)
@@ -191,7 +206,9 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
 
+        SEOUL = findAddressLocation()
         init()
+
         /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
              //managePermissions.checkPermissions()
 
@@ -228,6 +245,30 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         } else {
             // Permission was denied. Display an error message.
         }
+    }
+
+
+    fun findAddressLocation(): LatLng { //입력된 스트링의 주소를 검색하고 그 결과를 위도경도로 반환
+        var addr: List<Address>? = null
+        var loc: LatLng? = null
+
+        try {
+            addr = mCoder.getFromLocationName(place, 5)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        if (addr != null) { //address형태로
+            for (i in addr.indices) {
+                val lating = addr[i]
+                val lat = lating.getLatitude()
+                val lon = lating.getLongitude()
+                loc = LatLng(lat, lon)
+            }
+        }
+        else{
+            Toast.makeText(this,"해당되는 주소 정보가 없습니다. 다시 입력하세요.",Toast.LENGTH_SHORT).show()
+        }
+        return loc!!
     }
 
 

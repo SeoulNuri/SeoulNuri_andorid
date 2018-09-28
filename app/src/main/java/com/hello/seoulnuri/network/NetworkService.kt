@@ -3,9 +3,12 @@ package com.hello.seoulnuri.network
 import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.*
-import com.hello.seoulnuri.model.info.tour.InfoTourResponse
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
+
 import com.hello.seoulnuri.model.info.tour.bookmark.TourBookmarkResponse
+
+import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+
 import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
@@ -103,7 +106,7 @@ interface NetworkService {
     fun postCourseStarData()
 
     // 10.플래너 삭제
-    @DELETE("api/planner/cancel")
+    @HTTP(method="DELETE",path="api/planner/cancel",hasBody=true)
     fun deletePlanner(
             @Header("token") token: String,
             @Body plannerDeleteRequest: PlannerDeleteRequest

@@ -1,5 +1,6 @@
 package com.hello.seoulnuri.view.planner
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -11,6 +12,7 @@ import com.hello.seoulnuri.model.planner.PlannerAddResponse
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
+import com.hello.seoulnuri.view.main.MainActivity
 import kotlinx.android.synthetic.main.activity_planner_add_four.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,10 +26,22 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!) {
             planner_add_four_finish_btn -> {
+                var plan_date = SharedPreference.instance!!.getPrefStringData("plan_date","")!!
                 var list = ArrayList<Int>()
-                list.add(1)
-                list.add(2)
-                addPlanner("2018-06-08",list)
+
+                list.add(10)
+                list.add(11)
+                list.add(12)
+
+                Log.v("yong",list.toString())
+
+                addPlanner(plan_date,list.toString())
+                //addPlanner("2018-07-11",list)
+
+
+
+                var intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
 
                 finish()
             }
@@ -47,9 +61,8 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
 
     }
 
-    fun addPlanner(date: String, indexlist: ArrayList<Int>){
+    fun addPlanner(date: String, indexlist: String){
 
-        Log.v("yong","hhh1")
 
         var token = SharedPreference.instance!!.getPrefStringData("data","")!!
         var plannerAddRequest = PlannerAddRequest(date,indexlist);
@@ -64,7 +77,7 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
             override fun onResponse(call: Call<PlannerAddResponse>?, response: Response<PlannerAddResponse>?) {
                 if(response!!.isSuccessful){
 
-                    Log.v("yong",response!!.body()!!.message!!)
+                    Log.v("yong","플래너 추가 성공")
 
                 } else{
 

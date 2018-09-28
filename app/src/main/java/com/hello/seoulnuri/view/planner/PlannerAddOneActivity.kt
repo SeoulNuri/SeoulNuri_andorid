@@ -68,8 +68,6 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         locations.add(Chungjeongno_Station)
         locations.add(City_Hall_Station)
 
-        place = intent.getStringExtra("place")
-
 
 
     }
@@ -185,7 +183,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     lateinit var list: List<String>
 
     var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
-    lateinit var place: String
+    var place: String = ""
 
     var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
@@ -206,6 +204,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
 
+        place = intent.getStringExtra("place")
         SEOUL = findAddressLocation()
         init()
 

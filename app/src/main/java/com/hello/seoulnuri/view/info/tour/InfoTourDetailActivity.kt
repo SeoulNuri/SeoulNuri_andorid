@@ -23,6 +23,7 @@ import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.custom.BookmarkDialog
 import com.hello.seoulnuri.utils.custom.ShareDialog
+import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.activity_info_tour_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +39,10 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             info_tour_detail_bookmark->{
                 val bookmark_dialog = BookmarkDialog(this@InfoTourDetailActivity)
                 bookmark_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
                 bookmark_dialog.show()
+
+
             }
             info_tour_detail_share->{
                 val share_dialog : BottomSheetDialog = ShareDialog(this@InfoTourDetailActivity)
@@ -49,6 +53,20 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                 share_dialog.show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        init()
+        if(SharedPreference.instance!!.getPrefIntegerData("tour_idx")!! == 1)
+            info_tour_detail_bookmark.isSelected = true
+        else
+            info_tour_detail_bookmark.isSelected = false
+    }
+
+    fun changeImageButton(){
+
+        info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
     }
 
     override fun setData(introImage: String, introContent: String) {
@@ -176,7 +194,11 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                     else
                         detailImage = tourBottomData.tour_image
 
-                    detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+                    if(tourBottomData.tour_info_detail == null)
+                        detailText = "비어 있는 값입니다."
+                    else
+                        detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+
                     setData(detailImage,detailText)
 
 
@@ -192,6 +214,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
         info_tour_detail_address.text = tourCommonData.tour_addr
         info_tour_detail_intro_rating.rating = tourCommonData.tour_star.toFloat()
         info_tour_detail_count.text = "(${tourCommonData.tour_star_count})"
+        SharedPreference.instance!!.setPrefData("tour_booked",tourCommonData.tour_booked)
 
     }
 

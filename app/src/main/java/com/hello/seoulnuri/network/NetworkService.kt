@@ -4,7 +4,11 @@ import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.*
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
+
+import com.hello.seoulnuri.model.info.tour.bookmark.TourBookmarkResponse
+
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+
 import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
@@ -200,11 +204,11 @@ interface NetworkService {
 
 
     // 19. 투어 북마크 등록
-    @POST("api/tour/bookmark")
+    @POST("api/info/tour/bookmark")
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
-    ) : Call<BaseModel>
+    ) : Call<TourBookmarkResponse>
 
 
 }

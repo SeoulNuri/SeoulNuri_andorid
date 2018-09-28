@@ -194,7 +194,8 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_parking"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="8sp"
                             android:text="장애인전용 주차구역 있음"
@@ -218,7 +219,8 @@
                             android:textSize="11sp" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_transportation"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:lineSpacingExtra="8sp"
                             android:text="지하철 접근 가능"
@@ -243,7 +245,8 @@
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_road"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="#212121"
@@ -269,7 +272,8 @@
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_entrance"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="#212121"
@@ -295,7 +299,8 @@
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_toilet"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="#212121"
@@ -321,7 +326,8 @@
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/fault_infodesk"
+                            android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:textSize="13sp"
                             android:textColor="#212121"
@@ -381,7 +387,8 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:id="@+id/fault_eye"
+                                android:layout_width="200dp"
                                 android:layout_height="21dp"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -409,7 +416,7 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -435,7 +442,7 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -461,7 +468,7 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -487,7 +494,7 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -513,7 +520,7 @@
                                 />
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -576,7 +583,7 @@
 
                             <TextView
 
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -602,7 +609,7 @@
 
                             <TextView
 
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -630,7 +637,8 @@
                     android:layout_below="@+id/border_three"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp">
 
                     <TextView
                         android:id="@+id/fault_wheel_elder_text"
@@ -665,7 +673,7 @@
 
                             <TextView
 
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"
@@ -691,7 +699,7 @@
 
                             <TextView
 
-                                android:layout_width="wrap_content"
+                                android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
                                 android:textColor="#212121"

@@ -86,7 +86,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="7dp"
                 android:backgroundTint="#ffffff"
-                android:src="@drawable/button_oval_bookmark_g" />
+                android:src="@drawable/button_oval_bookmark_selector" />
 
             <ImageView
                 android:id="@+id/info_tour_detail_share"

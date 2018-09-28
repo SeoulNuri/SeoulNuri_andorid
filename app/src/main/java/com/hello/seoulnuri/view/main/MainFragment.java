@@ -149,7 +149,7 @@ public class MainFragment extends Fragment {
 
 
         Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
-        Log.v("token : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
+        Log.v("tokenMain : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
         call.enqueue(new Callback<MainTourResponse>() {
             @Override
             public void onResponse(Call<MainTourResponse> call, final Response<MainTourResponse> response) {

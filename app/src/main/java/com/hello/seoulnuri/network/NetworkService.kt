@@ -16,6 +16,7 @@ import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
 import com.hello.seoulnuri.model.mypage.MypageBookmarkTourResponse
+import com.hello.seoulnuri.model.mypage.MypageInfoResponse
 import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -199,12 +200,16 @@ interface NetworkService {
     ) :Call<BaseModel>
 
 
-    // 19. 투어 북마크 등록
+    // 20. 투어 북마크 등록
     @POST("api/tour/bookmark")
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
     ) : Call<BaseModel>
 
-
+    // 21. 마이페이지 내 정보 불러오기
+    @GET("api/mypage")
+    fun getMyPageInfo(
+            @Header("token") token : String
+    ) : Call<MypageInfoResponse>
 }

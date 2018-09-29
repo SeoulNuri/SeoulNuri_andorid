@@ -4,11 +4,8 @@ import com.hello.seoulnuri.base.BaseModel
 import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.*
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
-
-import com.hello.seoulnuri.model.info.tour.bookmark.TourBookmarkResponse
-
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
-
+import com.hello.seoulnuri.model.info.tour.bookmark.TourBookmarkResponse
 import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
@@ -133,6 +130,13 @@ interface NetworkService {
     fun getPlanner(
             @Header("token") token: String
     ) : Call<PlannerGetResponse>
+
+    //플래너 이미지 가져오기
+    @GET("api/planner/image")
+    fun getPlannerImage(
+            @Header("token") token: String,
+            @Query ("tour_idx") tour_idx : Int
+    ) : Call<PlannerImageResponse>
 
     // 13. 인포 들어갔을 때
     @GET("api/info/tour")

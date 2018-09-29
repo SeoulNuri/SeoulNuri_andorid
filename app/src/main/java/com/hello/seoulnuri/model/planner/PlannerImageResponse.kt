@@ -1,6 +1,12 @@
 package com.hello.seoulnuri.model.planner
 
+import com.hello.seoulnuri.base.BaseModel
+
+
+
+/**
+ * Created by VictoryWoo
+ */
 data class PlannerImageResponse (
-        var message : String,
         var data : PlannerImageData
-)
+) : BaseModel()

@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:background="#ffffff"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -199,10 +200,11 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="22dp"
+        android:background="#ffffff"
         android:id="@+id/info_tour_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp" />
 
 
 </LinearLayout>

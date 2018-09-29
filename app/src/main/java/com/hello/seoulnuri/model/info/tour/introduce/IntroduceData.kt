@@ -12,6 +12,6 @@ data class IntroduceData(
 
 
 data class TourBottomData(
-        var tour_image : String,
+        var tour_info_img : String,
         var tour_info_detail : String
 )

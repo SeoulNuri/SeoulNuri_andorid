@@ -209,7 +209,7 @@ interface NetworkService {
 
 
     // 20. 투어 북마크 등록
-    @POST("api/tour/bookmark")
+    @POST("api/info/tour/bookmark")
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
@@ -220,4 +220,11 @@ interface NetworkService {
     fun getMyPageInfo(
             @Header("token") token : String
     ) : Call<MypageInfoResponse>
+
+    // 22. 플래너 추가하기에서 이미지 가져오기
+    @GET("api/planner/image")
+    fun getImage(
+            @Header("token") token: String,
+            @Query("tour_idx") tour_idx : Int
+    ) : Call<PlannerImageResponse>
 }

@@ -8,5 +8,6 @@ data class MarkerData(
         var longitude : Double,
         var title : String,
         var snippet : String,
-        var iconResID : Int
+        var iconResID : Int,
+        var tour_idx: Int
 )

@@ -138,6 +138,13 @@ interface NetworkService {
             @Query ("tour_idx") tour_idx : Int
     ) : Call<PlannerImageResponse>
 
+    //플래너 주변 가져오기
+    @GET("api/planner/arround")
+    fun getPlannerArround(
+            @Header("token") token: String,
+            @Query ("tour_idx") tour_idx : Int
+    ) : Call<PlannerArroundResponse>
+
     // 13. 인포 들어갔을 때
     @GET("api/info/tour")
     fun getInfoTour(

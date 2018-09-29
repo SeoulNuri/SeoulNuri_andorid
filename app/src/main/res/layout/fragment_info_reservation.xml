@@ -5,7 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <TextView
+        android:layout_marginTop="200dp"
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="준비 중입니다 :)"/>
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/reservation_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

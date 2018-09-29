@@ -63,6 +63,15 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
                     fault_entrance.text = response!!.body()!!.data.tour_bottom.common.entrance
                     fault_toilet.text = response!!.body()!!.data.tour_bottom.common.toilet
                     fault_infodesk.text = response!!.body()!!.data.tour_bottom.common.infodesk
+                    Log.v("824",response!!.body()!!.data.tour_bottom.toString())
+                    if(response!!.body()!!.data.tour_bottom.visual == null){
+                        Log.v("824",response!!.body()!!.data.tour_bottom.visual.toString())
+                        fault_eye_block.text = "없음"
+                        fault_eye_block2.text = "없음"
+                        fault_eye_block3.text = "없음"
+                        fault_eye_block4.text = "없음"
+                        fault_eye_block5.text = "없음"
+                    }
 
                     /*FIXME
                     * 나머지 시각, 청각, 지체, 노인 부분들은 서버에서 값 넣어주면 그거 보고 뿌리면 됨!!

@@ -61,6 +61,7 @@ class InformationFragment : Fragment(), View.OnClickListener, Init {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
                     0 -> {
+
                         replaceFragment(InfoTourFragment())
                     }
                     1 -> {

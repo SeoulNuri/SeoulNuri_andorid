@@ -29,7 +29,6 @@
         android:id="@+id/information_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="4dp"
         app:tabIndicatorColor="#ff6e2c"
         app:tabTextAppearance="@style/tabTextStyle"
         app:tabTextColor="#2c2c2c"/>

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.hello.seoulnuri.utils.ToastMaker;
 import com.hello.seoulnuri.view.course.CourseFragment;
 import com.hello.seoulnuri.CustomViewPager;
 import com.hello.seoulnuri.view.main.adapter.PagerAdapter;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity
 
 
     private NetworkService networkService;
+    Long backKeyPressedTime = 0L;
 
     // 메인에서 정보 받아오는 함수!
     public void requestMainTourInfo(){
@@ -58,6 +60,20 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > (backKeyPressedTime + 2000)) {
+            backKeyPressedTime = System.currentTimeMillis();
+            ToastMaker.INSTANCE.makeLongToast(getApplicationContext(), "\'뒤로 가기\' 버튼을 한번 더 누르시면 종료됩니다.");
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            this.finish();
+
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

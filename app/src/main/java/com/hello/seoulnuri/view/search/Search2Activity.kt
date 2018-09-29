@@ -61,7 +61,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
 
 
                 //startActivity(intent)
-                //requestSearchResponse(searchContentEditText.text.toString())
+                requestSearchResponse(searchContentEditText.text.toString())
             }
             v!!->{
                 val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)

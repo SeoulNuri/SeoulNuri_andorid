@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.MarkerData
+import com.hello.seoulnuri.model.planner.PlannerArroundData
+import com.hello.seoulnuri.model.planner.PlannerArroundResponse
 import com.hello.seoulnuri.model.planner.PlannerImageResponse
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
@@ -105,21 +107,57 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             mMap!!.isMyLocationEnabled = true
             //mapFragment!!.getMapAsync(this)
 
+
             val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
 
 
             var list : ArrayList<Marker> = ArrayList()
 
-
-
             val markerOptions = MarkerOptions()
 
+            markerArray = ArrayList()
+
+
+            var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+            var plannerArroundResponse = networkService.getPlannerArround(token,6);
+
+
+            plannerArroundResponse.enqueue(object : Callback<PlannerArroundResponse> {
+                override fun onFailure(call: Call<PlannerArroundResponse>?, t: Throwable?) {
+//                Log.v("failure ",t!!.message)
+                }
+
+                override fun onResponse(call: Call<PlannerArroundResponse>?, response: Response<PlannerArroundResponse>?) {
+                    if(response!!.isSuccessful){
+                        Log.v("yong","planner arround 가져오기 성공")
+
+                        markerItems = ArrayList()
+                        markerItems = response.body()!!.data
+
+                        Log.v("yong",markerItems.toString())
+                    for(i in 0..markerItems.size-1){
+                        var marker = mMap!!.addMarker(MarkerOptions()
+                                .position(LatLng(markerItems[i].tour_latitude,markerItems[i].tour_longitude))
+                                .title(markerItems[i].tour_name)
+                                .snippet("")
+                                .icon(sub_icon))
+                        markerArray.add(marker)
+                        list.add(marker)
+                    }
+
+                    } else{
+                        Log.v("yong","else")
+
+                    }
+                }
+
+            })
 
             markerOptions
                     .position(SEOUL!!)
                     .title(place)
-                    .snippet("검색한 곳")
+                    .snippet("여기")
                     .icon(main_icon)
 
             marker_seoul = mMap!!.addMarker(markerOptions)
@@ -127,27 +165,27 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
 
-
-            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
-                            .position(Gyeonghui_Palace)
-                            .title("경희궁")
-                            .snippet("우리나라꺼")
-                            .icon(sub_icon))
-            list.add(marker_Gyeonghui_Palace)
-
-            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
-                    .position(Chungjeongno_Station)
-                    .title("충정로역")
-                    .snippet("지하철역")
-                    .icon(sub_icon))
-            list.add(marker_Horyu_Station)
-
-            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
-                    .position(City_Hall_Station)
-                    .title("덕수궁")
-                    .snippet("우리나라꺼")
-                    .icon(sub_icon))
-            list.add(marker_Hyehwa_Station)
+//
+//            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
+//                            .position(Gyeonghui_Palace)
+//                            .title("경희궁")
+//                            .snippet("우리나라꺼")
+//                            .icon(sub_icon))
+//            list.add(marker_Gyeonghui_Palace)
+//
+//            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
+//                    .position(Chungjeongno_Station)
+//                    .title("충정로역")
+//                    .snippet("지하철역")
+//                    .icon(sub_icon))
+//            list.add(marker_Horyu_Station)
+//
+//            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
+//                    .position(City_Hall_Station)
+//                    .title("덕수궁")
+//                    .snippet("우리나라꺼")
+//                    .icon(sub_icon))
+//            list.add(marker_Hyehwa_Station)
 
             for (i in 0..list.size-1){
                 Log.v("Marker : ",list[i].title)
@@ -191,6 +229,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     lateinit var mapFragment: SupportMapFragment
     lateinit var list: List<String>
 
+
+
     var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
     var place: String = ""
 
@@ -207,7 +247,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
     lateinit var markerArray: ArrayList<Marker>
-    lateinit var markerItems : ArrayList<MarkerData>
+    lateinit var markerItems : ArrayList<PlannerArroundData>
     lateinit var markerOptions : ArrayList<MarkerOptions>
 
     lateinit var networkService: NetworkService
@@ -227,6 +267,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         place = intent.getStringExtra("place")
         SEOUL = findAddressLocation()
         findAddressText(SEOUL!!)
+
+        getPlannerArround()
         init()
 
         /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -242,11 +284,11 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
-        markerItems = ArrayList()
-        markerItems.add(MarkerData(37.56,126.97,"SEOUL","한국의 수도",R.drawable.button_spot_select))
-        markerItems.add(MarkerData(37.570369,126.969009,"Gyeonghui_Palace","경희궁",R.drawable.button_spot))
-        markerItems.add(MarkerData(37.558553,126.978218,"Horyu_Station","회현역",R.drawable.button_spot))
-        markerItems.add(MarkerData(37.582163,127.001978,"Hyehwa_Station","혜화역",R.drawable.button_spot))
+//        markerItems = ArrayList()
+//        markerItems.add(MarkerData(37.56,126.97,"SEOUL","한국의 수도",R.drawable.button_spot_select))
+//        markerItems.add(MarkerData(37.570369,126.969009,"Gyeonghui_Palace","경희궁",R.drawable.button_spot))
+//        markerItems.add(MarkerData(37.558553,126.978218,"Horyu_Station","회현역",R.drawable.button_spot))
+//        markerItems.add(MarkerData(37.582163,127.001978,"Hyehwa_Station","혜화역",R.drawable.button_spot))
 
 
     }
@@ -346,6 +388,10 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             }
 
         })
+    }
+
+    fun getPlannerArround(){
+
     }
 
 

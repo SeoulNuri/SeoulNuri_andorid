@@ -25,11 +25,6 @@
 
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/mypage_layout"
-        android:background="#aeaeae" />
 
 
     <ImageView
@@ -127,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="291dp"
-        app:tabIndicatorColor="#ff6e2c"
+        app:tabIndicatorColor="@android:color/transparent"
         app:tabTextAppearance="@style/tabTextStyle"
         app:tabTextColor="#2c2c2c"
         android:elevation="4dp"/>

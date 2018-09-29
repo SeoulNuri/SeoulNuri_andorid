@@ -27,12 +27,17 @@ class InfoTourUseFragment : Fragment(), Init {
         SharedPreference.instance!!.load(context!!)
     }
 
+    override fun onResume() {
+        super.onResume()
+        init()
+        requestInfoUseData()
+    }
     lateinit var networkService: NetworkService
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour_use, container, false)
-        init()
 
-        requestInfoUseData()
+
+        //requestInfoUseData()
         return view
 
     }

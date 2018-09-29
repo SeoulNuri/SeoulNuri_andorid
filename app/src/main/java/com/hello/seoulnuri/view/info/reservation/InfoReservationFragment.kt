@@ -62,7 +62,9 @@ class InfoReservationFragment : Fragment(), View.OnClickListener, Init {
 
         init()
         info_reservation_list = ArrayList()
-        requestInfoReservation()
+
+
+        //requestInfoReservation()
 
 
 

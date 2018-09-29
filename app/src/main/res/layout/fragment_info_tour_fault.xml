@@ -387,7 +387,7 @@
                                 />
 
                             <TextView
-                                android:id="@+id/fault_eye"
+                                android:id="@+id/fault_eye_block"
                                 android:layout_width="200dp"
                                 android:layout_height="21dp"
                                 android:textSize="13sp"
@@ -416,6 +416,7 @@
                                 />
 
                             <TextView
+                                android:id="@+id/fault_eye_block2"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -442,6 +443,7 @@
                                 />
 
                             <TextView
+                                android:id="@+id/fault_eye_block3"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -468,6 +470,7 @@
                                 />
 
                             <TextView
+                                android:id="@+id/fault_eye_block4"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -494,6 +497,7 @@
                                 />
 
                             <TextView
+                                android:id="@+id/fault_eye_block4"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -520,6 +524,7 @@
                                 />
 
                             <TextView
+                                android:id="@+id/fault_eye_block5"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -672,7 +677,7 @@
                                 />
 
                             <TextView
-
+                                android:id="@+id/fault"
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:textSize="13sp"
@@ -701,11 +706,10 @@
 
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
-                                android:textSize="13sp"
-                                android:textColor="#212121"
                                 android:lineSpacingExtra="8sp"
                                 android:text="없음"
-                                />
+                                android:textColor="#212121"
+                                android:textSize="13sp" />
                         </LinearLayout>
 
                         <LinearLayout

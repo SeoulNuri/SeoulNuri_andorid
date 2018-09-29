@@ -1,10 +1,12 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -153,13 +155,14 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
     lateinit var detailImage :String
     lateinit var detailText  :String
     lateinit var tourCommonData: TourCommonData
+    lateinit var progressDialog : ProgressDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_tour_detail)
 
         init()
         getData()
-
+        progressDialog = ProgressDialog(this,R.style.AppCompatAlertDialogStyle)
 
 
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("소개"))
@@ -187,13 +190,37 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab!!.position) {
-                    0 -> setData(detailImage, detailText)
-                    1 -> replaceFragment(InfoTourUseFragment())
-                    2 -> replaceFragment(InfoTourFaultInfomationFragment())
+                    0 -> {
+                        createDialog()
+                        setData(detailImage, detailText)
+                    }
+                    1 -> {
+                        createDialog()
+                        replaceFragment(InfoTourUseFragment())
+                    }
+                    2 -> {
+                        createDialog()
+                        replaceFragment(InfoTourFaultInfomationFragment())
+                    }
                 }
             }
 
         })
+
+
+    }
+
+    fun createDialog(){
+        //dialog.setTitle("Loading ...")
+        progressDialog.setMessage("Please wait ...")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+        val handler = Handler()
+
+        handler.postDelayed({
+            progressDialog.dismiss()
+
+        }, 1000)
 
 
     }

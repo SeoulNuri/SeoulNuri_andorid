@@ -32,11 +32,17 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
 
     lateinit var networkService: com.hello.seoulnuri.network.NetworkService
     lateinit var accessibility : Accessibility
+
+    override fun onResume() {
+        super.onResume()
+        init()
+        requestInfoFaultData()
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour_fault, container, false)
-        init()
+        //init()
 
-        requestInfoFaultData()
         return view
     }
 

@@ -539,7 +539,6 @@ public class Course_detail extends AppCompatActivity {
             @Override
             public void onResponse(Call<CourseDetailResponse> call, Response<CourseDetailResponse> response) {
                 if(response.isSuccessful()) {
-//                    ArrayList<TourInfo> tour_info;
                     ArrayList<Integer> tour_idx = new ArrayList<>();
                     courseDetailData = response.body().getData();
 
@@ -566,6 +565,9 @@ public class Course_detail extends AppCompatActivity {
 //                    for (int i = 0; i < tour_info.size(); i++) {//서버 데이터가 들어가면 구현
                     switch (select_type) {
                         case COURSE_EYE :
+                            tour_idx.add(50);
+                            tour_idx.add(46);
+
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서대문형무소역사관",R.drawable.img_course_50,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 추모의 장 - 영상실, 기획전시실, 자료실",14));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "2층 : 역사의 장 - 민족저항실, 형무소 역사실, 옥중생활실",14));
@@ -578,6 +580,8 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_EYE);
                             break;
                         case COURSE_WHEEL :
+                            tour_idx.add(53);
+                            tour_idx.add(81);
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울시립미술관",R.drawable.img_course_53,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하1층 : 제1강의실, 제2강의실, 제3강의실, 세마홀",8));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 전시실, 휴식공간",8));
@@ -591,6 +595,8 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_WHEEL);
                             break;
                         case COURSE_EAR :
+                            tour_idx.add(55);
+                            tour_idx.add(43);
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "서울올림픽기념관",R.drawable.img_course_19,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "지하 1층 : 올림픽자료실",18));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "1층 : 평화의장(상설전시장), 기획전시실",18));
@@ -604,6 +610,9 @@ public class Course_detail extends AppCompatActivity {
                             courses_list = getData(COURSE_EAR);
                             break;
                         case COURSE_ELDER :
+                            tour_idx.add(6);
+                            tour_idx.add(5);
+                            tour_idx.add(76);
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "창덕궁",R.drawable.img_course_6,0));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "돈화문",12));
                             places.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, "궐내각사",12));

@@ -110,7 +110,7 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
         }
 
         mMap.setOnMarkerClickListener(this);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
     }
 
     @Override

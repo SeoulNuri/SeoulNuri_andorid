@@ -92,7 +92,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, InfoTourDetailActivity.class);
-                        intent.putExtra("index",index.get(0)); //서버에서 받은 값 전달
+                        intent.putExtra("index",index.get(item.order)); //서버에서 받은 값 전달
                         context.startActivity(intent);
                     }
                 });
@@ -104,7 +104,6 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 childController.childItem = data.get(position);
                 childController.child_txt.setText(childController.childItem.text);
                 LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)childController.line.getLayoutParams();
-
 
                 if (flag == 0) {
                     childController.child_time_txt.setText(time + "분");

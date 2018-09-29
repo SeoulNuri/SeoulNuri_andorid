@@ -135,6 +135,8 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                     searchAdapter.setOnItemClickListener(this@Search2Activity)
                     searchRecyclerView.layoutManager = LinearLayoutManager(this@Search2Activity)
                     searchRecyclerView.adapter = searchAdapter
+                }else{
+                    Log.v("1014",response!!.code().toString())
                 }
             }
 

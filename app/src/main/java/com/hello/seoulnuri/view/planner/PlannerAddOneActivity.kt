@@ -2,24 +2,41 @@ package com.hello.seoulnuri.view.planner
 
 import android.Manifest
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
-import com.hello.seoulnuri.R
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.MarkerOptions
+import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
-import kotlinx.android.synthetic.main.activity_planner_add_one.*
-import android.content.pm.PackageManager
-import android.support.v4.app.ActivityCompat
-import android.location.Location
-import android.support.v4.content.ContextCompat
-import android.util.Log
-import com.google.android.gms.maps.model.*
 import com.hello.seoulnuri.model.MarkerData
+import com.hello.seoulnuri.model.planner.PlannerArroundData
+import com.hello.seoulnuri.model.planner.PlannerArroundResponse
+import com.hello.seoulnuri.model.planner.PlannerImageResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
+import kotlinx.android.synthetic.main.activity_planner_add_one.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.IOException
 import java.util.*
 
 
@@ -56,10 +73,11 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
         locations = ArrayList()
-        locations.add(SEOUL)
+        locations.add(SEOUL!!)
         locations.add(Gyeonghui_Palace)
         locations.add(Chungjeongno_Station)
         locations.add(City_Hall_Station)
+
 
 
     }
@@ -89,48 +107,85 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             mMap!!.isMyLocationEnabled = true
             //mapFragment!!.getMapAsync(this)
 
+
             val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
 
 
             var list : ArrayList<Marker> = ArrayList()
 
-
-
             val markerOptions = MarkerOptions()
+
+            markerArray = ArrayList()
+
+
+            var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+            var plannerArroundResponse = networkService.getPlannerArround(token,6);
+
+
+            plannerArroundResponse.enqueue(object : Callback<PlannerArroundResponse> {
+                override fun onFailure(call: Call<PlannerArroundResponse>?, t: Throwable?) {
+//                Log.v("failure ",t!!.message)
+                }
+
+                override fun onResponse(call: Call<PlannerArroundResponse>?, response: Response<PlannerArroundResponse>?) {
+                    if(response!!.isSuccessful){
+                        Log.v("yong","planner arround 가져오기 성공")
+
+                        markerItems = ArrayList()
+                        markerItems = response.body()!!.data
+
+                        Log.v("yong",markerItems.toString())
+                    for(i in 0..markerItems.size-1){
+                        var marker = mMap!!.addMarker(MarkerOptions()
+                                .position(LatLng(markerItems[i].tour_latitude,markerItems[i].tour_longitude))
+                                .title(markerItems[i].tour_name)
+                                .snippet("")
+                                .icon(sub_icon))
+                        markerArray.add(marker)
+                        list.add(marker)
+                    }
+
+                    } else{
+                        Log.v("yong","else")
+
+                    }
+                }
+
+            })
+
             markerOptions
-                    .position(SEOUL)
-                    .title("서울")
-                    .snippet("한국의 수도")
+                    .position(SEOUL!!)
+                    .title(place)
+                    .snippet("여기")
                     .icon(main_icon)
 
             marker_seoul = mMap!!.addMarker(markerOptions)
             list.add(marker_seoul)
 
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
 
 
-            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
-                            .position(Gyeonghui_Palace)
-                            .title("경희궁")
-                            .snippet("우리나라꺼")
-                            .icon(sub_icon))
-            list.add(marker_Gyeonghui_Palace)
-
-            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
-                    .position(Chungjeongno_Station)
-                    .title("충정로역")
-                    .snippet("지하철역")
-                    .icon(sub_icon))
-            list.add(marker_Horyu_Station)
-
-            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
-                    .position(City_Hall_Station)
-                    .title("덕수궁")
-                    .snippet("우리나라꺼")
-                    .icon(sub_icon))
-            list.add(marker_Hyehwa_Station)
+//
+//            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
+//                            .position(Gyeonghui_Palace)
+//                            .title("경희궁")
+//                            .snippet("우리나라꺼")
+//                            .icon(sub_icon))
+//            list.add(marker_Gyeonghui_Palace)
+//
+//            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
+//                    .position(Chungjeongno_Station)
+//                    .title("충정로역")
+//                    .snippet("지하철역")
+//                    .icon(sub_icon))
+//            list.add(marker_Horyu_Station)
+//
+//            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
+//                    .position(City_Hall_Station)
+//                    .title("덕수궁")
+//                    .snippet("우리나라꺼")
+//                    .icon(sub_icon))
+//            list.add(marker_Hyehwa_Station)
 
             for (i in 0..list.size-1){
                 Log.v("Marker : ",list[i].title)
@@ -138,8 +193,10 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
             //createMarker(markerItems)
 
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL,12f))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+
+
 
             mMap!!.setOnMyLocationButtonClickListener(this)
             mMap!!.setOnMyLocationClickListener(this)
@@ -172,7 +229,12 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     lateinit var mapFragment: SupportMapFragment
     lateinit var list: List<String>
 
-    val SEOUL: LatLng = LatLng(37.56, 126.97)
+
+
+    var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
+    var place: String = ""
+
+    var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
     val Chungjeongno_Station: LatLng = LatLng(37.560055,126.96367199999997)
     val City_Hall_Station: LatLng = LatLng(37.5658049,126.97514610000007)
@@ -185,13 +247,30 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
     lateinit var markerArray: ArrayList<Marker>
-    lateinit var markerItems : ArrayList<MarkerData>
+    lateinit var markerItems : ArrayList<PlannerArroundData>
     lateinit var markerOptions : ArrayList<MarkerOptions>
+
+    lateinit var networkService: NetworkService
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
 
+        SharedPreference.instance!!.load(this)
+        networkService = ApplicationController.instance!!.networkService
+
+        getPlannerImage()
+
+        place = intent.getStringExtra("place")
+        SEOUL = findAddressLocation()
+        findAddressText(SEOUL!!)
+
+        getPlannerArround()
         init()
+
         /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
              //managePermissions.checkPermissions()
 
@@ -205,11 +284,11 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
         mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
 
-        markerItems = ArrayList()
-        markerItems.add(MarkerData(37.56,126.97,"SEOUL","한국의 수도",R.drawable.button_spot_select))
-        markerItems.add(MarkerData(37.570369,126.969009,"Gyeonghui_Palace","경희궁",R.drawable.button_spot))
-        markerItems.add(MarkerData(37.558553,126.978218,"Horyu_Station","회현역",R.drawable.button_spot))
-        markerItems.add(MarkerData(37.582163,127.001978,"Hyehwa_Station","혜화역",R.drawable.button_spot))
+//        markerItems = ArrayList()
+//        markerItems.add(MarkerData(37.56,126.97,"SEOUL","한국의 수도",R.drawable.button_spot_select))
+//        markerItems.add(MarkerData(37.570369,126.969009,"Gyeonghui_Palace","경희궁",R.drawable.button_spot))
+//        markerItems.add(MarkerData(37.558553,126.978218,"Horyu_Station","회현역",R.drawable.button_spot))
+//        markerItems.add(MarkerData(37.582163,127.001978,"Hyehwa_Station","혜화역",R.drawable.button_spot))
 
 
     }
@@ -229,6 +308,93 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             // Permission was denied. Display an error message.
         }
     }
+
+
+    fun findAddressLocation(): LatLng { //입력된 스트링의 주소를 검색하고 그 결과를 위도경도로 반환
+        var addr: List<Address>? = null
+        var loc: LatLng? = null
+
+        try {
+            addr = mCoder.getFromLocationName(place, 5)
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        if (addr != null) { //address형태로
+            for (i in addr.indices) {
+                val lating = addr[i]
+                val lat = lating.getLatitude()
+                val lon = lating.getLongitude()
+                loc = LatLng(lat, lon)
+            }
+        }
+        else{
+            Toast.makeText(this,"해당되는 주소 정보가 없습니다. 다시 입력하세요.",Toast.LENGTH_SHORT).show()
+        }
+        return loc!!
+    }
+
+    fun findAddressText(dragPosition: LatLng) { //위도경도를 주소로 변환
+        var list: List<Address>? = null
+        Log.v("yong","findAddress")
+        try {
+            val d1 = dragPosition.latitude
+            val d2 = dragPosition.longitude
+
+            list = mCoder.getFromLocation(
+                    d1,
+                    d2,
+                    10)
+
+            Log.v("yong","findAddress2")
+
+            if(list!=null){
+                Log.v("yong",list.toString())
+            }
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+
+
+    }
+
+    fun getPlannerImage(){
+        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+        var plannerImageResponse = networkService.getPlannerImage(token,10);
+
+
+        plannerImageResponse.enqueue(object : Callback<PlannerImageResponse> {
+            override fun onFailure(call: Call<PlannerImageResponse>?, t: Throwable?) {
+//                Log.v("failure ",t!!.message)
+            }
+
+            override fun onResponse(call: Call<PlannerImageResponse>?, response: Response<PlannerImageResponse>?) {
+                if(response!!.isSuccessful){
+                    Log.v("yong","planner image 가져오기 성공")
+                    Log.v("yong",response.body()!!.data.tour_planner_img)
+
+                    var imageUrl = response.body()!!.data.tour_planner_img
+                    if(!imageUrl.equals("없음")){
+                        Glide.with(applicationContext).load(imageUrl).into(planner_add_one_image)
+                    }
+
+
+
+                } else{
+                    Log.v("yong","else")
+
+                }
+            }
+
+        })
+    }
+
+    fun getPlannerArround(){
+
+    }
+
+
 
 
 }

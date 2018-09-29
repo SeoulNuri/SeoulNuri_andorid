@@ -158,12 +158,17 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     filterItems[index_position].filter_status = !filterItems[index_position].filter_status
                     filterAdapter.notifyDataSetChanged()
                     ToastMaker.makeShortToast(context!!, index_position.toString())
-                } else if (v!!.id == 2131296347) {
+                } else if (v!!.id == 2131296346) {
                     Log.v("124", "관광 누름")
                     val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)
+                    Log.v("124-1", "${index_tour_position}")
                     val intent: Intent = Intent(context, InfoTourDetailActivity::class.java)
+                    Log.v("125", "관광 누름")
+                    println("11477 booked 확인 : ${info_tour_list[index_tour_position].tour_booked}, ${info_tour_list[index_tour_position].tour_name}")
+                    Log.v("126", "관광 누름")
                     SharedPreference.instance!!.setPrefData("tour_idx", info_tour_list[index_tour_position].tour_idx)
                     intent.putExtra("index", info_tour_list[index_tour_position].tour_idx)
+                    intent.putExtra("tour_booked",info_tour_list[index_tour_position].tour_booked)
                     startActivity(intent)
 
                 }
@@ -315,6 +320,17 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
     var checkStatus: Boolean = false
 
 
+    override fun onResume() {
+        super.onResume()
+
+        /*FIXME
+        * detail 갔다가 다시 돌아오면 통신을 진행하지 않아서
+        * 바뀐 북마크가 적용되지 않아서 onResume()에서 통신 한번 더 해야 할 것 같음!
+        * */
+        handi_types.add(9)
+        filter.add(99)
+        requestInfoTour(handi_types,filter)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour, container, false)
         init(view)
@@ -322,9 +338,9 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
 
         filterItems = ArrayList()
 
-        handi_types.add(9)
-        filter.add(99)
-        requestInfoTour(handi_types,filter)
+        //handi_types.add(9)
+        //filter.add(99)
+        //requestInfoTour(handi_types,filter)
 
         /*info_tour_list.add(InfoItem(R.drawable.img_jw, 3.0, 2, "호텔imi"))
         info_tour_list.add(InfoItem(R.drawable.img_jw, 2.0, 20, "호텔jj"))
@@ -338,8 +354,12 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
         info_tour_adpater.setOnItemClickListener(this)
         view.info_tour_recyclerview.setHasFixedSize(true);
-        view.info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+        view.info_tour_recyclerview.layoutManager = GridLayoutManager(activity,2)
         view.info_tour_recyclerview.adapter = info_tour_adpater
+        val spanCount = 2 // 3 columns
+        val spacing = 50 // 50px
+        val includeEdge = true
+        view.info_tour_recyclerview.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, includeEdge))
 
         filterAdapter = FilterAdapter(filterItems, context!!)
         filterAdapter.setOnItemClickListener(this)
@@ -369,11 +389,15 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     println("11599 data size : ${response!!.body()!!.data.size}")
                     println("11599 data message : ${response!!.message()}")
                     println("11599 data  : ${response!!.body()!!.status}")
+                    //println("11599 index 여부 : ${response!!.body()!!.data[2].tour_idx}")
+                    //println("11599 booked 여부 : ${response!!.body()!!.data[2].tour_booked}")
                     info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
                     info_tour_adpater.setOnItemClickListener(this@InfoTourFragment)
                     info_tour_recyclerview.setHasFixedSize(true)
                     info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
                     info_tour_recyclerview.adapter = info_tour_adpater
+
+
 
 
                 } else {

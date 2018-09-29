@@ -23,6 +23,8 @@ import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.custom.BookmarkDialog
 import com.hello.seoulnuri.utils.custom.ShareDialog
+import com.hello.seoulnuri.view.course.CourseMapActivity
+import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.activity_info_tour_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +40,10 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             info_tour_detail_bookmark->{
                 val bookmark_dialog = BookmarkDialog(this@InfoTourDetailActivity)
                 bookmark_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
                 bookmark_dialog.show()
+
+
             }
             info_tour_detail_share->{
                 val share_dialog : BottomSheetDialog = ShareDialog(this@InfoTourDetailActivity)
@@ -48,7 +53,34 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                 //shard_dialog.setCanceledOnTouchOutside(true)
                 share_dialog.show()
             }
+            info_tour_detail_location->{
+                val intent = Intent(this, TourMapActivity::class.java)
+                intent.putExtra("tour_idx",tourCommonData.tour_idx)
+                intent.putExtra("tour_name",tourCommonData.tour_name)
+                intent.putExtra("tour_addr",tourCommonData.tour_addr)
+                intent.putExtra("tour_star",tourCommonData.tour_star)
+                intent.putExtra("tour_star_count",tourCommonData.tour_star_count)
+                startActivity(intent)
+            }
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        init()
+        getData()
+        //requestDetailInfomation()
+        if(booked == 1)
+            info_tour_detail_bookmark.isSelected = true
+        else if(booked == 0)
+            info_tour_detail_bookmark.isSelected = false
+
+    }
+
+    fun changeImageButton(){
+
+        info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
     }
 
     override fun setData(introImage: String, introContent: String) {
@@ -81,6 +113,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
         val fm = supportFragmentManager
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.info_tour_frame, fragment)
+        //transaction.addToBackStack(null)
         transaction.commit()
     }
 
@@ -89,19 +122,32 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
         info_tour_detail_comment.setOnClickListener(this)
         info_tour_detail_bookmark.setOnClickListener(this)
         info_tour_detail_share.setOnClickListener(this)
+        info_tour_detail_location.setOnClickListener(this)
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(this)
+        //replaceFragment(InfoTourUseFragment())
+        //replaceFragment(InfoTourFaultInfomationFragment())
+
+
     }
 
 
     fun getData() {
         var getIntent = getIntent()
         index = getIntent.getIntExtra("index", 0)
-        Log.v("woovic", index.toString())
+        booked = getIntent.getIntExtra("tour_booked",0)
+        Log.v("woovic index", index.toString())
+        Log.v("woovic booked", booked.toString())
+
+        if(booked == 1)
+            info_tour_detail_bookmark.isSelected = true
+        else if(booked == 0)
+            info_tour_detail_bookmark.isSelected = false
     }
 
 
     var index = 0
+    var booked = 0
     lateinit var networkService: NetworkService
     lateinit var tourBottomData: TourBottomData
     lateinit var detailImage :String
@@ -113,6 +159,8 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
         init()
         getData()
+
+
 
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("소개"))
         info_tour_detail_tab.addTab(info_tour_detail_tab.newTab().setText("이용방법"))
@@ -171,12 +219,19 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                     info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"*/
 
                     tourBottomData = response!!.body()!!.data.tour_bottom
-                    if(tourBottomData.tour_image == null)
+                    if(tourBottomData.tour_info_img == null)
                         detailImage = R.drawable.img_jw.toString()
                     else
-                        detailImage = tourBottomData.tour_image
+                        detailImage = tourBottomData.tour_info_img
 
-                    detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+                    if(tourBottomData.tour_info_detail == "없음")
+                        detailText = "비어 있는 값입니다."
+                    else
+                        detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+
+                    //SharedPreference.instance!!.setPrefData("tour_booked",response!!.body()!!.data!!.tour_common.tour_booked)
+                    //Log.v("woo tour_booked", response!!.body()!!.data!!.tour_common.tour_booked.toString())
+                    Log.v("woo tour_name", response!!.body()!!.data!!.tour_common.tour_name)
                     setData(detailImage,detailText)
 
 
@@ -192,6 +247,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
         info_tour_detail_address.text = tourCommonData.tour_addr
         info_tour_detail_intro_rating.rating = tourCommonData.tour_star.toFloat()
         info_tour_detail_count.text = "(${tourCommonData.tour_star_count})"
+        SharedPreference.instance!!.setPrefData("tour_booked",tourCommonData.tour_booked)
 
     }
 

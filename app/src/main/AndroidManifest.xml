@@ -90,7 +90,10 @@
         <activity
             android:name=".view.course.CourseCommentActivity"
             android:theme="@style/Splash" />
-        <activity android:name=".view.info.tour.InfoTourDetailActivity"
+        <activity
+            android:name=".view.info.tour.InfoTourDetailActivity"
+            android:theme="@style/Splash" />
+        <activity android:name=".view.info.tour.TourMapActivity"
             android:theme="@style/Splash"></activity>
     </application>
 

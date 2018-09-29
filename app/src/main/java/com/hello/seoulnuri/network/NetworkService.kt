@@ -5,6 +5,7 @@ import com.hello.seoulnuri.model.bookmark.BookmarkListResponse
 import com.hello.seoulnuri.model.course.*
 import com.hello.seoulnuri.model.info.reservation.InfoTourReservation
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.bookmark.TourBookmarkResponse
 import com.hello.seoulnuri.model.info.tour.bookmark.TourIndex
 import com.hello.seoulnuri.model.info.tour.fault.InfoTourFaultResponse
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
@@ -16,6 +17,7 @@ import com.hello.seoulnuri.model.main.MainTourResponse
 import com.hello.seoulnuri.model.map.DirectionResults
 import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
 import com.hello.seoulnuri.model.mypage.MypageBookmarkTourResponse
+import com.hello.seoulnuri.model.mypage.MypageInfoResponse
 import com.hello.seoulnuri.model.planner.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -129,6 +131,20 @@ interface NetworkService {
             @Header("token") token: String
     ) : Call<PlannerGetResponse>
 
+    //플래너 이미지 가져오기
+    @GET("api/planner/image")
+    fun getPlannerImage(
+            @Header("token") token: String,
+            @Query ("tour_idx") tour_idx : Int
+    ) : Call<PlannerImageResponse>
+
+    //플래너 주변 가져오기
+    @GET("api/planner/arround")
+    fun getPlannerArround(
+            @Header("token") token: String,
+            @Query ("tour_idx") tour_idx : Int
+    ) : Call<PlannerArroundResponse>
+
     // 13. 인포 들어갔을 때
     @GET("api/info/tour")
     fun getInfoTour(
@@ -199,12 +215,23 @@ interface NetworkService {
     ) :Call<BaseModel>
 
 
-    // 19. 투어 북마크 등록
-    @POST("api/tour/bookmark")
+    // 20. 투어 북마크 등록
+    @POST("api/info/tour/bookmark")
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
-    ) : Call<BaseModel>
+    ) : Call<TourBookmarkResponse>
 
+    // 21. 마이페이지 내 정보 불러오기
+    @GET("api/mypage")
+    fun getMyPageInfo(
+            @Header("token") token : String
+    ) : Call<MypageInfoResponse>
 
+    // 22. 플래너 추가하기에서 이미지 가져오기
+    @GET("api/planner/image")
+    fun getImage(
+            @Header("token") token: String,
+            @Query("tour_idx") tour_idx : Int
+    ) : Call<PlannerImageResponse>
 }

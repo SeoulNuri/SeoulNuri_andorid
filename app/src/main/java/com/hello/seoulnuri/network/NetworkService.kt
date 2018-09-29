@@ -209,7 +209,7 @@ interface NetworkService {
     fun postBookmark(
             @Header("token") token: String,
             @Body tour_idx : TourIndex
-    ) : Call<BaseModel>
+    ) : Call<TourBookmarkResponse>
 
     // 21. 마이페이지 내 정보 불러오기
     @GET("api/mypage")

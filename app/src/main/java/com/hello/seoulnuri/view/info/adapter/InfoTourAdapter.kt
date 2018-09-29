@@ -42,10 +42,10 @@ class InfoTourAdapter(var context: Context, var infoList: ArrayList<InfoTourResp
     override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
         //val item = infoList[i]
 
-        if(infoList[position].tour_image == null)
+        if(infoList[position].tour_card_img == null)
             Glide.with(context).load(R.drawable.img_jw).into(viewHolder.tour_image)
         else
-            Glide.with(context).load(infoList[position].tour_image).into(viewHolder.tour_image)
+            Glide.with(context).load(infoList[position].tour_card_img).into(viewHolder.tour_image)
 
         viewHolder.title.text = infoList[position].tour_name
         viewHolder.ratingBar.rating = infoList[position].tour_star.toFloat()

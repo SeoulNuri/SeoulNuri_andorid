@@ -55,6 +55,7 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             }
             info_tour_detail_location->{
                 val intent = Intent(this, TourMapActivity::class.java)
+                intent.putExtra("tour_idx",tourCommonData.tour_idx)
                 intent.putExtra("tour_name",tourCommonData.tour_name)
                 intent.putExtra("tour_addr",tourCommonData.tour_addr)
                 intent.putExtra("tour_star",tourCommonData.tour_star)
@@ -218,12 +219,12 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                     info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"*/
 
                     tourBottomData = response!!.body()!!.data.tour_bottom
-                    if(tourBottomData.tour_image == null)
+                    if(tourBottomData.tour_info_img == null)
                         detailImage = R.drawable.img_jw.toString()
                     else
-                        detailImage = tourBottomData.tour_image
+                        detailImage = tourBottomData.tour_info_img
 
-                    if(tourBottomData.tour_info_detail == null)
+                    if(tourBottomData.tour_info_detail == "없음")
                         detailText = "비어 있는 값입니다."
                     else
                         detailText = response!!.body()!!.data.tour_bottom.tour_info_detail

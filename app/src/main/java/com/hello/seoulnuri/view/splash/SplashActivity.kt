@@ -52,12 +52,12 @@ class SplashActivity : AppCompatActivity(), Init {
             startActivity(intent)
             finish()
             if (SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()) {
-
+                Log.v("yong login", SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(intent)
                 finish()
 
             } else {
-                Log.v("yong", SharedPreference.instance!!.getPrefStringData("data"))
+                Log.v("yong main", SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(Intent(this, MainActivity::class.java))
 
             }

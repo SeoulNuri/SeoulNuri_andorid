@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +15,21 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ScrollView
+import android.widget.TextView
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.mypage.MypageBookmarkCourseResponse
+import com.hello.seoulnuri.model.mypage.MypageInfoResponse
 import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.Init
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.login.LoginActivity
+import com.hello.seoulnuri.view.mypage.adapter.MypageCourseAdapter
 import kotlinx.android.synthetic.main.fragment_mypage.*
+import kotlinx.android.synthetic.main.fragment_tour_info.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 /**
@@ -39,11 +48,15 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
 
     private var mListener: OnFragmentInteractionListener? = null
 
-    private var networkService: NetworkService? = null
+    lateinit var networkService: NetworkService
     private val btnTour: Button? = null
     private val btnCourse: Button? = null
     private var mypageSettingButton: ImageButton? = null
     private var mypageLogoutButton: Button? = null
+    private var mypageHandiTypeTextView: TextView? = null
+    private var mypageNameTextView: TextView? = null
+    private var mypageIdTextView: TextView? = null
+    private var mypageBirthdayTextView: TextView? = null
     private val tourScrollView: ScrollView? = null
     private val courseScrollView: ScrollView? = null
     private var mypageTab: TabLayout? = null
@@ -56,8 +69,6 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
         }
 
         replaceFragment(TourDestinationFragment())
-
-
 
     }
 
@@ -84,9 +95,14 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
         //btnTour = (Button) view.findViewById(R.id.myTourButton);
         //btnCourse = (Button) view.findViewById(R.id.myCourseButton);
         mypageSettingButton = view.findViewById<View>(R.id.mypageSettingButton) as ImageButton
-        mypageLogoutButton = view.findViewById<View>(R.id.mypageLogoutButton) as Button
+        mypageHandiTypeTextView = view.findViewById<View>(R.id.mypage_handi_type) as TextView
+        mypageNameTextView = view.findViewById<View>(R.id.mypageNameTextView) as TextView
+        mypageIdTextView = view.findViewById<View>(R.id.mypageIdTextView) as TextView
+        mypageBirthdayTextView = view.findViewById<View>(R.id.mypageBirthdayTextView) as TextView
+        //mypageLogoutButton = view.findViewById<View>(R.id.mypageLogoutButton) as Button
 
         init()
+        requestInfo()
 
         mypageTab = view.findViewById(R.id.mypageTab)
         mypageTab!!.addTab(mypageTab!!.newTab().setText("관광지"))
@@ -121,13 +137,6 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
                 ContextCompat.getColor(context!!, R.color.selected_text_color) // 선택된 텍스트 컬러
         )
 
-        init() // 초기화 함수 호출
-
-
-        /*
-        있으면 GridView로 없으면 ImageView
-         */
-
         return view
     }
 
@@ -155,17 +164,61 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.mypageSettingButton -> startActivity(Intent(context, ChangeTypeActivity::class.java))
-            R.id.mypageLogoutButton -> {
-                Log.v("213412341", "out")
-                SharedPreference.instance!!.removeData("data")
-                startActivity(Intent(context, LoginActivity::class.java))
-            }
+//            R.id.mypageLogoutButton -> {
+//                Log.v("213412341", "out")
+//                SharedPreference.instance!!.removeData("data")
+//                startActivity(Intent(context, LoginActivity::class.java))
+//            }
         }
     }
 
     override fun init() {
+        networkService = ApplicationController.instance!!.networkService
+
         mypageSettingButton!!.setOnClickListener(this)
-        mypageLogoutButton!!.setOnClickListener(this)
+//        mypageLogoutButton!!.setOnClickListener(this)
+    }
+
+    fun requestInfo() {
+        val response = networkService.getMyPageInfo(SharedPreference.instance!!.getPrefStringData("data")!!)
+        println("tokenMypage : ${SharedPreference.instance!!.getPrefStringData("data")!!}")
+        response.enqueue(object : Callback<MypageInfoResponse> {
+            override fun onResponse(call: Call<MypageInfoResponse>, response: Response<MypageInfoResponse>) {
+                if(response.code() == 200){
+                    //Log.v("11599 : ",response!!.body()!!.data.size.toString())
+                    println("12313 data message : ${response.message()}")
+                    println("12313 data  : ${response.body()!!.status}")
+
+                    if (response.body()!!.data.get(0).handi_type == "0")
+                        mypageHandiTypeTextView!!.text = "시각 장애"
+                    else if (response.body()!!.data.get(0).handi_type == "1")
+                        mypageHandiTypeTextView!!.text = "청각 장애"
+                    else if (response.body()!!.data.get(0).handi_type == "1")
+                        mypageHandiTypeTextView!!.text = "지체 장애"
+                    else
+                        mypageHandiTypeTextView!!.text = "노인"
+
+                    mypageNameTextView!!.text = response.body()!!.data.get(0).user_nickname
+                    mypageIdTextView!!.text = response.body()!!.data.get(0).kakao_idx
+
+                    var str : String = response.body()!!.data.get(0).user_birth
+                    val year = str.slice(IntRange(0,3)) + "년 "
+                    val month = str.slice(IntRange(5,6)) + "월 "
+                    val day = str.slice(IntRange(8,9)) + "일"
+                    str = year+month+day
+
+                    mypageBirthdayTextView!!.text = str
+
+                }else{
+                    Log.v("12313 : ", response.message())
+                }
+            }
+
+            override fun onFailure(call: Call<MypageInfoResponse>, t: Throwable) {
+                Log.v("fail message", t.message)
+            }
+
+        })
     }
 
     /**

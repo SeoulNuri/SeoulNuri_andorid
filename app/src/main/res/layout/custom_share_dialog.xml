@@ -92,7 +92,7 @@
         android:background="#eeeeee" />
 
     <LinearLayout
-        android:id="@+id/custom_more_share"
+        android:id="@+id/share_more_btn"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:orientation="horizontal">

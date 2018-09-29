@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -24,8 +25,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.MarkerData
+import com.hello.seoulnuri.model.planner.PlannerImageResponse
+import com.hello.seoulnuri.network.ApplicationController
+import com.hello.seoulnuri.network.NetworkService
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import kotlinx.android.synthetic.main.activity_planner_add_one.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.util.*
 
@@ -117,8 +125,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             marker_seoul = mMap!!.addMarker(markerOptions)
             list.add(marker_seoul)
 
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+
 
 
             marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
@@ -148,8 +155,10 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
             //createMarker(markerItems)
 
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL,12f))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(12f))
+
+
 
             mMap!!.setOnMyLocationButtonClickListener(this)
             mMap!!.setOnMyLocationClickListener(this)
@@ -200,12 +209,24 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     lateinit var markerArray: ArrayList<Marker>
     lateinit var markerItems : ArrayList<MarkerData>
     lateinit var markerOptions : ArrayList<MarkerOptions>
+
+    lateinit var networkService: NetworkService
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
 
+        SharedPreference.instance!!.load(this)
+        networkService = ApplicationController.instance!!.networkService
+
+        getPlannerImage()
+
         place = intent.getStringExtra("place")
         SEOUL = findAddressLocation()
+        findAddressText(SEOUL!!)
         init()
 
         /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -269,6 +290,65 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         }
         return loc!!
     }
+
+    fun findAddressText(dragPosition: LatLng) { //위도경도를 주소로 변환
+        var list: List<Address>? = null
+        Log.v("yong","findAddress")
+        try {
+            val d1 = dragPosition.latitude
+            val d2 = dragPosition.longitude
+
+            list = mCoder.getFromLocation(
+                    d1,
+                    d2,
+                    10)
+
+            Log.v("yong","findAddress2")
+
+            if(list!=null){
+                Log.v("yong",list.toString())
+            }
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+
+
+    }
+
+    fun getPlannerImage(){
+        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+        var plannerImageResponse = networkService.getPlannerImage(token,10);
+
+
+        plannerImageResponse.enqueue(object : Callback<PlannerImageResponse> {
+            override fun onFailure(call: Call<PlannerImageResponse>?, t: Throwable?) {
+//                Log.v("failure ",t!!.message)
+            }
+
+            override fun onResponse(call: Call<PlannerImageResponse>?, response: Response<PlannerImageResponse>?) {
+                if(response!!.isSuccessful){
+                    Log.v("yong","planner image 가져오기 성공")
+                    Log.v("yong",response.body()!!.data.tour_planner_img)
+
+                    var imageUrl = response.body()!!.data.tour_planner_img
+                    if(!imageUrl.equals("없음")){
+                        Glide.with(applicationContext).load(imageUrl).into(planner_add_one_image)
+                    }
+
+
+
+                } else{
+                    Log.v("yong","else")
+
+                }
+            }
+
+        })
+    }
+
+
 
 
 }

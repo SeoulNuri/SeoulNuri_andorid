@@ -55,7 +55,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     information_toggle_wheel.isSelected = false
                     information_toggle_elder.isSelected = false
                     filterItems.removeAll(filterItems)
-                    checkVisible(true)
+
 
                     requestInfoTour(handi_types, filter)
                 } else {

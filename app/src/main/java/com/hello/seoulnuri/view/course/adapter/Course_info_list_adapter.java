@@ -217,7 +217,7 @@ public class Course_info_list_adapter extends BaseExpandableListAdapter {
                         }
                     } else if (positionName == courses_list.get(2).course_info_item) {
                         if (child == courses_list.get(2).course_info_item) {
-                            viewHolder.course_item_child_pic.setImageResource(R.drawable.elder_sec_photo);
+                            viewHolder.course_item_child_pic.setImageResource(R.drawable.elder_thd_photo);
                             viewHolder.course_item_child_txt.setText(mContext.getResources().getString(R.string.course_info_elder_thd_child_txt));
 
                         }

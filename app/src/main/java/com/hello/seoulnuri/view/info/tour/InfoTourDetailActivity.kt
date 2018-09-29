@@ -15,6 +15,7 @@ import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.info.CommentActivity
 import com.hello.seoulnuri.model.info.tour.InfoTourResponse
+import com.hello.seoulnuri.model.info.tour.TourCommonData
 import com.hello.seoulnuri.model.info.tour.introduce.InfoTourIntroduce
 import com.hello.seoulnuri.model.info.tour.introduce.TourBottomData
 import com.hello.seoulnuri.network.ApplicationController
@@ -22,6 +23,7 @@ import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.custom.BookmarkDialog
 import com.hello.seoulnuri.utils.custom.ShareDialog
+import kotlinx.android.synthetic.main.activity_course.*
 import kotlinx.android.synthetic.main.activity_info_tour_detail.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +39,10 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             info_tour_detail_bookmark->{
                 val bookmark_dialog = BookmarkDialog(this@InfoTourDetailActivity)
                 bookmark_dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
                 bookmark_dialog.show()
+
+
             }
             info_tour_detail_share->{
                 val share_dialog : BottomSheetDialog = ShareDialog(this@InfoTourDetailActivity)
@@ -48,6 +53,20 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
                 share_dialog.show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        init()
+        if(SharedPreference.instance!!.getPrefIntegerData("tour_idx")!! == 1)
+            info_tour_detail_bookmark.isSelected = true
+        else
+            info_tour_detail_bookmark.isSelected = false
+    }
+
+    fun changeImageButton(){
+
+        info_tour_detail_bookmark.setImageResource(R.drawable.button_oval_bookmark_active)
     }
 
     override fun setData(introImage: String, introContent: String) {
@@ -102,9 +121,10 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
     var index = 0
     lateinit var networkService: NetworkService
-    lateinit var tourBottom: TourBottomData
+    lateinit var tourBottomData: TourBottomData
     lateinit var detailImage :String
     lateinit var detailText  :String
+    lateinit var tourCommonData: TourCommonData
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_tour_detail)
@@ -158,14 +178,27 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
 
             override fun onResponse(call: Call<InfoTourIntroduce>?, response: Response<InfoTourIntroduce>?) {
                 if (response!!.isSuccessful) {
-                    info_tour_detail_title.text = response!!.body()!!.data.tour_common.tour_name
+                    // 뷰에 값 뿌리기
+                    tourCommonData = response!!.body()!!.data.tour_common
+                    settingTourCommonData()
+
+                    // 함수로 빼기!
+                    /*info_tour_detail_title.text = response!!.body()!!.data.tour_common.tour_name
                     info_tour_detail_address.text = response!!.body()!!.data.tour_common.tour_addr
                     info_tour_detail_intro_rating.rating = response!!.body()!!.data.tour_common.tour_star.toFloat()
-                    info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"
+                    info_tour_detail_count.text = "(${response!!.body()!!.data.tour_common.tour_star_count})"*/
 
+                    tourBottomData = response!!.body()!!.data.tour_bottom
+                    if(tourBottomData.tour_image == null)
+                        detailImage = R.drawable.img_jw.toString()
+                    else
+                        detailImage = tourBottomData.tour_image
 
-                    detailImage = response!!.body()!!.data.tour_bottom.tour_image
-                    detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+                    if(tourBottomData.tour_info_detail == null)
+                        detailText = "비어 있는 값입니다."
+                    else
+                        detailText = response!!.body()!!.data.tour_bottom.tour_info_detail
+
                     setData(detailImage,detailText)
 
 
@@ -173,6 +206,15 @@ open class InfoTourDetailActivity : AppCompatActivity(), Init, InfoTourIntroduce
             }
 
         })
+
+    }
+
+    fun settingTourCommonData(){
+        info_tour_detail_title.text = tourCommonData.tour_name
+        info_tour_detail_address.text = tourCommonData.tour_addr
+        info_tour_detail_intro_rating.rating = tourCommonData.tour_star.toFloat()
+        info_tour_detail_count.text = "(${tourCommonData.tour_star_count})"
+        SharedPreference.instance!!.setPrefData("tour_booked",tourCommonData.tour_booked)
 
     }
 

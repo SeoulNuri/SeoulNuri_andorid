@@ -7,12 +7,7 @@ import com.hello.seoulnuri.model.info.tour.TourCommonData
  */
 data class InfoTourFaultResponseData (
         var tour_common : TourCommonData,
-        var tour_bottom : TourBottom,
-        var common : CommonData,
-        var visual : VisualData,
-        var hearing : HearingData,
-        var physical : PhysicalData,
-        var older : OlderData
+        var tour_bottom : TourBottom
 )
 
 data class CommonData(

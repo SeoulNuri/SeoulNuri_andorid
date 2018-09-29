@@ -3,6 +3,7 @@ package com.hello.seoulnuri.view.course.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.icu.text.IDNA;
 import android.media.Image;
@@ -37,15 +38,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     Context context;
 
     private List<Item> data;
-    private ArrayList<Integer> index;
-
+    int line_height = 0;
+    private int course_taken_time;
     private int[] header_indicator = {R.drawable.order_1, R.drawable.order_2, R.drawable.order_3};
 
     int flag = 0; //header 판별 (소요시간)
 
-    public ExpandableListAdapter(List<Item> data, ArrayList<Integer> index) {
+    public ExpandableListAdapter(List<Item> data, int course_taken_time) {
         this.data = data;
-        this.index = index;
+        this.course_taken_time = course_taken_time;
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case CHILD:
                 inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 view = inflater.inflate(R.layout.course_child, parent, false);
-                ViewHolder child = new ViewHolder(view);
+                ViewHolder child = new ViewHolder (view);
 
                 return child;
         }
@@ -75,7 +76,6 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final Item item = data.get(position);
         float dp = context.getResources().getDisplayMetrics().density;
-        Integer time = (Integer)item.course_time;
 
         switch (item.type) {
             case HEADER:
@@ -92,34 +92,44 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(context, InfoTourDetailActivity.class);
-                        intent.putExtra("index",index.get(item.order)); //서버에서 받은 값 전달
+                        intent.putExtra("index", item.tour_idx); //서버에서 받은 값 전달
                         context.startActivity(intent);
                     }
                 });
-                flag = 0;
+
 
                 break;
             case CHILD:
                 final ViewHolder childController = (ViewHolder) holder;
                 childController.childItem = data.get(position);
-                childController.child_txt.setText(childController.childItem.text);
+                childController.child_txt.setText(item.text);
                 LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)childController.line.getLayoutParams();
+                LinearLayout.LayoutParams textMargin = (LinearLayout.LayoutParams)childController.child_txt.getLayoutParams();
 
-                if (flag == 0) {
-                    childController.child_time_txt.setText(time + "분");
+                Rect realSize = new Rect();
+                childController.child_txt.getPaint().getTextBounds(childController.child_txt.getText().toString(), 0, childController.child_txt.getText().length(), realSize);
+                line_height = realSize.height();
+
+                Log.v("height" ,  line_height + "");
+
+                ViewGroup.LayoutParams params = childController.line.getLayoutParams();
+
+                params.height = (int) (line_height * dp);
+
+                childController.line.setLayoutParams(params);
+
+                if (childController.childItem.info_size -1 != childController.childItem.current && childController.childItem.string_split_num == 0) {
+                    childController.child_time_txt.setText(course_taken_time + "분");
                     childController.child_time_txt.setVisibility(View.VISIBLE);
                     marginControl.leftMargin = (int) (21 * dp);
-                    flag = 1;
-                } else {
-                    childController.child_time_txt.setVisibility(View.GONE);
-                    marginControl.leftMargin = (int) (50 * dp);
                 }
-                if (time == 0) {
-                    childController.child_time_txt.setVisibility(View.GONE);
+                else if (childController.childItem.info_size -1 == childController.childItem.current ){
                     marginControl.leftMargin = (int) (50 * dp);
                     childController.line.setVisibility(View.INVISIBLE);
                 }
+
                 childController.line.setLayoutParams(marginControl);
+                childController.child_txt.setLayoutParams(textMargin);
                 break;
         }
     }
@@ -169,26 +179,28 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         //ArrayList<Item> data
         public int type; //header, child
         public String text;
+        public int tour_idx;
         public int order; //header count
         public int image;
-        public int course_time;
+        public int string_split_num;
+        public int info_size;
+        public int current;
 
-        public Item(int type, String text, int course_time) {
+        public Item(int type, int string_split_num, int info_size, int current, String text) {
             this.type = type;
             this.text = text;
-            this.course_time = course_time;
+            this.string_split_num = string_split_num;
+            this.info_size = info_size;
+            this.current = current;
         }
 
-        public Item(int type, String text, int image, int order) {
+
+        public Item(int type, String text, int tour_idx, int order, int image) {
             this.type = type;
             this.text = text;
-            this.image = image;
+            this.tour_idx = tour_idx;
             this.order = order;
-        }
-
-        public Item(int type, String text ) {
-            this.type = type;
-            this.text = text;
+            this.image = image;
         }
     }
 

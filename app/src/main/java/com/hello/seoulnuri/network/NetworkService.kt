@@ -186,14 +186,8 @@ interface NetworkService {
     @POST("api/course/bookmark")
     fun registCourseBookmark(
             @Header("token") token : String,
-            @Body course_idx: Int
-    ): Call<BaseModel>
-
-    //마이페이지에서 코스 즐겨찾기 리스트 가져오기
-    @GET("/api/mypage/bookmark/course")
-    fun getCourseBookmarks(
-            @Header("token") token : String
-    ) : Call<CourseBookmarkResponse>
+            @Body course_idx: CourseIndex
+    ): Call<TourBookmarkResponse>
 
     // 18. 마이페이지에서 코스 즐겨찾기 보여주기
     @GET("api/mypage/bookmark/tour")

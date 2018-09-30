@@ -1,6 +1,8 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,9 +34,12 @@ class InfoTourUseFragment : Fragment(), Init {
         init()
         requestInfoUseData()
     }
+
     lateinit var networkService: NetworkService
+    lateinit var progressDialog: ProgressDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour_use, container, false)
+        progressDialog = ProgressDialog(context, R.style.AppCompatAlertDialogStyle)
 
 
         //requestInfoUseData()
@@ -53,6 +58,7 @@ class InfoTourUseFragment : Fragment(), Init {
 
             override fun onResponse(call: Call<InfoTourUseReponse>?, response: Response<InfoTourUseReponse>?) {
                 if (response!!.isSuccessful) {
+                    createDialog()
                     Log.v("woo 1202", response!!.body()!!.code.toString())
 
                     info_tour_use_holiday.text = response!!.body()!!.data.tour_bottom.tour_holiday
@@ -69,11 +75,21 @@ class InfoTourUseFragment : Fragment(), Init {
                     info_use_tour_book.text = response!!.body()!!.data.tour_bottom.tour_info_book
                     info_use_tour_service.text = response!!.body()!!.data.tour_bottom.tour_service
                     info_tour_toilet_location.text = response!!.body()!!.data.tour_bottom.tour_toilet_location
+                    progressDialog.dismiss()
 
 
                 }
             }
 
         })
+    }
+
+    fun createDialog() {
+        //dialog.setTitle("Loading ...")
+        progressDialog.setMessage("Please waiting ...")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+        //val handler = Handler()
+
     }
 }

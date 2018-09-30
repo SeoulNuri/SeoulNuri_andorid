@@ -41,7 +41,17 @@ import java.util.*
 
 
 class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener, Init, GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener {
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
+    override fun onMarkerClick(p0: Marker?): Boolean {
+
+        SharedPreference.instance!!.setPrefData("marker_idx",p0!!.snippet.toInt())
+        SharedPreference.instance!!.setPrefData("marker_name",p0!!.title)
+
+        return true
+
+
+    }
+
     override fun onMyLocationButtonClick(): Boolean {
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
@@ -85,8 +95,46 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onClick(v: View?) {
         when (v!!) {
             planner_add_one_next_btn -> {
-                startActivity(Intent(this, PlannerAddPathCheckActivity::class.java))
+                intent = Intent(this,PlannerAddPathCheckActivity::class.java)
+                intent.putIntegerArrayListExtra("tourIdxArray",tourIdxArray)
+                intent.putStringArrayListExtra("tourNameArray",tourNameArray)
+                startActivity(intent)
                 finish()
+            }
+
+            planner_add_one_spot_plus_btn ->{
+
+                val gray = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
+                val color = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+
+                var marker_idx = SharedPreference.instance!!.getPrefIntegerData("marker_idx")
+                var marker_name = SharedPreference.instance!!.getPrefStringData("marker_name")
+
+                if(tourIdxArray.contains(marker_idx)){
+                    tourIdxArray.remove(marker_idx)
+                    tourNameArray.remove(marker_name)
+
+                    for(i in 0..markerArray.size-1){
+                        if(markerArray[i].snippet.toInt() == marker_idx){
+                            markerArray[i].setIcon(gray)
+                        }
+                    }
+
+
+                }else{
+                    tourIdxArray.add(marker_idx)
+                    tourNameArray.remove(marker_name)
+
+                    for(i in 0..markerArray.size-1){
+                        if(markerArray[i].snippet.toInt() == marker_idx){
+                            markerArray[i].setIcon(color)
+                        }
+                    }
+                }
+
+
+
+
             }
         }
     }
@@ -105,11 +153,14 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             mMap!!.isMyLocationEnabled = true
+
+            mMap!!.setOnMarkerClickListener(this)
             //mapFragment!!.getMapAsync(this)
 
 
             val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
+
 
 
             var list : ArrayList<Marker> = ArrayList()
@@ -140,7 +191,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                         var marker = mMap!!.addMarker(MarkerOptions()
                                 .position(LatLng(markerItems[i].tour_latitude,markerItems[i].tour_longitude))
                                 .title(markerItems[i].tour_name)
-                                .snippet("")
+                                .snippet(markerItems[i].tour_idx.toString())
                                 .icon(sub_icon))
                         markerArray.add(marker)
                         list.add(marker)
@@ -211,6 +262,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
     var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
     var place: String = ""
+    lateinit var tourIdxArray : ArrayList<Int>
+    lateinit var tourNameArray : ArrayList<String>
 
     var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
@@ -239,6 +292,10 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
         SharedPreference.instance!!.load(this)
         networkService = ApplicationController.instance!!.networkService
+
+        planner_add_one_spot_plus_btn.setOnClickListener(this)
+        tourIdxArray = ArrayList()
+        tourNameArray = ArrayList()
 
         getPlannerImage()
 

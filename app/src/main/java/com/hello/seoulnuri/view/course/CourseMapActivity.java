@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,6 +38,7 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
     private ImageView show_tour_info_btn;
     private ImageView course_item_map_img;
     private CourseMapData courseMapData;
+    private int pos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +64,25 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
         courseMapData = (CourseMapData) intent.getSerializableExtra("course_map_data");
         Log.v("1111courseMapData", courseMapData.toString());
 
-        course_item_map_img.setImageResource(courseMapData.getDetailData().get(0).getImg());
+        if(courseMapData.getDetailData().get(0).getImg() != ""){
+            Glide.with(getApplicationContext())
+                    .load(courseMapData.getDetailData().get(0).getImg())
+                    .into(course_item_map_img);
+        }
+
         course_item_map_title.setText(courseMapData.getDetailData().get(0).getTitle());
         course_item_map_addr.setText(courseMapData.getDetailData().get(0).getAddr());
         course_item_map_rating_txt.setText(course_star_count);
         course_item_map_rating_star.setRating(course_star);
 
-        show_tour_info_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CourseMapActivity.this, InfoTourDetailActivity.class);
-                intent.putExtra("tour_idx", courseMapData.getDetailData().get(0).getTour_idx()); // 일단 6 -창덕궁
-                startActivity(intent);
-            }
-        });
+//        pos = 0;
+//        for (int i =0; i < courseMapData.getDetailData().size(); i++ ) {
+//            if (course_item_map_title.getText().toString().equals(courseMapData.getDetailData().get(i).getTitle())) {
+//                pos = i;
+//            }
+//        }
+
+
     }
 
 
@@ -110,20 +117,33 @@ public class CourseMapActivity extends FragmentActivity implements OnMapReadyCal
         }
 
         mMap.setOnMarkerClickListener(this);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
     }
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        int pos = 0;
+        pos = 0;
         for (int i =0; i < courseMapData.getDetailData().size(); i++ ) {
             if (marker.getTitle().equals(courseMapData.getDetailData().get(i).getTitle())) {
                 pos = i;
             }
         }
-        course_item_map_img.setImageResource(courseMapData.getDetailData().get(pos).getImg());
+        if(courseMapData.getDetailData().get(pos).getImg() != ""){
+            Glide.with(getApplicationContext())
+                    .load(courseMapData.getDetailData().get(pos).getImg())
+                    .into(course_item_map_img);
+        }
+
         course_item_map_title.setText(courseMapData.getDetailData().get(pos).getTitle());
         course_item_map_addr.setText(courseMapData.getDetailData().get(pos).getAddr());
+        show_tour_info_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CourseMapActivity.this, InfoTourDetailActivity.class);
+                intent.putExtra("index", courseMapData.getDetailData().get(pos).getTour_idx()); // 일단 6 -창덕궁
+                startActivity(intent);
+            }
+        });
         return false;
     }
 }

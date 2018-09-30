@@ -150,7 +150,6 @@
                                 android:layout_gravity="center"
                                 android:id="@+id/course_img"
                                 android:layout_width="312dp"
-
                                 android:layout_height="180dp"
                                 app:srcCompat="@drawable/img_hong_intro" />
 

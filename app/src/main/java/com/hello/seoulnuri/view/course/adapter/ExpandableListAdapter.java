@@ -104,7 +104,6 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 childController.childItem = data.get(position);
                 childController.child_txt.setText(item.text);
                 LinearLayout.LayoutParams marginControl = (LinearLayout.LayoutParams)childController.line.getLayoutParams();
-                LinearLayout.LayoutParams textMargin = (LinearLayout.LayoutParams)childController.child_txt.getLayoutParams();
 
                 Rect realSize = new Rect();
                 childController.child_txt.getPaint().getTextBounds(childController.child_txt.getText().toString(), 0, childController.child_txt.getText().length(), realSize);
@@ -123,13 +122,15 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     childController.child_time_txt.setVisibility(View.VISIBLE);
                     marginControl.leftMargin = (int) (21 * dp);
                 }
+                else if (childController.childItem.info_size -1 != childController.childItem.current && childController.childItem.string_split_num != 0) {
+                    marginControl.leftMargin = (int) (50 * dp);
+                }
                 else if (childController.childItem.info_size -1 == childController.childItem.current ){
                     marginControl.leftMargin = (int) (50 * dp);
                     childController.line.setVisibility(View.INVISIBLE);
                 }
 
                 childController.line.setLayoutParams(marginControl);
-                childController.child_txt.setLayoutParams(textMargin);
                 break;
         }
     }

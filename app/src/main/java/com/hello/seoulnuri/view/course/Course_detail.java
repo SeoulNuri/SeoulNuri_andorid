@@ -312,7 +312,7 @@ public class Course_detail extends AppCompatActivity {
 //                }
 
                 for (int i = 0; i < tour_info_list.size(); i++) {
-                    courseMapSubDataList.add(new CourseMapSubData(tour_info_list.get(i).getTour_idx(), tour_info_list.get(i).getTour_latitude(),tour_info_list.get(i).getTour_latitude(),tour_info_list.get(i).getTour_planner_img(), tour_info_list.get(i).getTour_addr(),tour_info_list.get(i).getTour_name()));
+                    courseMapSubDataList.add(new CourseMapSubData(tour_info_list.get(i).getTour_idx(), tour_info_list.get(i).getTour_latitude(),tour_info_list.get(i).getTour_longitude(),tour_info_list.get(i).getTour_planner_img(), tour_info_list.get(i).getTour_addr(),tour_info_list.get(i).getTour_name()));
                 }
 
                 CourseMapData courseMapData = new CourseMapData(courseDetailData.getCourse_idx(), courseMapSubDataList);

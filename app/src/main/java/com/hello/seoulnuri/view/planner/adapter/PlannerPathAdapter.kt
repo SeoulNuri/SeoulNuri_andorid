@@ -1,6 +1,7 @@
 package com.hello.seoulnuri.view.planner.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ class PlannerPathAdapter(var items: ArrayList<PlannerPathData>) : RecyclerView.A
         holder.plannerPathNumber.text = (position + 1).toString()
         holder.plannerPathLocation.text = items[position].plannerLocation
         holder.plannerPathAddress.text = items[position].plannerAddress
+        Log.v("948 woo",items[position].plannerRating.toString())
         holder.plannerPathRating.rating = items[position].plannerRating.toFloat()
         holder.plannerPathReviewCount.text = "("+items[position].plannerReviewCount.toString()+")"
 

@@ -59,7 +59,7 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
 
 
                 val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
-                ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
+                //ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
                 SharedPreference.instance!!.setPrefData("search_tour_idx",bookmarkListItems[itemListIndex].tour_idx)
 
 

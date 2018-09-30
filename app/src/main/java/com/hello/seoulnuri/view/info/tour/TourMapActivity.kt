@@ -119,7 +119,7 @@ class TourMapActivity : AppCompatActivity(), OnMapReadyCallback, Init, View.OnCl
 
             mMap!!.addMarker(markerOptions)
             mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(20f))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
 
             mMap!!.setOnMyLocationButtonClickListener(this)
             mMap!!.setOnMyLocationClickListener(this)

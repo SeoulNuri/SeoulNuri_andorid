@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.model.search.filter.FilterData
@@ -44,11 +45,11 @@ class FilterAdapter(var itemList : ArrayList<FilterData>, var context : Context)
     override fun onBindViewHolder(holder : FilterViewHolder, position: Int) {
         holder.filterText.text = itemList[position].filter_detail
         if(itemList[position].filter_status){
-            holder.filterCardview.setCardBackgroundColor(ContextCompat.getColor(context, R.color.maincolor))
+            holder.cardRela.background = ContextCompat.getDrawable(context,R.drawable.filter_border_active)
             holder.filterText.setTextColor(ContextCompat.getColor(context, R.color.mainWhite))
         }
         else{
-            holder.filterCardview.setCardBackgroundColor(ContextCompat.getColor(context, R.color.mainWhite))
+            holder.cardRela.background = ContextCompat.getDrawable(context,R.drawable.filter_border)
             holder.filterText.setTextColor(ContextCompat.getColor(context, R.color.mainGray))
         }
 
@@ -57,6 +58,7 @@ class FilterAdapter(var itemList : ArrayList<FilterData>, var context : Context)
     class FilterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         var filterText : TextView = itemView.findViewById(R.id.detail_filter_text)
         var filterCardview : CardView = itemView.findViewById(R.id.filter_cardview)
+        var cardRela : RelativeLayout = itemView.findViewById(R.id.card_rela)
     }
 
 }

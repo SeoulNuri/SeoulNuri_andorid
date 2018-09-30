@@ -48,6 +48,7 @@
             android:textSize="13sp" />
 
         <TextView
+            android:id="@+id/sliding_plan_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
@@ -64,6 +65,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
+            android:visibility="invisible"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="13dp"

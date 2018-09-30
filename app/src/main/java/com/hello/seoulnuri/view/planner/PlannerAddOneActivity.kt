@@ -41,7 +41,16 @@ import java.util.*
 
 
 class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener, Init, GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener {
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener {
+    override fun onMarkerClick(p0: Marker?): Boolean {
+        Log.v("woo 1257","눌리니??")
+        SharedPreference.instance!!.setPrefData("marker_idx",p0!!.snippet.toInt())
+        SharedPreference.instance!!.setPrefData("marker_name",p0!!.title)
+        return false
+
+
+    }
+
     override fun onMyLocationButtonClick(): Boolean {
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
@@ -85,8 +94,62 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onClick(v: View?) {
         when (v!!) {
             planner_add_one_next_btn -> {
-                startActivity(Intent(this, PlannerAddPathCheckActivity::class.java))
-                finish()
+                intent = Intent(this,PlannerAddPathCheckActivity::class.java)
+
+                if (tourNameArray.size == 0) {
+                    ToastMaker.makeShortToast(this, "여행 경로를 추가해주세요.")
+                } else {
+                    intent.putIntegerArrayListExtra("tourIdxArr",tourIdxArray)
+                    intent.putStringArrayListExtra("tourNameArr",tourNameArray)
+                    startActivity(intent)
+                    finish()
+                }
+            }
+
+            planner_add_one_spot_plus_btn ->{
+
+                val gray = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
+                val color = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+                val main = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+
+
+                var marker_idx = SharedPreference.instance!!.getPrefIntegerData("marker_idx")
+                var marker_name = SharedPreference.instance!!.getPrefStringData("marker_name")
+
+                if(tourIdxArray.contains(marker_idx)){
+                    tourIdxArray.remove(marker_idx)
+                    tourNameArray.remove(marker_name)
+
+                    for(i in 0..markerArray.size-1){
+                        if(markerArray[i].snippet.toInt() == marker_idx){
+                            markerArray[i].setIcon(gray)
+                        }
+                        if(markerArray[i].snippet.toInt() == SharedPreference.instance!!.getPrefIntegerData("search_tour_idx")){
+                            markerArray[i].setIcon(main)
+                        }
+
+
+                    }
+
+
+                }else{
+                    tourIdxArray.add(marker_idx)
+                    tourNameArray.add(marker_name!!)
+
+                    for(i in 0..markerArray.size-1){
+                        if(markerArray[i].snippet.toInt() == marker_idx){
+                            markerArray[i].setIcon(color)
+                        }
+                    }
+                }
+
+
+                if(tourIdxArray.size >0)
+                    planner_add_one_next_btn.isSelected = true
+                else
+                    planner_add_one_next_btn.isSelected = false
+
+
             }
         }
     }
@@ -100,16 +163,21 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         * 지도에 현재 위치 버튼 표시하고, 설정된 위도, 경도로 지도 상에 주소 표시
         * 그리고 혀재 위치 버튼 활성화하고, 마커 찍어 놓기
         * */
+
+        map!!.setOnMarkerClickListener(this)
         mMap = map
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             mMap!!.isMyLocationEnabled = true
+
+
             //mapFragment!!.getMapAsync(this)
 
 
             val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
+
 
 
             var list : ArrayList<Marker> = ArrayList()
@@ -140,7 +208,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                         var marker = mMap!!.addMarker(MarkerOptions()
                                 .position(LatLng(markerItems[i].tour_latitude,markerItems[i].tour_longitude))
                                 .title(markerItems[i].tour_name)
-                                .snippet("")
+                                .snippet(markerItems[i].tour_idx.toString())
                                 .icon(sub_icon))
                         markerArray.add(marker)
                         list.add(marker)
@@ -154,14 +222,16 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
             })
 
+            var searchTourIndex = SharedPreference.instance!!.getPrefIntegerData("search_tour_idx",10)!!
             markerOptions
                     .position(SEOUL!!)
                     .title(place)
-                    .snippet("여기")
+                    .snippet(searchTourIndex!!.toString())
                     .icon(main_icon)
 
             marker_seoul = mMap!!.addMarker(markerOptions)
             list.add(marker_seoul)
+            markerArray.add(marker_seoul)
 
 
 
@@ -211,6 +281,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
     var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
     var place: String = ""
+    lateinit var tourIdxArray : ArrayList<Int>
+    lateinit var tourNameArray : ArrayList<String>
 
     var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
@@ -240,9 +312,14 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         SharedPreference.instance!!.load(this)
         networkService = ApplicationController.instance!!.networkService
 
+        planner_add_one_spot_plus_btn.setOnClickListener(this)
+        tourIdxArray = ArrayList()
+        tourNameArray = ArrayList()
+
         getPlannerImage()
 
         place = intent.getStringExtra("place")
+        planner_add_one_location_name.text = place
         SEOUL = findAddressLocation()
         findAddressText(SEOUL!!)
 

@@ -2,8 +2,8 @@ package com.hello.seoulnuri.view.planner
 
 import android.content.Intent
 import android.location.Location
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.MotionEvent
@@ -14,11 +14,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.hello.seoulnuri.model.PlannerPathData
-import com.hello.seoulnuri.view.planner.adapter.PlannerPathAdapter
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
+import com.hello.seoulnuri.model.PlannerPathData
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
+import com.hello.seoulnuri.view.planner.adapter.PlannerPathAdapter
 import kotlinx.android.synthetic.main.activity_planner_add_path_check.*
 import kotlinx.android.synthetic.main.sliding_layout.*
 import java.util.*
@@ -26,10 +27,17 @@ import java.util.*
 class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Init, GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v!!){
-            planner_path_complete_btn->{
-                startActivity(Intent(this, PlannerAddFourActivity::class.java))
+        when (v!!) {
+            planner_path_complete_btn -> {
+                var intent = Intent(this, PlannerAddFourActivity::class.java)
+                intent.putIntegerArrayListExtra("tourIdxArr", tourIdxArr)
+
+
+                intent.putExtra("firstLocation", tourNameArr.get(0))
+                intent.putExtra("lastLocation", tourNameArr.get(tourNameArr.size - 1))
+                startActivity(intent)
                 finish()
+
             }
         }
     }
@@ -56,8 +64,11 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
     }
 
     override fun init() {
+        SharedPreference.instance!!.load(this)
         pathMapFragment = supportFragmentManager.findFragmentById(R.id.planner_add_path_map) as SupportMapFragment
         planner_path_complete_btn.setOnClickListener(this)
+        sliding_plan_date.text = SharedPreference.instance!!.getPrefStringData("plan_date")
+
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -81,32 +92,48 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
 
     lateinit var plannerPathAdapter: PlannerPathAdapter
     lateinit var item_list: ArrayList<PlannerPathData>
-    lateinit var pathMapFragment : SupportMapFragment
-    private var pathGoogleMap : GoogleMap? = null
+    lateinit var pathMapFragment: SupportMapFragment
+    private var pathGoogleMap: GoogleMap? = null
+
+    lateinit var tourIdxArr: ArrayList<Int>
+    lateinit var tourNameArr: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_path_check)
         init()
 
+        tourIdxArr = ArrayList()
+        tourNameArr = ArrayList()
+
+        tourNameArr = intent.getStringArrayListExtra("tourNameArr")
+        tourIdxArr = intent.getIntegerArrayListExtra("tourIdxArr")
+
         item_list = ArrayList()
-        item_list.add(PlannerPathData("5분", 1, "경복궁"
-                , "서울 종로구 사직로 161 경복궁", 1, 21))
-        item_list.add(PlannerPathData("13분", 2, "광화문"
-                , "서울 종로구 사직로 161", 1, 11))
-        item_list.add(PlannerPathData("20분", 3, "북촌문화센터"
-                , "서울 종로구 계동길 37", 1, 40))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
-        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
-                , "서울 종로구 필운대로7길 12", 1, 25))
+
+        for (i in 0..tourIdxArr.size - 1) {
+
+            item_list.add(PlannerPathData("", i + 1, tourNameArr[i], "", 3, 0))
+        }
+
+
+//        item_list.add(PlannerPathData("5분", 1, "경복궁"
+//                , "서울 종로구 사직로 161 경복궁", 1, 21))
+//        item_list.add(PlannerPathData("13분", 2, "광화문"
+//                , "서울 종로구 사직로 161", 1, 11))
+//        item_list.add(PlannerPathData("20분", 3, "북촌문화센터"
+//                , "서울 종로구 계동길 37", 1, 40))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
+//        item_list.add(PlannerPathData("5분", 4, "갤러리룩스"
+//                , "서울 종로구 필운대로7길 12", 1, 25))
 
         planner_nestedScroll.scrollTo(0, 0)
 

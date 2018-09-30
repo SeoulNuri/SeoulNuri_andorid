@@ -19,6 +19,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.main.MainTourResponse;
 import com.hello.seoulnuri.model.main.TourData2;
@@ -146,6 +147,7 @@ public class MainFragment extends Fragment {
         NetworkService service = controller.getNetworkService();
         SharedPreference.Companion.getInstance();
 
+        final RequestOptions requestOptions = new RequestOptions().centerCrop();
 
         Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
         Log.v("tokenMain : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
@@ -156,9 +158,9 @@ public class MainFragment extends Fragment {
                 if (response.body() != null) {
                     Log.v("message in onResponse", response.body().getData().toString());
                     if (response.body().getData().getRand_tour().getTour_card_img().equals("없음"))
-                        imageView.setImageResource(R.drawable.card_graphic_none);
+                        imageView.setImageResource(R.drawable.card_main_none);
                     else
-                        Glide.with(getActivity().getApplicationContext()).load(response.body().getData().getRand_tour().getTour_card_img()).into(imageView);
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(response.body().getData().getRand_tour().getTour_card_img()).into(imageView);
                     ratingBar.setRating((float)response.body().getData().getRand_tour().getTour_star());
                     addressTextView.setText(response.body().getData().getRand_tour().getTour_addr());
 //                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
@@ -170,9 +172,9 @@ public class MainFragment extends Fragment {
                     }
 
                     if (tourData2[0].getTour_card_image().equals("없음"))
-                        imageButton1.setImageResource(R.drawable.card_graphic_none);
+                        imageButton1.setImageResource(R.drawable.card_main_none);
                     else
-                        Glide.with(getActivity().getApplicationContext()).load(tourData2[0].getTour_card_image()).into(imageButton1);
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[0].getTour_card_image()).into(imageButton1);
                     imageButton1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -183,9 +185,9 @@ public class MainFragment extends Fragment {
                     });
 
                     if (tourData2[1].getTour_card_image().equals("없음"))
-                        imageButton2.setImageResource(R.drawable.card_graphic_none);
+                        imageButton2.setImageResource(R.drawable.card_main_none);
                     else
-                        Glide.with(getActivity().getApplicationContext()).load(tourData2[1].getTour_card_image()).into(imageButton2);
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[1].getTour_card_image()).into(imageButton2);
                     imageButton2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -196,9 +198,9 @@ public class MainFragment extends Fragment {
                     });
 
                     if (tourData2[2].getTour_card_image().equals("없음"))
-                        imageButton3.setImageResource(R.drawable.card_graphic_none);
+                        imageButton3.setImageResource(R.drawable.card_main_none);
                     else
-                        Glide.with(getActivity().getApplicationContext()).load(tourData2[2].getTour_card_image()).into(imageButton3);
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[2].getTour_card_image()).into(imageButton3);
                     imageButton3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -209,9 +211,9 @@ public class MainFragment extends Fragment {
                     });
 
                     if (tourData2[3].getTour_card_image().equals("없음"))
-                        imageButton4.setImageResource(R.drawable.card_graphic_none);
+                        imageButton4.setImageResource(R.drawable.card_main_none);
                     else
-                        Glide.with(getActivity().getApplicationContext()).load(tourData2[3].getTour_card_image()).into(imageButton4);
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[3].getTour_card_image()).into(imageButton4);
                     imageButton4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

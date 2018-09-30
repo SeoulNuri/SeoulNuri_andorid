@@ -46,8 +46,8 @@ class TourMapActivity : AppCompatActivity(), OnMapReadyCallback, Init, View.OnCl
         markerOptions.snippet("내가 사는 곳")
 
         mMap!!.addMarker(markerOptions)
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(Gyeonghui_Palace))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location!!))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
         ToastMaker.makeLongToast(this, "MyLocation button clicked")
         return false
     }
@@ -111,6 +111,7 @@ class TourMapActivity : AppCompatActivity(), OnMapReadyCallback, Init, View.OnCl
             val markerOptions = MarkerOptions()
 
 
+            Log.v("woo location",location!!.toString())
             markerOptions
                     .position(location!!)
                     .title(place)
@@ -118,7 +119,7 @@ class TourMapActivity : AppCompatActivity(), OnMapReadyCallback, Init, View.OnCl
                     .icon(main_icon)
 
             mMap!!.addMarker(markerOptions)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location!!))
             mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
 
             mMap!!.setOnMyLocationButtonClickListener(this)

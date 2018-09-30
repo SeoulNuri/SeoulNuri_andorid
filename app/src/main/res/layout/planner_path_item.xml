@@ -102,7 +102,7 @@
                     android:layout_below="@+id/planner_add_one_address"
                     android:layout_toRightOf="@id/planner_add_one_image"
                     android:numStars="5"
-                    android:rating="4.4"
+                    android:rating="3"
                     android:max="5"
                     android:theme="@style/MyRatingBar" />
 

@@ -99,8 +99,28 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 if (tourNameArray.size == 0) {
                     ToastMaker.makeShortToast(this, "여행 경로를 추가해주세요.")
                 } else {
+
+                    tourStarArray = DoubleArray(tourIdxArray.size)
+
+                    for(i in 0..tourIdxArray.size-1){
+                        var idx = tourIdxArray[i]
+                        for(j in 0..markerItems.size-1){
+                            if(markerItems[j].tour_idx == idx){
+                                //Log.v("yong","matching:"+markerItems[j].tour_addr)
+                                tourAddrArray.add(markerItems[j].tour_addr)
+                                tourStarArray[i] = (markerItems[j].tour_star)
+                                tourStarCountArray.add(markerItems[j].tour_star_count)
+
+                                //
+                            }
+                        }
+                    }
+
                     intent.putIntegerArrayListExtra("tourIdxArr",tourIdxArray)
                     intent.putStringArrayListExtra("tourNameArr",tourNameArray)
+                    intent.putStringArrayListExtra("tourAddrArr",tourAddrArray)
+                    intent.putExtra("tourStarArr",tourStarArray)
+                    intent.putIntegerArrayListExtra("tourStarCountArr",tourStarCountArray)
                     startActivity(intent)
                     finish()
                 }
@@ -110,7 +130,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
                 val gray = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
                 val color = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
-                val main = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+                val main = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select_map)
 
 
                 var marker_idx = SharedPreference.instance!!.getPrefIntegerData("marker_idx")
@@ -144,6 +164,9 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 }
 
 
+
+
+
                 if(tourIdxArray.size >0)
                     planner_add_one_next_btn.isSelected = true
                 else
@@ -175,7 +198,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             //mapFragment!!.getMapAsync(this)
 
 
-            val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+            val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select_map)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
 
 
@@ -279,10 +302,13 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
 
-    var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
+    var mCoder:Geocoder? = null
     var place: String = ""
     lateinit var tourIdxArray : ArrayList<Int>
     lateinit var tourNameArray : ArrayList<String>
+    lateinit var tourAddrArray : ArrayList<String>
+    lateinit var tourStarArray : DoubleArray
+    lateinit var tourStarCountArray : ArrayList<Int>
 
     var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
@@ -309,12 +335,17 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
 
+        mCoder = Geocoder(this,Locale.KOREAN)
+
         SharedPreference.instance!!.load(this)
         networkService = ApplicationController.instance!!.networkService
 
         planner_add_one_spot_plus_btn.setOnClickListener(this)
         tourIdxArray = ArrayList()
         tourNameArray = ArrayList()
+        tourAddrArray = ArrayList()
+
+        tourStarCountArray = ArrayList()
 
         getPlannerImage()
 
@@ -370,7 +401,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         var loc: LatLng? = null
 
         try {
-            addr = mCoder.getFromLocationName(place, 5)
+            addr = mCoder!!.getFromLocationName(place, 5)
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -395,7 +426,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             val d1 = dragPosition.latitude
             val d2 = dragPosition.longitude
 
-            list = mCoder.getFromLocation(
+            list = mCoder!!.getFromLocation(
                     d1,
                     d2,
                     10)

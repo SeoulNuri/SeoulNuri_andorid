@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.hello.seoulnuri.R;
 import com.hello.seoulnuri.model.main.MainTourResponse;
 import com.hello.seoulnuri.model.main.TourData2;
@@ -103,7 +105,7 @@ public class MainFragment extends Fragment {
         ratingBar.setRating((float) 3.5);
 
         final TextView addressTextView = (TextView)view.findViewById(R.id.addressTextView);
-        final TextView summaryTextView = (TextView)view.findViewById(R.id.summaryTextView);
+//        final TextView summaryTextView = (TextView)view.findViewById(R.id.summaryTextView);
         final TextView placeTextView = (TextView)view.findViewById(R.id.placeTextView);
 
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
@@ -115,19 +117,19 @@ public class MainFragment extends Fragment {
         final ImageButton imageButton2 = (ImageButton)view.findViewById(R.id.courseContentImageButton2);
         final ImageButton imageButton3 = (ImageButton)view.findViewById(R.id.courseContentImageButton3);
         final ImageButton imageButton4 = (ImageButton)view.findViewById(R.id.courseContentImageButton4);
-        final ImageButton imageButton5 = (ImageButton)view.findViewById(R.id.courseContentImageButton5);
+//        final ImageButton imageButton5 = (ImageButton)view.findViewById(R.id.courseContentImageButton5);
 
         final TextView textViewTitle1 = (TextView)view.findViewById(R.id.courseContentTitleTextView1);
         final TextView textViewTitle2 = (TextView)view.findViewById(R.id.courseContentTitleTextView2);
         final TextView textViewTitle3 = (TextView)view.findViewById(R.id.courseContentTitleTextView3);
         final TextView textViewTitle4 = (TextView)view.findViewById(R.id.courseContentTitleTextView4);
-        final TextView textViewTitle5 = (TextView)view.findViewById(R.id.courseContentTitleTextView5);
+//        final TextView textViewTitle5 = (TextView)view.findViewById(R.id.courseContentTitleTextView5);
 
         final TextView textViewAddress1 = (TextView)view.findViewById(R.id.courseContentAddressTextView1);
         final TextView textViewAddress2 = (TextView)view.findViewById(R.id.courseContentAddressTextView2);
         final TextView textViewAddress3 = (TextView)view.findViewById(R.id.courseContentAddressTextView3);
         final TextView textViewAddress4 = (TextView)view.findViewById(R.id.courseContentAddressTextView4);
-        final TextView textViewAddress5 = (TextView)view.findViewById(R.id.courseContentAddressTextView5);
+//        final TextView textViewAddress5 = (TextView)view.findViewById(R.id.courseContentAddressTextView5);
 
         Button btnSearch = (Button)view.findViewById(R.id.mainSearchButton);
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -138,8 +140,6 @@ public class MainFragment extends Fragment {
             }
         });
 
-
-
         final Button btnNext = (Button)view.findViewById(R.id.buttonNextArrow);
 
         ApplicationController controller = new ApplicationController();
@@ -147,6 +147,7 @@ public class MainFragment extends Fragment {
         NetworkService service = controller.getNetworkService();
         SharedPreference.Companion.getInstance();
 
+        final RequestOptions requestOptions = new RequestOptions().centerCrop();
 
         Call<MainTourResponse> call = service.getMainInfo(SharedPreference.Companion.getInstance().getPrefStringData("data"));
         Log.v("tokenMain : ", SharedPreference.Companion.getInstance().getPrefStringData("data"));
@@ -156,79 +157,103 @@ public class MainFragment extends Fragment {
 //                response.body().getData().getRand_tour().getTour_image();
                 if (response.body() != null) {
                     Log.v("message in onResponse", response.body().getData().toString());
-                    imageView.setImageURI(Uri.parse(response.body().getData().getRand_tour().getTour_image()));
+                    if (response.body().getData().getRand_tour().getTour_card_img().equals("없음"))
+                        imageView.setImageResource(R.drawable.card_main_none);
+                    else
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(response.body().getData().getRand_tour().getTour_card_img()).into(imageView);
                     ratingBar.setRating((float)response.body().getData().getRand_tour().getTour_star());
                     addressTextView.setText(response.body().getData().getRand_tour().getTour_addr());
-                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
+//                    summaryTextView.setText(response.body().getData().getRand_tour().getTour_info());
                     placeTextView.setText(response.body().getData().getRand_tour().getTour_name());
 
                     final TourData2 tourData2[] = new TourData2[5];
-                    for (int i=0; i<5; i++) {
+                    for (int i=0; i<4; i++) {
                         tourData2[i] = response.body().getData().getReco_tour().get(i);
                     }
-                    imageButton1.setImageURI(Uri.parse(tourData2[0].getTour_image()));
+
+
+                    if (tourData2[0].getTour_card_img().equals("없음"))
+                        imageButton1.setImageResource(R.drawable.card_main_none);
+                    else
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[0].getTour_card_img()).into(imageButton1);
                     imageButton1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[0].getTour_idx());
+                            intent.putExtra("index", tourData2[0].getTour_idx());
                             startActivity(intent);
                         }
                     });
-                    imageButton2.setImageURI(Uri.parse(tourData2[1].getTour_image()));
+
+                    if (tourData2[1].getTour_card_img().equals("없음"))
+                        imageButton2.setImageResource(R.drawable.card_main_none);
+                    else
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[1].getTour_card_img()).into(imageButton2);
                     imageButton2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[1].getTour_idx());
+                            intent.putExtra("index", tourData2[1].getTour_idx());
                             startActivity(intent);
                         }
                     });
-                    imageButton3.setImageURI(Uri.parse(tourData2[2].getTour_image()));
+
+                    if (tourData2[2].getTour_card_img().equals("없음"))
+                        imageButton3.setImageResource(R.drawable.card_main_none);
+                    else
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[2].getTour_card_img()).into(imageButton3);
                     imageButton3.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[2].getTour_idx());
+                            intent.putExtra("index", tourData2[2].getTour_idx());
                             startActivity(intent);
                         }
                     });
-                    imageButton4.setImageURI(Uri.parse(tourData2[3].getTour_image()));
+
+                    if (tourData2[3].getTour_card_img().equals("없음"))
+                        imageButton4.setImageResource(R.drawable.card_main_none);
+                    else
+                        Glide.with(getActivity().getApplicationContext()).applyDefaultRequestOptions(requestOptions).load(tourData2[3].getTour_card_img()).into(imageButton4);
                     imageButton4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[3].getTour_idx());
+                            intent.putExtra("index", tourData2[3].getTour_idx());
                             startActivity(intent);
                         }
                     });
-                    imageButton5.setImageURI(Uri.parse(tourData2[4].getTour_image()));
-                    imageButton5.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[4].getTour_idx());
-                            startActivity(intent);
-                        }
-                    });
+
+//                    if (tourData2[4].getTour_card_image().equals("없음"))
+//                        imageButton5.setImageResource(R.drawable.card_graphic_none);
+//                    else
+//                        imageButton5.setImageURI(Uri.parse(tourData2[3].getTour_card_image()));
+//                    imageButton5.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
+//                            intent.putExtra("tour_idx", tourData2[4].getTour_idx());
+//                            startActivity(intent);
+//                        }
+//                    });
 
                     textViewTitle1.setText(tourData2[0].getTour_name());
                     textViewTitle2.setText(tourData2[1].getTour_name());
                     textViewTitle3.setText(tourData2[2].getTour_name());
                     textViewTitle4.setText(tourData2[3].getTour_name());
-                    textViewTitle5.setText(tourData2[4].getTour_name());
+//                    textViewTitle5.setText(tourData2[4].getTour_name());
 
                     textViewAddress1.setText(tourData2[0].getTour_addr());
                     textViewAddress2.setText(tourData2[1].getTour_addr());
                     textViewAddress3.setText(tourData2[2].getTour_addr());
                     textViewAddress4.setText(tourData2[3].getTour_addr());
-                    textViewAddress5.setText(tourData2[4].getTour_addr());
+//                    textViewAddress5.setText(tourData2[4].getTour_addr());
 
                     btnNext.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", response.body().getData().getRand_tour().getTour_idx());
+                            intent.putExtra("index", response.body().getData().getRand_tour().getTour_idx());
                             startActivity(intent);
                         }
                     });

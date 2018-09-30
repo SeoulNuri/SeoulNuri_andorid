@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RatingBar
 import android.widget.TextView
-import com.hello.seoulnuri.model.PlannerPathData
 import com.hello.seoulnuri.R
+import com.hello.seoulnuri.model.PlannerPathData
 import java.util.*
 
 /**
@@ -29,7 +29,8 @@ class PlannerPathAdapter(var items: ArrayList<PlannerPathData>) : RecyclerView.A
         holder.plannerPathNumber.text = (position + 1).toString()
         holder.plannerPathLocation.text = items[position].plannerLocation
         holder.plannerPathAddress.text = items[position].plannerAddress
-        holder.plannerPathReviewCount.text = "(${items[position].plannerReviewCount})"
+        holder.plannerPathRating.rating = items[position].plannerRating.toFloat()
+        holder.plannerPathReviewCount.text = "("+items[position].plannerReviewCount.toString()+")"
 
         if (items.size - 1 == position) {
             holder.plannerPathLine.visibility = View.INVISIBLE

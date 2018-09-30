@@ -19,9 +19,14 @@ class ShareDialog(context: Context) : BottomSheetDialog(context), View.OnClickLi
     override fun onClick(v: View?) {
         when (v!!) {
             share_more_btn -> {
-                val layout = LayoutInflater.from(context)
-                        .inflate(R.layout.custom_toast, findViewById<View>(R.id.toast_custom) as ViewGroup)
+                var inflater = layoutInflater
+                var viewGroup = findViewById<ViewGroup>(R.id.toast_custom)
+                val layout = inflater.inflate(R.layout.custom_toast,viewGroup )
 
+
+                       /* LayoutInflater.from(context)
+                        .inflate(R.layout.custom_toast, findViewById<View>(R.id.toast_custom) as ViewGroup,false)
+*/
 
                 val toast = Toast.makeText(context, "클립보드에 복사되었습니다", Toast.LENGTH_SHORT)
                 toast.setGravity(Gravity.CENTER_HORIZONTAL, 0, -100)

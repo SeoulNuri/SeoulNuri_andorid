@@ -1,5 +1,6 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -57,16 +58,27 @@ open class InfoTourIntroduceFragment : Fragment() {
     var intro_image: String=" "
     var intro_detail_text: String=" "
 
+    fun createDialog() {
+        //dialog.setTitle("Loading ...")
+        progressDialog.setMessage("Please waiting ...")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+        //val handler = Handler()
 
+    }
+    lateinit var progressDialog : ProgressDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour_intro, container, false)
         Log.v("woo 4","4")
+        progressDialog = ProgressDialog(context,R.style.AppCompatAlertDialogStyle)
+        createDialog()
         println(intro_image+"몇번??")
         println(intro_detail_text+"몇번?")
         Glide.with(context!!).load(intro_image).into(view.info_tour_detail_image)
         Log.v("woo 5","5")
         view.info_tour_detail_text_content.text = intro_detail_text
         Log.v("woo 6","6")
+        progressDialog.dismiss()
         return view
     }
 }

@@ -2,6 +2,7 @@ package com.hello.seoulnuri.view.mypage
 
 import android.content.Intent
 import android.graphics.Typeface
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -24,6 +25,7 @@ import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity
 import com.hello.seoulnuri.view.mypage.adapter.MypageTourAdapter
+import kotlinx.android.synthetic.main.fragment_info_tour_use.*
 import kotlinx.android.synthetic.main.fragment_tour_destination.*
 import kotlinx.android.synthetic.main.fragment_tour_destination.view.*
 import kotlinx.android.synthetic.main.fragment_tour_info.*
@@ -31,6 +33,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities
 
 /**
  * Created by VictoryWoo
@@ -59,9 +62,6 @@ class TourDestinationFragment: Fragment(), Init, View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_tour_destination, container, false)
 
-        init()
-        requestBookmarkDestination()
-
         val sb = SpannableStringBuilder()
 
         val str: String = "가보고 싶은 관광지를 \n즐겨찾기 해보세요."
@@ -70,25 +70,33 @@ class TourDestinationFragment: Fragment(), Init, View.OnClickListener {
         sb.setSpan(StyleSpan(Typeface.BOLD), 13, 18, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         view.tourSpotText.text = sb
 
+        init()
+        requestBookmarkDestination()
+
         return view
     }
 
     fun requestBookmarkDestination() {
         val response = networkService.getMypageBookmarkTour(SharedPreference.instance!!.getPrefStringData("data")!!)
+//        val response = networkService.getMypageBookmarkTour("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MjUzMjIyNjciLCJpYXQiOjE1Mzc5MzU0NTd9.3yDW2HD8IwOPy17TfQ3xeW-xhL07WyUVxSSvh9wI0BU")
         response.enqueue(object : Callback<MypageBookmarkTourResponse> {
             override fun onResponse(call: Call<MypageBookmarkTourResponse>, response: Response<MypageBookmarkTourResponse>) {
                 if(response!!.code() == 200){
                     //Log.v("11599 : ",response!!.body()!!.data.size.toString())
-                    mypage_tour_list = response!!.body()!!.data
                     println("12113 data size : ${response!!.body()!!.data.size}")
                     println("12113 data message : ${response!!.message()}")
                     println("12113 data  : ${response!!.body()!!.status}")
-                    mypage_tour_adpater = MypageTourAdapter(context!!, infoList = mypage_tour_list)
-                    mypage_tour_adpater.setOnItemClickListener(this@TourDestinationFragment)
-                    mypage_destination_recyclerview.setHasFixedSize(true)
-                    mypage_destination_recyclerview.layoutManager = GridLayoutManager(activity, 2)
-                    mypage_destination_recyclerview.adapter = mypage_tour_adpater
 
+                    if(response!!.body()!!.data.size != 0) {
+                        tourSpotLayout.visibility = View.GONE
+
+                        mypage_tour_list = response!!.body()!!.data
+                        mypage_tour_adpater = MypageTourAdapter(context!!, infoList = mypage_tour_list)
+                        mypage_tour_adpater.setOnItemClickListener(this@TourDestinationFragment)
+                        mypage_destination_recyclerview.setHasFixedSize(true)
+                        mypage_destination_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+                        mypage_destination_recyclerview.adapter = mypage_tour_adpater
+                    }
 
                 }else{
                     Log.v("11600 : ",response!!.message())

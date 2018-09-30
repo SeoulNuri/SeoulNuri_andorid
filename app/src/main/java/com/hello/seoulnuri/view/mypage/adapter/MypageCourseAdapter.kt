@@ -43,7 +43,10 @@ class MypageCourseAdapter(var context: Context, var infoList: ArrayList<MypageBo
     override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
         //val item = infoList[i]
 
-        Glide.with(context).load(infoList[position].course_idx).into(viewHolder.tour_image)
+        if(infoList[position].course_card_img == null)
+            Glide.with(context).load(R.drawable.card_graphic_none).into(viewHolder.tour_image)
+        else
+            Glide.with(context).load(infoList[position].course_card_img).into(viewHolder.tour_image)
 
         viewHolder.title.text = infoList[position].course_name
         viewHolder.ratingBar.rating = infoList[position].course_star.toFloat()

@@ -7,7 +7,6 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:background="@drawable/img_main_gyeongbok"
         android:id="@+id/mainImageView"
         android:layout_width="match_parent"
         android:layout_height="365dp" />
@@ -57,7 +56,7 @@
         android:textSize="10sp"
         android:textColor="#ffffff"
         android:text="서울 종로구 사직로 161 경복궁" />
-
+<!--
     <TextView
         android:textStyle="bold"
         android:id="@+id/summaryTextView"
@@ -69,7 +68,7 @@
         android:textColor="#ffffff"
         android:letterSpacing="-0.01"
         android:text="역사의 한 장면으로,"
-        />
+        /> -->
 
     <TextView
         android:textStyle="bold"
@@ -128,7 +127,7 @@
                 android:layout_width="212dp"
                 android:layout_height="152dp">
                 <ImageButton
-                    android:background="@drawable/img_main_ddp"
+                    android:background="#ffffff"
                     android:id="@+id/courseContentImageButton1"
                     android:layout_width="212dp"
                     android:layout_height="152dp" />
@@ -164,7 +163,7 @@
                 android:layout_width="212dp"
                 android:layout_height="152dp">
                 <ImageButton
-                    android:background="@drawable/img_main_ddp"
+                    android:background="#ffffff"
                     android:id="@+id/courseContentImageButton2"
                     android:layout_width="212dp"
                     android:layout_height="152dp" />
@@ -200,7 +199,7 @@
                 android:layout_width="212dp"
                 android:layout_height="152dp">
                 <ImageButton
-                    android:background="@drawable/img_main_ddp"
+                    android:background="#ffffff"
                     android:id="@+id/courseContentImageButton3"
                     android:layout_width="212dp"
                     android:layout_height="152dp" />
@@ -236,7 +235,7 @@
                 android:layout_width="212dp"
                 android:layout_height="152dp">
                 <ImageButton
-                    android:background="@drawable/img_main_ddp"
+                    android:background="#ffffff"
                     android:id="@+id/courseContentImageButton4"
                     android:layout_width="212dp"
                     android:layout_height="152dp" />
@@ -266,7 +265,7 @@
                     android:textColor="#ffffff"
                     android:text="서울시 중구 을지로 281" />
             </RelativeLayout>
-            <RelativeLayout
+<!--            <RelativeLayout
                 android:layout_marginLeft="8dp"
                 android:id="@+id/courseContentRelativeLayout5"
                 android:layout_width="212dp"
@@ -302,6 +301,7 @@
                     android:textColor="#ffffff"
                     android:text="서울시 중구 을지로 281" />
             </RelativeLayout>
+            -->
         </LinearLayout>
     </HorizontalScrollView>
 

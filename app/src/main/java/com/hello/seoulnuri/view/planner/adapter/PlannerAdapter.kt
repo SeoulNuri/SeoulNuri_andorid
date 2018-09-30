@@ -3,6 +3,7 @@ package com.hello.seoulnuri.view.planner.adapter
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,10 +47,16 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
     override fun getItemCount(): Int = item_list.size
 
     override fun onBindViewHolder(holder: PlannerViewHolder, position: Int) {
-        var date = item_list[position].date_month+"월 "+item_list[position].date_day+"일"
+        var date = item_list[position].date_month + "월 " + item_list[position].date_day + "일"
 
         holder.date_text.text = date
+        if (item_list[position].tour_name.length >= 10)
+            holder.location_text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 13.toFloat())
+        else
+            holder.location_text.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.toFloat())
+
         holder.location_text.text = item_list[position].tour_name
+
         if (check == 1) {
             holder.deleteBtn.visibility = View.VISIBLE
 
@@ -66,28 +73,28 @@ class PlannerAdapter(var item_list: ArrayList<PlannerGetData>, var context: Cont
         }
     }
 
-    fun deletePlanner(idx : Int){
+    fun deletePlanner(idx: Int) {
 
-        var token = SharedPreference.instance!!.getPrefStringData("data","")!!
+        var token = SharedPreference.instance!!.getPrefStringData("data", "")!!
         var deleteIndex = item_list[idx].plan_idx
         var plannerDeleteRequest = PlannerDeleteRequest(deleteIndex);
-        var plannerDeleteResponse = networkService.deletePlanner(token,plannerDeleteRequest)
+        var plannerDeleteResponse = networkService.deletePlanner(token, plannerDeleteRequest)
 
         plannerDeleteResponse.enqueue(object : Callback<PlannerDeleteResponse> {
             override fun onFailure(call: Call<PlannerDeleteResponse>?, t: Throwable?) {
-                Log.v("yong",t!!.message)
+                Log.v("yong", t!!.message)
             }
 
             override fun onResponse(call: Call<PlannerDeleteResponse>?, response: Response<PlannerDeleteResponse>?) {
-                if(response!!.isSuccessful){
+                if (response!!.isSuccessful) {
 
-                    Log.v("yong","hhhhhhhhhhh")
+                    Log.v("yong", "hhhhhhhhhhh")
 
-                    Log.v("yong",response!!.body()!!.message!!)
+                    Log.v("yong", response!!.body()!!.message!!)
                     item_list.removeAt(idx)
                     notifyDataSetChanged()
 
-                } else{
+                } else {
 
                 }
             }

@@ -62,7 +62,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
         mMap!!.addMarker(markerOptions)
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(SEOUL))
-        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(15f))
         ToastMaker.makeLongToast(this, "MyLocation button clicked")
         return false
     }

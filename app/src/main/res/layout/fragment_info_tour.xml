@@ -145,13 +145,13 @@
     <RelativeLayout
         android:id="@+id/filter_layout"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="120dp"
         android:visibility="gone">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/filter_list"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:orientation="horizontal"
              />
 
@@ -160,14 +160,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/filter_list"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="8dp"
             android:background="#eeeeee" />
 
 
         <RelativeLayout
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_below="@+id/filter_line"
             android:orientation="horizontal"
             android:layout_marginRight="24dp">
@@ -188,7 +187,7 @@
                 android:id="@+id/filter_search_icon"
                 android:layout_width="13dp"
                 android:layout_height="13dp"
-                android:layout_alignParentBottom="true"
+                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/ic_search_filter"
                 />
@@ -204,7 +203,7 @@
         android:id="@+id/info_tour_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

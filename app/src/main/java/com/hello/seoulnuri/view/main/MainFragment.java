@@ -171,6 +171,7 @@ public class MainFragment extends Fragment {
                         tourData2[i] = response.body().getData().getReco_tour().get(i);
                     }
 
+
                     if (tourData2[0].getTour_card_img().equals("없음"))
                         imageButton1.setImageResource(R.drawable.card_main_none);
                     else

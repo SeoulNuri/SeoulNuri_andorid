@@ -1,5 +1,6 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
@@ -39,14 +40,17 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
         requestInfoFaultData()
 
     }
+    lateinit var progressDialog : ProgressDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour_fault, container, false)
         //init()
+        progressDialog = ProgressDialog(context,R.style.AppCompatAlertDialogStyle)
 
         return view
     }
 
     fun requestInfoFaultData(){
+        //createDialog()
         val responseInfoFault = networkService
                 .getInfoTourFault(SharedPreference.instance!!.getPrefStringData("data")!!
                         , SharedPreference.instance!!.getPrefIntegerData("tour_idx"))
@@ -58,6 +62,7 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
 
             override fun onResponse(call: Call<InfoTourFaultResponse>?, response: Response<InfoTourFaultResponse>?) {
                 if(response!!.isSuccessful){
+
                     accessibility = response!!.body()!!.data.tour_bottom.accessibility
 
                     classification(accessibility)
@@ -83,10 +88,21 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
                     * 나머지 시각, 청각, 지체, 노인 부분들은 서버에서 값 넣어주면 그거 보고 뿌리면 됨!!
                     * */
                     //Log.v("12244 woo",response!!.body()!!.data.common.toString())
+
                 }
             }
 
         })
+        //progressDialog.dismiss()
+    }
+    fun createDialog() {
+        //dialog.setTitle("Loading ...")
+        Log.v("woo 816","들어오니??")
+        progressDialog.setMessage("Please waiting ...")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+        //val handler = Handler()
+
     }
 
     fun classification(access : Accessibility){

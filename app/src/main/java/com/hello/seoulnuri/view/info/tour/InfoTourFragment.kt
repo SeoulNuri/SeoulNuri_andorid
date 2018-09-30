@@ -158,7 +158,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     filterItems[index_position].filter_status = !filterItems[index_position].filter_status
                     filterAdapter.notifyDataSetChanged()
                     //ToastMaker.makeShortToast(context!!, index_position.toString())
-                } else if (v!!.id == 2131296346) {
+                } else {
                     Log.v("124", "관광 누름")
                     val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)
                     Log.v("124-1", "${index_tour_position}")

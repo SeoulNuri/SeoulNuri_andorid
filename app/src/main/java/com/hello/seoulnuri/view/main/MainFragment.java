@@ -169,8 +169,11 @@ public class MainFragment extends Fragment {
                     final TourData2 tourData2[] = new TourData2[5];
                     for (int i=0; i<4; i++) {
                         tourData2[i] = response.body().getData().getReco_tour().get(i);
+                        System.out.printf("response 확인 %s",String.valueOf(response.body().getData().getReco_tour().get(i).getTour_card_image()));
+                        System.out.println(tourData2[i].toString());
                     }
 
+                    System.out.printf("woo main frag %s",tourData2[0].getTour_card_image().toString());
                     if (tourData2[0].getTour_card_image().equals("없음"))
                         imageButton1.setImageResource(R.drawable.card_main_none);
                     else

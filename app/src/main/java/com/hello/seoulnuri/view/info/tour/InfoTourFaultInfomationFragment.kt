@@ -50,6 +50,7 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
     }
 
     fun requestInfoFaultData(){
+        //createDialog()
         val responseInfoFault = networkService
                 .getInfoTourFault(SharedPreference.instance!!.getPrefStringData("data")!!
                         , SharedPreference.instance!!.getPrefIntegerData("tour_idx"))
@@ -61,7 +62,7 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
 
             override fun onResponse(call: Call<InfoTourFaultResponse>?, response: Response<InfoTourFaultResponse>?) {
                 if(response!!.isSuccessful){
-                    createDialog()
+
                     accessibility = response!!.body()!!.data.tour_bottom.accessibility
 
                     classification(accessibility)
@@ -87,14 +88,16 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
                     * 나머지 시각, 청각, 지체, 노인 부분들은 서버에서 값 넣어주면 그거 보고 뿌리면 됨!!
                     * */
                     //Log.v("12244 woo",response!!.body()!!.data.common.toString())
-                    progressDialog.dismiss()
+
                 }
             }
 
         })
+        //progressDialog.dismiss()
     }
     fun createDialog() {
         //dialog.setTitle("Loading ...")
+        Log.v("woo 816","들어오니??")
         progressDialog.setMessage("Please waiting ...")
         progressDialog.setCanceledOnTouchOutside(false)
         progressDialog.show()

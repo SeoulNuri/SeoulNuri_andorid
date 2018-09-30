@@ -86,6 +86,7 @@ class InfoTourUseFragment : Fragment(), Init {
 
     fun createDialog() {
         //dialog.setTitle("Loading ...")
+        Log.v("woo 816","들어오니??")
         progressDialog.setMessage("Please waiting ...")
         progressDialog.setCanceledOnTouchOutside(false)
         progressDialog.show()

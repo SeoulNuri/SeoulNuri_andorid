@@ -27,9 +27,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener, Init {
         when (v!!) {
             login_kakao_custom_btn -> {
                 ToastMaker.makeShortToast(this, "로그인")
+                // 토큰이 비어있지 않으면 즉, 있으면 회원이니까
                 if(!SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()){
                     redirectLoginCategory()
-
                 }else{
                     login_kakao_btn.performClick()
                 }

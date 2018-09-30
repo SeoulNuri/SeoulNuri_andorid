@@ -179,7 +179,7 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[0].getTour_idx());
+                            intent.putExtra("index", tourData2[0].getTour_idx());
                             startActivity(intent);
                         }
                     });
@@ -192,7 +192,7 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[1].getTour_idx());
+                            intent.putExtra("index", tourData2[1].getTour_idx());
                             startActivity(intent);
                         }
                     });
@@ -205,7 +205,7 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[2].getTour_idx());
+                            intent.putExtra("index", tourData2[2].getTour_idx());
                             startActivity(intent);
                         }
                     });
@@ -218,7 +218,7 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", tourData2[3].getTour_idx());
+                            intent.putExtra("index", tourData2[3].getTour_idx());
                             startActivity(intent);
                         }
                     });
@@ -252,7 +252,7 @@ public class MainFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getContext(), InfoTourDetailActivity.class);
-                            intent.putExtra("tour_idx", response.body().getData().getRand_tour().getTour_idx());
+                            intent.putExtra("index", response.body().getData().getRand_tour().getTour_idx());
                             startActivity(intent);
                         }
                     });

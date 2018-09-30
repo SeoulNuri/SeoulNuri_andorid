@@ -1,8 +1,12 @@
 package com.hello.seoulnuri.view.info.tour
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -20,9 +24,11 @@ import com.hello.seoulnuri.network.ApplicationController
 import com.hello.seoulnuri.network.NetworkService
 import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
+import com.hello.seoulnuri.utils.custom.BookmarkDialog
 import com.hello.seoulnuri.view.info.adapter.FilterAdapter
 import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.main.MainActivity
+import kotlinx.android.synthetic.main.activity_info_tour_detail.*
 import kotlinx.android.synthetic.main.fragment_info_tour.*
 import kotlinx.android.synthetic.main.fragment_info_tour.view.*
 import retrofit2.Call
@@ -143,6 +149,10 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                 Log.v("221 woo search", temp.toString())
                 Log.v("221 woo search", handi_type.toString())
                 requestInfoTour(handi_type,temp)
+                createDialog()
+
+
+
 
 
             }
@@ -178,6 +188,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         }
     }
 
+    lateinit var progressDialog : ProgressDialog
     fun removeFilterItem(type: Int) {
         when (type) {
             2 -> { // 3개
@@ -331,13 +342,28 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         filter.add(99)
         requestInfoTour(handi_types,filter)
     }
+
+    fun createDialog(){
+        //dialog.setTitle("Loading ...")
+        progressDialog.setMessage("Please wait ...")
+        progressDialog.setCanceledOnTouchOutside(false)
+        progressDialog.show()
+        val handler = Handler()
+
+        handler.postDelayed({
+            progressDialog.dismiss()
+
+        }, 1000)
+
+
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_info_tour, container, false)
         init(view)
         //checkStatus = information_toggle_eye.isSelected || information_toggle_ear.isSelected || information_toggle_wheel.isSelected || information_toggle_elder.isSelected
 
         filterItems = ArrayList()
-
+        progressDialog = ProgressDialog(context!!,R.style.AppCompatAlertDialogStyle)
         //handi_types.add(9)
         //filter.add(99)
         //requestInfoTour(handi_types,filter)
@@ -372,8 +398,8 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
 
         Log.v("130", handi_types.toString())
         Log.v("130", filter.toString())
-        println("130, 장애유형 ${handi_types}")
-        println("130, 필터링 ${filter}")
+        println("130, 장애유형 ${handi}")
+        println("130, 필터링 ${filtering}")
         var infoTourResponse = networkService
                 .getInfoTour(SharedPreference.instance!!.getPrefStringData("data")!!, handi.toString(), filtering.toString())
 
@@ -385,6 +411,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
             override fun onResponse(call: Call<InfoTourResponse>?, response: Response<InfoTourResponse>?) {
                 if (response!!.code() == 200) {
                     //Log.v("11599 : ",response!!.body()!!.data.size.toString())
+
                     info_tour_list = response!!.body()!!.data
                     println("11599 data size : ${response!!.body()!!.data.size}")
                     println("11599 data message : ${response!!.message()}")
@@ -398,8 +425,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     gridLayoutManager.s*/
                     info_tour_recyclerview.layoutManager = GridLayoutManager(activity!!, 2)
                     info_tour_recyclerview.adapter = info_tour_adpater
-
-
+                    info_tour_adpater.notifyDataSetChanged()
 
 
                 } else {

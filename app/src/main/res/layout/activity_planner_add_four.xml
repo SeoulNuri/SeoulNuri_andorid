@@ -72,7 +72,7 @@
                 android:letterSpacing="-0.01"
                 android:text="08월"
                 android:textColor="@color/pinkish_orange"
-                android:textSize="32sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/planner_add_four_day"

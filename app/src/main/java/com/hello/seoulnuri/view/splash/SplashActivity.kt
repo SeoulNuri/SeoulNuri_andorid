@@ -16,7 +16,7 @@ import com.hello.seoulnuri.view.login.LoginActivity
 class SplashActivity : AppCompatActivity(), Init {
     override fun init() {
         SharedPreference.instance!!.load(this)
-        SharedPreference.instance!!.setPrefData("data", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MDg3OTE3NjYiLCJpYXQiOjE1MzgxMzAyNTh9.pddISypk5gFBFANJe3vItG4d7r3G-7Ctir3isdSbF_w")
+        //SharedPreference.instance!!.setPrefData("data", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrYWthb19pZHgiOiI5MDg3OTE3NjYiLCJpYXQiOjE1MzgxMzAyNTh9.pddISypk5gFBFANJe3vItG4d7r3G-7Ctir3isdSbF_w")
         //Log.v("613 woo", SharedPreference.instance!!.getPrefStringData("data"))
     }
 
@@ -48,9 +48,6 @@ class SplashActivity : AppCompatActivity(), Init {
 
         handler.postDelayed({
 
-
-            startActivity(intent)
-            finish()
             if (SharedPreference.instance!!.getPrefStringData("data")!!.isEmpty()) {
                 Log.v("yong login", SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(intent)
@@ -59,6 +56,7 @@ class SplashActivity : AppCompatActivity(), Init {
             } else {
                 Log.v("yong main", SharedPreference.instance!!.getPrefStringData("data"))
                 startActivity(Intent(this, MainActivity::class.java))
+                finish()
 
             }
 

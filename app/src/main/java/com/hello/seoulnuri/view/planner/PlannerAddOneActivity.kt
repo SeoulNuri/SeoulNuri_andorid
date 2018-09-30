@@ -110,7 +110,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
                 val gray = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
                 val color = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
-                val main = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+                val main = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select_map)
 
 
                 var marker_idx = SharedPreference.instance!!.getPrefIntegerData("marker_idx")
@@ -175,7 +175,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             //mapFragment!!.getMapAsync(this)
 
 
-            val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select)
+            val main_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot_select_map)
             val sub_icon = BitmapDescriptorFactory.fromResource(R.drawable.button_spot)
 
 
@@ -279,7 +279,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
 
-    var mCoder:Geocoder = Geocoder(this,Locale.KOREAN)
+    var mCoder:Geocoder? = null
     var place: String = ""
     lateinit var tourIdxArray : ArrayList<Int>
     lateinit var tourNameArray : ArrayList<String>
@@ -308,6 +308,8 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_one)
+
+        mCoder = Geocoder(this,Locale.KOREAN)
 
         SharedPreference.instance!!.load(this)
         networkService = ApplicationController.instance!!.networkService
@@ -370,7 +372,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         var loc: LatLng? = null
 
         try {
-            addr = mCoder.getFromLocationName(place, 5)
+            addr = mCoder!!.getFromLocationName(place, 5)
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -395,7 +397,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             val d1 = dragPosition.latitude
             val d2 = dragPosition.longitude
 
-            list = mCoder.getFromLocation(
+            list = mCoder!!.getFromLocation(
                     d1,
                     d2,
                     10)

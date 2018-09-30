@@ -9,7 +9,7 @@ data class CourseMapSubData (
         var tour_idx : Int,
         var lat : Double,
         var lang : Double,
-        var img : Int,
+        var img : String,
         var addr : String,
         var title : String
 ) :Serializable

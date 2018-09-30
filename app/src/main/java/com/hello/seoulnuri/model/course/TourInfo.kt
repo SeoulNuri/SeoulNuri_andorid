@@ -6,6 +6,11 @@ package com.hello.seoulnuri.model.course
 data class TourInfo (
         var tour_idx : Int,
         var tour_name : String,
-        var tour_image : String,
-        var tour_info_detail : String
+        var tour_addr : String,
+        var tour_info : String,
+        var tour_info_detail : String,
+        var tour_info_img : String,
+        var tour_planner_img : String,
+        var tour_latitude : Double,
+        var tour_longitude : Double
 )

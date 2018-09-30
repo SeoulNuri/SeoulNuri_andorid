@@ -43,7 +43,6 @@ open class InfoTourIntroduceFragment : Fragment() {
         abstract fun setData(introImage: String, introContent: String)
     }
 
-
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 

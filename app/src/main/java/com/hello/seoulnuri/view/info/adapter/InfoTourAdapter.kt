@@ -42,8 +42,8 @@ class InfoTourAdapter(var context: Context, var infoList: ArrayList<InfoTourResp
     override fun onBindViewHolder(viewHolder: ItemViewHolder, position: Int) {
         //val item = infoList[i]
 
-        if(infoList[position].tour_card_img == null)
-            Glide.with(context).load(R.drawable.img_jw).into(viewHolder.tour_image)
+        if(infoList[position].tour_card_img == "없음")
+            Glide.with(context).load(R.drawable.card_graphic_none).into(viewHolder.tour_image)
         else
             Glide.with(context).load(infoList[position].tour_card_img).into(viewHolder.tour_image)
 

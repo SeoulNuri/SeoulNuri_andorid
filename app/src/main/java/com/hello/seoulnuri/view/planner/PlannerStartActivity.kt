@@ -9,8 +9,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.model.planner.PlannerSearchRequest
 import com.hello.seoulnuri.model.planner.PlannerSearchResponse
@@ -62,7 +60,6 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
             if(resultCode== 100){
                 search_auto_text.setText(data!!.getStringExtra("result"))
             }
@@ -89,29 +86,7 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
         planner_searchBtn.setOnClickListener(this)
     }
 
-    fun autoInit() {
-        val colors = arrayOf(
-                "Red", "Green", "Blue", "Maroon", "Magenta",
-                "Gold", "GreenYellow"
-        )
 
-        val adapter = ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_dropdown_item_1line,
-                colors
-        )
-
-        search_auto_text.setAdapter(adapter)
-
-        search_auto_text.threshold = 1
-
-        search_auto_text.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            val selectedItem = parent.getItemAtPosition(position).toString()
-
-            search_auto_text.text = Editable.Factory.getInstance().newEditable(selectedItem)
-
-        }
-    }
 
     internal var mNow: Long = 0
     internal var mDate = Date(mNow)
@@ -121,8 +96,8 @@ class PlannerStartActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_start)
+
         init()
-        autoInit()
 
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(this)

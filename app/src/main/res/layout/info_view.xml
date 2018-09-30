@@ -30,11 +30,12 @@
             android:layout_marginLeft="8dp"
             android:letterSpacing="-0.01"
             android:textColor="#212121"
-            android:textSize="9pt"
+            android:textSize="14sp"
             tools:text="경복궁" />
 
         <LinearLayout
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_infotitle"
@@ -43,10 +44,10 @@
 
             <RatingBar
                 android:id="@+id/rb_info"
-                style="@style/custom_rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="11dp"
-
+                android:layout_height="13dp"
                 android:isIndicator="true" />
 
             <TextView
@@ -56,7 +57,7 @@
                 android:layout_marginLeft="01dp"
                 android:letterSpacing="-0.01"
                 android:textColor="#9e9e9e"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 tools:text="(21)" />
 
 

@@ -41,6 +41,8 @@
             android:textSize="18sp" />
 
 
+
+
         <ImageButton
             android:id="@+id/searchCancelBtn"
             android:layout_width="wrap_content"
@@ -49,6 +51,18 @@
             android:layout_marginLeft="20dp"
             android:background="@drawable/ic_cancel"
             android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/searchBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center_vertical"
+            android:letterSpacing="-0.01"
+            android:text="검색"
+            android:textColor="@color/pinkish_orange"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -63,18 +77,10 @@
         android:textColor="@color/pinkish_orange"
         android:textSize="13sp" />
 
-    <TextView
-        android:id="@+id/searchBtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="32dp"
-        android:letterSpacing="-0.01"
-        android:text="검색"
-        android:textColor="@color/pinkish_orange"
-        android:textSize="13sp" />
+
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="6dp"
         android:id="@+id/searchRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -8,6 +8,6 @@ data class PlannerPathData(
         var plannerNumber: Int,
         var plannerLocation: String,
         var plannerAddress: String,
-        var plannerRating: Int,
+        var plannerRating: Double,
         var plannerReviewCount: Int
 )

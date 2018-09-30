@@ -99,8 +99,28 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                 if (tourNameArray.size == 0) {
                     ToastMaker.makeShortToast(this, "여행 경로를 추가해주세요.")
                 } else {
+
+                    tourStarArray = DoubleArray(tourIdxArray.size)
+
+                    for(i in 0..tourIdxArray.size-1){
+                        var idx = tourIdxArray[i]
+                        for(j in 0..markerItems.size-1){
+                            if(markerItems[j].tour_idx == idx){
+                                //Log.v("yong","matching:"+markerItems[j].tour_addr)
+                                tourAddrArray.add(markerItems[j].tour_addr)
+                                tourStarArray[i] = (markerItems[j].tour_star)
+                                tourStarCountArray.add(markerItems[j].tour_star_count)
+
+                                //
+                            }
+                        }
+                    }
+
                     intent.putIntegerArrayListExtra("tourIdxArr",tourIdxArray)
                     intent.putStringArrayListExtra("tourNameArr",tourNameArray)
+                    intent.putStringArrayListExtra("tourAddrArr",tourAddrArray)
+                    intent.putExtra("tourStarArr",tourStarArray)
+                    intent.putIntegerArrayListExtra("tourStarCountArr",tourStarCountArray)
                     startActivity(intent)
                     finish()
                 }
@@ -142,6 +162,9 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
                         }
                     }
                 }
+
+
+
 
 
                 if(tourIdxArray.size >0)
@@ -283,6 +306,9 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
     var place: String = ""
     lateinit var tourIdxArray : ArrayList<Int>
     lateinit var tourNameArray : ArrayList<String>
+    lateinit var tourAddrArray : ArrayList<String>
+    lateinit var tourStarArray : DoubleArray
+    lateinit var tourStarCountArray : ArrayList<Int>
 
     var SEOUL: LatLng? = null
     val Gyeonghui_Palace: LatLng = LatLng(37.570369, 126.969009)
@@ -317,6 +343,9 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
         planner_add_one_spot_plus_btn.setOnClickListener(this)
         tourIdxArray = ArrayList()
         tourNameArray = ArrayList()
+        tourAddrArray = ArrayList()
+
+        tourStarCountArray = ArrayList()
 
         getPlannerImage()
 

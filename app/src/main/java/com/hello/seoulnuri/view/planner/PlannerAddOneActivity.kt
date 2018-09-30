@@ -120,7 +120,7 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
 
 
             var token = SharedPreference.instance!!.getPrefStringData("data","")!!
-            var plannerArroundResponse = networkService.getPlannerArround(token,6);
+            var plannerArroundResponse = networkService.getPlannerArround(token,SharedPreference.instance!!.getPrefIntegerData("search_tour_idx",10));
 
 
             plannerArroundResponse.enqueue(object : Callback<PlannerArroundResponse> {
@@ -164,28 +164,6 @@ class PlannerAddOneActivity : AppCompatActivity(), OnMapReadyCallback, View.OnCl
             list.add(marker_seoul)
 
 
-
-//
-//            marker_Gyeonghui_Palace = mMap!!.addMarker(MarkerOptions()
-//                            .position(Gyeonghui_Palace)
-//                            .title("경희궁")
-//                            .snippet("우리나라꺼")
-//                            .icon(sub_icon))
-//            list.add(marker_Gyeonghui_Palace)
-//
-//            marker_Horyu_Station = mMap!!.addMarker(MarkerOptions()
-//                    .position(Chungjeongno_Station)
-//                    .title("충정로역")
-//                    .snippet("지하철역")
-//                    .icon(sub_icon))
-//            list.add(marker_Horyu_Station)
-//
-//            marker_Hyehwa_Station = mMap!!.addMarker(MarkerOptions()
-//                    .position(City_Hall_Station)
-//                    .title("덕수궁")
-//                    .snippet("우리나라꺼")
-//                    .icon(sub_icon))
-//            list.add(marker_Hyehwa_Station)
 
             for (i in 0..list.size-1){
                 Log.v("Marker : ",list[i].title)

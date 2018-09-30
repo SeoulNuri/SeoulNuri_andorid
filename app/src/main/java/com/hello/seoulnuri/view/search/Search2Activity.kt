@@ -47,7 +47,23 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                 searchText.text = "즐겨찾기"
             }
             searchBtn->{
-                val resultText = searchContentEditText.text.toString()
+
+
+
+
+                //startActivity(intent)
+                requestSearchResponse(searchContentEditText.text.toString())
+            }
+            v!!->{
+
+
+
+                val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
+                ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
+                SharedPreference.instance!!.setPrefData("search_tour_idx",bookmarkListItems[itemListIndex].tour_idx)
+
+
+                val resultText = bookmarkListItems[itemListIndex].tour_name
 
                 if(intent.getStringExtra("from")!=null){
                     val intent = Intent(this, PlannerStartActivity::class.java)
@@ -58,14 +74,6 @@ class Search2Activity : AppCompatActivity(), Init, View.OnClickListener, TextVie
                     Log.v("yong","elseselsleslels")
                 }
 
-
-
-                //startActivity(intent)
-                requestSearchResponse(searchContentEditText.text.toString())
-            }
-            v!!->{
-                val itemListIndex = searchRecyclerView.getChildAdapterPosition(v!!)
-                ToastMaker.makeLongToast(this, bookmarkListItems[itemListIndex].tour_idx.toString())
             }
         }
     }

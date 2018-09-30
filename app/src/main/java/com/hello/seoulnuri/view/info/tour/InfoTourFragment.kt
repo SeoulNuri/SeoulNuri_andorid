@@ -357,7 +357,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
         view.info_tour_recyclerview.layoutManager = GridLayoutManager(activity,2)
         view.info_tour_recyclerview.adapter = info_tour_adpater
         val spanCount = 2 // 3 columns
-        val spacing = 50 // 50px
+        val spacing = 30 // 50px
         val includeEdge = true
         view.info_tour_recyclerview.addItemDecoration(GridSpacingItemDecoration(spanCount, spacing, includeEdge))
 
@@ -394,7 +394,9 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     info_tour_adpater = InfoTourAdapter(context!!, infoList = info_tour_list)
                     info_tour_adpater.setOnItemClickListener(this@InfoTourFragment)
                     info_tour_recyclerview.setHasFixedSize(true)
-                    info_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+                    /*var gridLayoutManager : GridLayoutManager = GridLayoutManager(activity, 2)
+                    gridLayoutManager.s*/
+                    info_tour_recyclerview.layoutManager = GridLayoutManager(activity!!, 2)
                     info_tour_recyclerview.adapter = info_tour_adpater
 
 

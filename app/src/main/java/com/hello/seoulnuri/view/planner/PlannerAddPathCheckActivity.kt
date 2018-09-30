@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.hello.seoulnuri.R
 import com.hello.seoulnuri.base.Init
 import com.hello.seoulnuri.model.PlannerPathData
+import com.hello.seoulnuri.utils.SharedPreference
 import com.hello.seoulnuri.utils.ToastMaker
 import com.hello.seoulnuri.view.planner.adapter.PlannerPathAdapter
 import kotlinx.android.synthetic.main.activity_planner_add_path_check.*
@@ -26,10 +27,17 @@ import java.util.*
 class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Init, GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, View.OnClickListener {
     override fun onClick(v: View?) {
-        when(v!!){
-            planner_path_complete_btn->{
-                startActivity(Intent(this, PlannerAddFourActivity::class.java))
+        when (v!!) {
+            planner_path_complete_btn -> {
+                var intent = Intent(this, PlannerAddFourActivity::class.java)
+                intent.putIntegerArrayListExtra("tourIdxArr", tourIdxArr)
+
+
+                intent.putExtra("firstLocation", tourNameArr.get(0))
+                intent.putExtra("lastLocation", tourNameArr.get(tourNameArr.size - 1))
+                startActivity(intent)
                 finish()
+
             }
         }
     }
@@ -56,8 +64,11 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
     }
 
     override fun init() {
+        SharedPreference.instance!!.load(this)
         pathMapFragment = supportFragmentManager.findFragmentById(R.id.planner_add_path_map) as SupportMapFragment
         planner_path_complete_btn.setOnClickListener(this)
+        sliding_plan_date.text = SharedPreference.instance!!.getPrefStringData("plan_date")
+
     }
 
     override fun onMyLocationButtonClick(): Boolean {
@@ -81,11 +92,11 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
 
     lateinit var plannerPathAdapter: PlannerPathAdapter
     lateinit var item_list: ArrayList<PlannerPathData>
-    lateinit var pathMapFragment : SupportMapFragment
-    private var pathGoogleMap : GoogleMap? = null
+    lateinit var pathMapFragment: SupportMapFragment
+    private var pathGoogleMap: GoogleMap? = null
 
-    lateinit var tourIdxArr : ArrayList<Int>
-    lateinit var tourNameArr : ArrayList<String>
+    lateinit var tourIdxArr: ArrayList<Int>
+    lateinit var tourNameArr: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_path_check)
@@ -99,11 +110,10 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
 
         item_list = ArrayList()
 
-        for(i in 0..tourIdxArr.size-1){
+        for (i in 0..tourIdxArr.size - 1) {
 
-            item_list.add(PlannerPathData("",i+1,tourNameArr[i],"",3,0))
+            item_list.add(PlannerPathData("", i + 1, tourNameArr[i], "", 3, 0))
         }
-
 
 
 //        item_list.add(PlannerPathData("5분", 1, "경복궁"

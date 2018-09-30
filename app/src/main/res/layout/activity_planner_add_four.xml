@@ -31,7 +31,7 @@
 
     <RelativeLayout
         android:layout_width="312dp"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="57dp"
         android:background="@drawable/card_planner_size">
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
-                android:text="14일"
+                android:text=""
                 android:textColor="@color/pinkish_orange"
                 android:textSize="32sp" />
 
@@ -105,7 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="116dp"
+                android:layout_marginLeft="126dp"
                 android:letterSpacing="-0.01"
                 android:text="마지막 여행지"
                 android:textColor="#aeaeae"
@@ -121,7 +121,7 @@
 
             <TextView
                 android:id="@+id/planner_add_four_start_location"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:letterSpacing="-0.01"
                 android:text="경복궁"
@@ -131,17 +131,17 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
+                android:layout_marginLeft="18dp"
                 android:layout_toRightOf="@+id/planner_add_four_start_location"
                 android:src="@drawable/ic_walkingman" />
 
             <TextView
                 android:id="@+id/planner_add_four_end_location"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:gravity="end"
+                android:gravity="start"
                 android:letterSpacing="-0.01"
                 android:text="갤러리룩스"
                 android:textColor="#212121"
@@ -150,6 +150,7 @@
 
         <LinearLayout
             android:id="@+id/planner_add_four_time_layout"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/planner_add_four_location_layout"
@@ -183,14 +184,14 @@
             android:layout_height="5dp"
             android:layout_below="@+id/planner_add_four_time_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="38dp"
+
             android:layerType="software"
             android:src="@drawable/dot" />
 
         <RelativeLayout
             android:id="@+id/planner_add_four_finish_btn"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_below="@id/planner_add_four_dot">
 
             <TextView

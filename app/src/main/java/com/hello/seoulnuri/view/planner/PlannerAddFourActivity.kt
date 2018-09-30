@@ -29,13 +29,14 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
                 var plan_date = SharedPreference.instance!!.getPrefStringData("plan_date","")!!
                 var list = ArrayList<Int>()
 
-                list.add(10)
+
+           /*     list.add(10)
                 list.add(11)
-                list.add(12)
+                list.add(12)*/
 
-                Log.v("yong",list.toString())
+                //Log.v("yong",list.toString())
 
-                addPlanner(plan_date,list.toString())
+                addPlanner(plan_date,tourIndexArr.toString())
                 //addPlanner("2018-07-11",list)
 
 
@@ -52,12 +53,19 @@ class PlannerAddFourActivity : AppCompatActivity(), Init, View.OnClickListener {
         planner_add_four_finish_btn.setOnClickListener(this)
         networkService = ApplicationController.instance!!.networkService
         SharedPreference.instance!!.load(this)
+        tourIndexArr = ArrayList()
+        tourIndexArr = intent.getIntegerArrayListExtra("tourIdxArr")
+        planner_add_four_start_location.text = intent.getStringExtra("firstLocation")
+        planner_add_four_end_location.text = intent.getStringExtra("lastLocation")
+        planner_add_four_month.text = SharedPreference.instance!!.getPrefStringData("plan_date")
     }
 
+    lateinit var tourIndexArr : ArrayList<Int>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_four)
         init()
+
 
     }
 

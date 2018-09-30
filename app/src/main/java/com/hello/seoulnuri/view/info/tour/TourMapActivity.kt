@@ -118,8 +118,8 @@ class TourMapActivity : AppCompatActivity(), OnMapReadyCallback, Init, View.OnCl
                     .icon(main_icon)
 
             mMap!!.addMarker(markerOptions)
-            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(Gyeonghui_Palace))
-            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(10f))
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLng(location))
+            mMap!!.animateCamera(CameraUpdateFactory.zoomTo(20f))
 
             mMap!!.setOnMyLocationButtonClickListener(this)
             mMap!!.setOnMyLocationClickListener(this)

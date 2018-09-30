@@ -12,11 +12,10 @@ data class MainRecoTourData(
 
 data class TourData(
         var tour_idx : Int,
-        var handi_type : Int,
         var tour_name : String,
         var tour_addr : String,
         var tour_info : String,
-        var tour_image : String,
+        var tour_card_img : String,
         var tour_star : Double,
         var tour_star_count : Int
 )
@@ -26,7 +25,7 @@ data class TourData2(
         var tour_name : String,
         var tour_addr : String,
         var tour_info : String,
-        var tour_image : String,
+        var tour_card_image : String,
         var tour_star : Double,
         var tour_star_count : Int
 )

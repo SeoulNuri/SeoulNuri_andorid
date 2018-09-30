@@ -25,6 +25,7 @@ import com.hello.seoulnuri.view.info.adapter.InfoTourAdapter
 import com.hello.seoulnuri.view.info.tour.InfoTourDetailActivity
 import com.hello.seoulnuri.view.mypage.adapter.MypageCourseAdapter
 import kotlinx.android.synthetic.main.fragment_info_tour.*
+import kotlinx.android.synthetic.main.fragment_tour_destination.*
 import kotlinx.android.synthetic.main.fragment_tour_info.*
 import kotlinx.android.synthetic.main.fragment_tour_info.view.*
 import retrofit2.Call
@@ -83,12 +84,16 @@ open class TourCourseFragment : Fragment(), Init, View.OnClickListener {
                     println("12112 data size : ${response!!.body()!!.data.size}")
                     println("12112 data message : ${response!!.message()}")
                     println("12112 data  : ${response!!.body()!!.status}")
-                    info_course_adpater = MypageCourseAdapter(context!!, infoList = info_course_list)
-                    info_course_adpater.setOnItemClickListener(this@TourCourseFragment)
-                    mypage_tour_recyclerview.setHasFixedSize(true)
-                    mypage_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
-                    mypage_tour_recyclerview.adapter = info_course_adpater
 
+                    if(response!!.body()!!.data.size != 0) {
+                        tourCourseLayout.visibility = View.GONE
+
+                        info_course_adpater = MypageCourseAdapter(context!!, infoList = info_course_list)
+                        info_course_adpater.setOnItemClickListener(this@TourCourseFragment)
+                        mypage_tour_recyclerview.setHasFixedSize(true)
+                        mypage_tour_recyclerview.layoutManager = GridLayoutManager(activity, 2)
+                        mypage_tour_recyclerview.adapter = info_course_adpater
+                    }
 
                 }else{
                     Log.v("11600 : ",response!!.message())

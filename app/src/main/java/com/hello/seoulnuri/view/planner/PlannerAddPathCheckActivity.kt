@@ -97,6 +97,9 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
 
     lateinit var tourIdxArr: ArrayList<Int>
     lateinit var tourNameArr: ArrayList<String>
+    lateinit var tourAddrArr : ArrayList<String>
+    lateinit var tourStarArr : DoubleArray
+    lateinit var tourStarCountArr: ArrayList<Int>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planner_add_path_check)
@@ -104,15 +107,29 @@ class PlannerAddPathCheckActivity : AppCompatActivity(), OnMapReadyCallback, Ini
 
         tourIdxArr = ArrayList()
         tourNameArr = ArrayList()
+        tourAddrArr = ArrayList()
+
+        tourStarCountArr = ArrayList()
 
         tourNameArr = intent.getStringArrayListExtra("tourNameArr")
+        tourAddrArr = intent.getStringArrayListExtra("tourAddrArr")
         tourIdxArr = intent.getIntegerArrayListExtra("tourIdxArr")
+
+        tourStarArr = DoubleArray(tourIdxArr.size)
+
+        tourStarArr = intent.getDoubleArrayExtra("tourStarArr")
+
+        tourStarCountArr = intent.getIntegerArrayListExtra("tourStarCountArr")
+
+        Log.v("yong","tournamesize:"+tourNameArr.size.toString())
+        Log.v("yong","touraddrsize:"+tourAddrArr.size.toString())
+        Log.v("yong","tourstarsize:"+tourStarArr.size.toString())
+        Log.v("yong","tourstarcountsize:"+tourStarCountArr.size.toString())
 
         item_list = ArrayList()
 
         for (i in 0..tourIdxArr.size - 1) {
-
-            item_list.add(PlannerPathData("", i + 1, tourNameArr[i], "", 3, 0))
+            item_list.add(PlannerPathData("", i + 1, tourNameArr[i], tourAddrArr[i], tourStarArr[i], tourStarCountArr[i]))
         }
 
 

@@ -68,8 +68,6 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
             mParam2 = arguments!!.getString(ARG_PARAM2)
         }
 
-        replaceFragment(TourDestinationFragment())
-
     }
 
 
@@ -103,6 +101,7 @@ class MypageFragment : Fragment(), View.OnClickListener, Init {
 
         init()
         requestInfo()
+        replaceFragment(TourDestinationFragment())
 
         mypageTab = view.findViewById(R.id.mypageTab)
         mypageTab!!.addTab(mypageTab!!.newTab().setText("관광지"))

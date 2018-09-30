@@ -157,7 +157,7 @@ class InfoTourFragment : Fragment(), View.OnClickListener {
                     val index_position = filter_list.getChildAdapterPosition(v!!)
                     filterItems[index_position].filter_status = !filterItems[index_position].filter_status
                     filterAdapter.notifyDataSetChanged()
-                    ToastMaker.makeShortToast(context!!, index_position.toString())
+                    //ToastMaker.makeShortToast(context!!, index_position.toString())
                 } else if (v!!.id == 2131296346) {
                     Log.v("124", "관광 누름")
                     val index_tour_position = info_tour_recyclerview.getChildAdapterPosition(v!!)

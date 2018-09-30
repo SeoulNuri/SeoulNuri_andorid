@@ -70,7 +70,7 @@ class InfoTourFaultInfomationFragment : Fragment(), Init{
                     fault_toilet.text = response!!.body()!!.data.tour_bottom.common.toilet
                     fault_infodesk.text = response!!.body()!!.data.tour_bottom.common.infodesk
                     Log.v("824",response!!.body()!!.data.tour_bottom.toString())
-                    if(response!!.body()!!.data.tour_bottom.visual == null){
+                    if(response!!.body()!!.data.tour_bottom.visual.block == null){
                         Log.v("824",response!!.body()!!.data.tour_bottom.visual.toString())
                         fault_eye_block.text = "없음"
                         fault_eye_block2.text = "없음"
